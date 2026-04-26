@@ -350,8 +350,8 @@ onUnmounted(() => { clearInterval(timer!); animating = false; confetti = []; aud
       </svg>
     </div>
 
-    <!-- Title (hide during play) -->
-    <div v-if="screen !== 'playing'" class="game-header">
+    <!-- Title -->
+    <div class="game-header">
       <h1 class="game-title">⌨️ Lingo Cube</h1>
       <p class="game-subtitle">IELTS Typing Practice</p>
     </div>
@@ -549,6 +549,11 @@ onUnmounted(() => { clearInterval(timer!); animating = false; confetti = []; aud
 
 /* ===== Header ===== */
 .game-header { text-align: center; margin-bottom: 24px; }
+
+@media (max-width: 768px) {
+  .game-header { display: none; }
+}
+
 .game-title {
   font-size: 2.2rem; font-weight: 800; letter-spacing: 2px;
   background: linear-gradient(90deg, #ff6b6b, #ffd93d, #6bcb77, #4d96ff);
@@ -612,6 +617,16 @@ onUnmounted(() => { clearInterval(timer!); animating = false; confetti = []; aud
 .mode-badge.speed { background: rgba(255,107,107,0.2); color: #ff6b6b; }
 
 .stats-row { display: flex; gap: 12px; justify-content: center; margin-bottom: 28px; width: 100%; max-width: 420px; }
+
+@media (max-width: 768px) {
+  .stats-row {
+    position: sticky; top: 0; z-index: 50;
+    margin-bottom: 16px;
+    padding: 10px 12px;
+    border-radius: 0 0 16px 16px;
+  }
+}
+
 .stat {
   flex: 1 1 0;
   display: flex; flex-direction: column; align-items: center;
