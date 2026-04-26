@@ -350,8 +350,8 @@ onUnmounted(() => { clearInterval(timer!); animating = false; confetti = []; aud
       </svg>
     </div>
 
-    <!-- Title -->
-    <div class="game-header">
+    <!-- Title (hide during play) -->
+    <div v-if="screen !== 'playing'" class="game-header">
       <h1 class="game-title">⌨️ Lingo Cube</h1>
       <p class="game-subtitle">IELTS Typing Practice</p>
     </div>
@@ -816,7 +816,7 @@ onUnmounted(() => { clearInterval(timer!); animating = false; confetti = []; aud
 
 .home-link, .back-link { color: rgba(255,255,255,0.55); font-size: 0.8rem; text-decoration: none; transition: color 0.2s; }
 .home-link:hover, .back-link:hover { color: #4d96ff; }
-.back-link { position: absolute; top: 20px; left: 20px; }
+.back-link { position: fixed; top: 16px; left: 16px; z-index: 200; }
 
 .theme-toggle-global {
   position: fixed; top: 16px; right: 16px;
