@@ -532,13 +532,13 @@ onUnmounted(() => { clearInterval(timer!); animating = false; confetti = []; aud
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   background: var(--bg-gradient, linear-gradient(135deg, #0f0c29, #302b63, #24243e));
   color: var(--text-primary, #fff);
   font-family: 'PingFang SC', 'Microsoft YaHei', 'Hiragino Sans GB', 'Noto Sans SC', system-ui, -apple-system, sans-serif;
   position: relative;
   overflow: hidden;
-  padding: 40px 24px;
+  padding: 80px 24px 40px;
 }
 
 .confetti-layer {
