@@ -607,6 +607,28 @@ onUnmounted(() => { clearInterval(timer!); animating = false; confetti = []; aud
 /* ===== Playing Screen ===== */
 .playing-screen { max-width: 620px; width: 100%; display: flex; flex-direction: column; align-items: center; }
 
+@media (max-width: 768px) {
+  .playing-screen { height: calc(100dvh - 80px); justify-content: space-between; }
+  .playing-screen .prompt-card { flex: 1; display: flex; flex-direction: column; justify-content: center; margin-bottom: 8px; padding: 14px 24px 12px; }
+  .playing-screen .chinese-word { font-size: clamp(1.2rem, 5vw, 1.8rem); }
+  .playing-screen .phonetic { font-size: 0.8rem; margin-top: 4px; }
+  .playing-screen .input-area { margin-top: 0; }
+  .playing-screen .result-bar { margin-bottom: 6px; padding: 6px 16px; min-height: 32px; }
+  .playing-screen .stats-row { margin-bottom: 8px; padding: 0; gap: 6px; }
+  .playing-screen .stat { padding: 8px 6px; }
+  .playing-screen .stat-value { font-size: 0.95rem; }
+  .playing-screen .stat-label { font-size: 0.6rem; }
+  .playing-screen .mode-badge { margin-bottom: 8px; font-size: 0.65rem; padding: 3px 12px; }
+  .playing-screen .timer-ring-wrap { width: 56px; height: 56px; margin: 0 auto 8px; }
+  .playing-screen .timer-ring { width: 56px; height: 56px; }
+  .playing-screen .timer-text { font-size: 1.1rem; }
+  .playing-screen .dots-row { margin-top: 4px; }
+  .playing-screen .dot { width: 5px; height: 5px; }
+  .playing-screen .enter-btn { padding: 10px 24px; font-size: 0.9rem; }
+  .playing-screen .typing-input { padding: 12px 18px; font-size: 1rem; }
+  .playing-screen .input-row { gap: 8px; margin-bottom: 8px; }
+}
+
 .mode-badge {
   font-size: 0.75rem; font-weight: 600;
   padding: 5px 16px; border-radius: 20px; margin-bottom: 20px;
@@ -617,22 +639,6 @@ onUnmounted(() => { clearInterval(timer!); animating = false; confetti = []; aud
 .mode-badge.speed { background: rgba(255,107,107,0.2); color: #ff6b6b; }
 
 .stats-row { display: flex; gap: 12px; justify-content: center; margin-bottom: 28px; width: 100%; max-width: 420px; }
-
-@media (max-width: 768px) {
-  .stats-row {
-    position: sticky; top: 0; z-index: 50;
-    background: inherit;
-    margin-bottom: 16px;
-    padding: 10px 8px 0;
-    border-radius: 0 0 16px 16px;
-    gap: 8px;
-  }
-  .stats-row .stat {
-    background: rgba(255,255,255,0.06);
-    backdrop-filter: blur(8px);
-    padding: 10px 6px;
-  }
-}
 
 .stat {
   flex: 1 1 0;
