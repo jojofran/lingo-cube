@@ -195,7 +195,6 @@ async function selectMode(m: GameMode) {
   if (isSpeed.value) { timeLeft.value = SPEED_TIME; startTimer() }
   nextTick(() => {
     document.getElementById('typing-input')?.focus()
-    document.querySelector('.prompt-card')?.scrollIntoView({ behavior: 'smooth', block: 'center' })
     autoSpeak()
   })
 }
@@ -263,12 +262,6 @@ function next() {
   if (isSpeed.value) { timeLeft.value = SPEED_TIME; startTimer() }
   nextTick(() => {
     document.getElementById('typing-input')?.focus()
-    if (window.innerWidth <= 768) {
-      const card = document.querySelector('.prompt-card') as HTMLElement | null
-      if (card) {
-        setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100)
-      }
-    }
     autoSpeak()
   })
 }
@@ -666,7 +659,6 @@ onUnmounted(() => { clearInterval(timer!); animating = false; confetti = []; aud
 /* Prompt */
 .prompt-card {
   position: relative;
-  scroll-margin-top: 120px;
   width: 100%; max-width: 420px;
   padding: 20px 28px 16px;
   margin-bottom: 16px;
