@@ -4,6 +4,7 @@ import { resolve } from 'path'
 
 export default defineConfig({
   plugins: [vue()],
+  base: '/lingo-cube/',
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),
