@@ -263,7 +263,12 @@ function next() {
   if (isSpeed.value) { timeLeft.value = SPEED_TIME; startTimer() }
   nextTick(() => {
     document.getElementById('typing-input')?.focus()
-    document.querySelector('.prompt-card')?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    if (window.innerWidth <= 768) {
+      const card = document.querySelector('.prompt-card') as HTMLElement | null
+      if (card) {
+        setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100)
+      }
+    }
     autoSpeak()
   })
 }
@@ -623,9 +628,16 @@ onUnmounted(() => { clearInterval(timer!); animating = false; confetti = []; aud
 @media (max-width: 768px) {
   .stats-row {
     position: sticky; top: 0; z-index: 50;
+    background: inherit;
     margin-bottom: 16px;
-    padding: 10px 12px;
+    padding: 10px 8px 0;
     border-radius: 0 0 16px 16px;
+    gap: 8px;
+  }
+  .stats-row .stat {
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(8px);
+    padding: 10px 6px;
   }
 }
 
@@ -654,7 +666,7 @@ onUnmounted(() => { clearInterval(timer!); animating = false; confetti = []; aud
 /* Prompt */
 .prompt-card {
   position: relative;
-  scroll-margin-top: 80px;
+  scroll-margin-top: 120px;
   width: 100%; max-width: 420px;
   padding: 20px 28px 16px;
   margin-bottom: 16px;
