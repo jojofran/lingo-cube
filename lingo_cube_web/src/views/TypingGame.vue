@@ -348,6 +348,43 @@ onUnmounted(() => { clearInterval(timer!); animating = false; confetti = []; aud
         <path d="M12 2l1.5 5.5L19 9l-5.5 1.5L12 16l-1.5-5.5L5 9l5.5-1.5z" fill="rgba(232,184,64,0.35)"/>
         <path d="M12 2v14M5 9h14" stroke="rgba(232,184,64,0.35)"/>
       </svg>
+      <!-- heart small -->
+      <svg class="deco deco-9" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#e888a0" stroke-width="1.6" stroke-linecap="round">
+        <path d="M12 20c0 0-9-5-9-11 0-3 2-5 4-5 2 0 5 2 5 2s3-2 5-2c2 0 4 2 4 5 0 6-9 11-9 11z" fill="rgba(232,136,160,0.25)"/>
+      </svg>
+      <!-- flower -->
+      <svg class="deco deco-10" viewBox="0 0 28 28" width="28" height="28" fill="none" stroke="#6bb8a0" stroke-width="1.5" stroke-linecap="round">
+        <circle cx="14" cy="14" r="2" fill="#e8b840"/>
+        <path d="M14 6c-1 3 0 6 0 8"/><path d="M14 22c-1-3 0-6 0-8"/>
+        <path d="M6 14c3-1 6 0 8 0"/><path d="M22 14c-3-1-6 0-8 0"/>
+      </svg>
+      <!-- star small -->
+      <svg class="deco deco-11" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#e8b840" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 3l2 6 6.5.5L15 13l1.5 6.5L12 16l-4.5 3.5L9 13 4.5 9.5 11 9z" fill="rgba(232,184,64,0.25)"/>
+      </svg>
+      <!-- dot cluster -->
+      <svg class="deco deco-12" viewBox="0 0 40 20" width="36" height="18" fill="none" stroke="#b888c8" stroke-width="1.5" stroke-linecap="round">
+        <circle cx="10" cy="10" r="2.5" fill="rgba(184,136,200,0.25)"/>
+        <circle cx="22" cy="5" r="1.8" fill="rgba(184,136,200,0.2)"/>
+        <circle cx="30" cy="12" r="2" fill="rgba(184,136,200,0.25)"/>
+      </svg>
+      <!-- butterfly small -->
+      <svg class="deco deco-13" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#e888a0" stroke-width="1.4" stroke-linecap="round">
+        <path d="M12 12c-1-3-4-5-7-4-2 1-1 4 1 6 3 2 6 2 6 2s3 0 6-2c2-2 3-5 1-6-3-1-6 2-7 4z" fill="rgba(232,136,160,0.2)"/>
+        <path d="M12 12v8" stroke-dasharray="1.5 2"/>
+      </svg>
+      <!-- sparkle small -->
+      <svg class="deco deco-14" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="#e8b840" stroke-width="1.3" stroke-linecap="round">
+        <path d="M10 2l1 4 4.5.5L12 8.5 13 13l-3-2-3 2 1-4.5L3.5 6.5 8 6z" fill="rgba(232,184,64,0.25)"/>
+      </svg>
+      <!-- heart small 2 -->
+      <svg class="deco deco-15" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="#6bb8a0" stroke-width="1.4" stroke-linecap="round">
+        <path d="M10 17c0 0-8-4-8-9 0-3 2-4 4-4 2 0 4 1.5 4 1.5S12 4 14 4c2 0 4 1 4 4 0 5-8 9-8 9z" fill="rgba(107,184,160,0.25)"/>
+      </svg>
+      <!-- leaf -->
+      <svg class="deco deco-16" viewBox="0 0 20 24" width="18" height="22" fill="none" stroke="#6bb8a0" stroke-width="1.4" stroke-linecap="round">
+        <path d="M16 2C10-2 3 8 8 14c4 5 9 4 9 4s1-5-1-10c-2 3-5 4-6 3-2-1 0-7 6-9z" fill="rgba(107,184,160,0.2)"/>
+      </svg>
     </div>
 
     <!-- Title -->
@@ -1221,6 +1258,14 @@ onUnmounted(() => { clearInterval(timer!); animating = false; confetti = []; aud
 .deco-6 { top: 60%; left: 3%; animation-delay: -5.5s; }
 .deco-7 { bottom: 32%; left: 15%; animation-delay: -1s; }
 .deco-8 { top: 72%; right: 8%; animation-delay: -3.5s; }
+.deco-9 { top: 22%; left: 16%; animation-delay: -6s; }
+.deco-10 { top: 48%; right: 14%; animation-delay: -0.5s; }
+.deco-11 { bottom: 28%; right: 18%; animation-delay: -4s; }
+.deco-12 { top: 52%; left: 12%; animation-delay: -2.5s; }
+.deco-13 { top: 68%; right: 20%; animation-delay: -5s; }
+.deco-14 { bottom: 16%; left: 22%; animation-delay: -1.8s; }
+.deco-15 { top: 30%; right: 22%; animation-delay: -3.8s; }
+.deco-16 { bottom: 42%; right: 6%; animation-delay: -6.5s; }
 @keyframes deco-float {
   0%, 100% { transform: translateY(0) rotate(0deg); }
   25% { transform: translateY(-14px) rotate(4deg); }
