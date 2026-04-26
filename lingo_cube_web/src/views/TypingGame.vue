@@ -195,76 +195,11 @@ async function selectMode(m: GameMode) {
   if (isSpeed.value) { timeLeft.value = SPEED_TIME; startTimer() }
   nextTick(() => {
     document.getElementById('typing-input')?.focus()
+    if (window.innerWidth <= 768) {
+      document.querySelector('.stats-row')?.scrollIntoView({ behavior: 'auto', block: 'start' })
+    }
     autoSpeak()
   })
-}
-
-function startTimer() {
-  clearInterval(timer!)
-  timer = setInterval(() => {
-    timeLeft.value--
-    if (timeLeft.value <= 0) timeout()
-  }, 1000)
-}
-
-function submit() {
-  const v = userInput.value.trim()
-  if (!v || !currentWord.value) return
-  if (result.value) return
-  clearInterval(timer!)
-
-  if (v.toLowerCase() === currentWord.value.english.toLowerCase()) {
-    result.value = 'correct'
-    resultMsg.value = praise()
-    combo.value++
-    if (combo.value > maxCombo.value) maxCombo.value = combo.value
-    const bonus = Math.min(combo.value * 2, 20)
-    score.value += (isSpeed.value ? 15 : 10) + bonus
-    burstActive.value = true
-    playSuccess()
-    launchConfetti()
-    if (isSpeed.value) { score.value += Math.max(0, timeLeft.value * 2) }
-  } else {
-    result.value = 'wrong'
-    resultMsg.value = regret()
-    combo.value = 0
-    shakeActive.value = true
-    playFail()
-    failedWords.value.push(currentWord.value)
-  }
-  setTimeout(() => next(), 1500)
-}
-
-function timeout() {
-  clearInterval(timer!)
-  result.value = 'wrong'
-  resultMsg.value = "Time's up! ⏱"
-  combo.value = 0
-  shakeActive.value = true
-  playFail()
-  if (currentWord.value) failedWords.value.push(currentWord.value)
-  setTimeout(() => next(), 1500)
-}
-
-function next() {
-  if (currentIndex.value >= TOTAL_ROUNDS - 1) {
-    screen.value = 'finished'
-    launchConfetti()
-    playFinish()
-    return
-  }
-  userInput.value = ''
-  result.value = null
-  resultMsg.value = ''
-  shakeActive.value = false
-  burstActive.value = false
-  currentIndex.value++
-  if (isSpeed.value) { timeLeft.value = SPEED_TIME; startTimer() }
-  nextTick(() => {
-    document.getElementById('typing-input')?.focus()
-    autoSpeak()
-  })
-}
 
 function praise() {
   const p = ['Great! 🎉', 'Nice! ✨', 'Perfect! 💯', 'Excellent! 🌟', 'Amazing! 🔥', 'Superb! 👏', 'Brilliant! 💎']
@@ -645,8 +580,7 @@ onUnmounted(() => { clearInterval(timer!); animating = false; confetti = []; aud
 .playing-screen { max-width: 620px; width: 100%; display: flex; flex-direction: column; align-items: center; }
 
 @media (max-width: 768px) {
-  .game-wrapper { overflow: hidden; position: fixed; inset: 0; }
-  .playing-screen { height: 100%; justify-content: flex-start; overflow: hidden; }
+  .playing-screen { height: auto; justify-content: flex-start; overflow: visible; min-height: auto; }
   .playing-screen .prompt-card { flex: none; margin-bottom: 8px; padding: 14px 24px 12px; }
   .playing-screen .chinese-word { font-size: clamp(1.2rem, 5vw, 1.8rem); }
   .playing-screen .phonetic { font-size: 0.8rem; margin-top: 4px; }
