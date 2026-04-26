@@ -645,13 +645,13 @@ onUnmounted(() => { clearInterval(timer!); animating = false; confetti = []; aud
 .playing-screen { max-width: 620px; width: 100%; display: flex; flex-direction: column; align-items: center; }
 
 @media (max-width: 768px) {
-  .playing-screen { height: calc(100dvh - 80px); justify-content: space-between; }
-  .playing-screen .prompt-card { flex: 1; display: flex; flex-direction: column; justify-content: center; margin-bottom: 8px; padding: 14px 24px 12px; }
+  .game-wrapper { overflow: hidden; position: fixed; inset: 0; }
+  .playing-screen { height: 100%; justify-content: flex-start; overflow: hidden; }
+  .playing-screen .prompt-card { flex: none; margin-bottom: 8px; padding: 14px 24px 12px; }
   .playing-screen .chinese-word { font-size: clamp(1.2rem, 5vw, 1.8rem); }
   .playing-screen .phonetic { font-size: 0.8rem; margin-top: 4px; }
   .playing-screen .input-area { margin-top: 0; }
-  .playing-screen .result-bar { margin-bottom: 6px; padding: 6px 16px; min-height: 32px; }
-  .playing-screen .stats-row { margin-bottom: 8px; padding: 0; gap: 6px; }
+  .playing-screen .stats-row { margin-bottom: 8px; padding: 0; gap: 6px; position: static; }
   .playing-screen .stat { padding: 8px 6px; }
   .playing-screen .stat-value { font-size: 0.95rem; }
   .playing-screen .stat-label { font-size: 0.6rem; }
