@@ -2,6 +2,11 @@
 import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
 import { wordBank, shuffleWords, type WordEntry } from './wordBank'
 import { fetchRandomWords } from '@/api/word'
+import soundGreat from '@/assets/audio/great.mp3'
+import soundExcellent from '@/assets/audio/excellent.wav'
+import soundAmazing from '@/assets/audio/amazing.mp3'
+import soundUnbelievable from '@/assets/audio/unbelievable.wav'
+import soundNext from '@/assets/audio/next.wav'
 
 type GameMode = 'normal' | 'speed'
 type Screen = 'select' | 'playing' | 'finished'
@@ -75,8 +80,23 @@ const grade = computed(() => {
 })
 
 // ---- Audio ----
+const sounds: Record<string, HTMLAudioElement> = {}
+
+function playSound(name: string) {
+  const s = sounds[name]
+  if (s) {
+    s.currentTime = 0
+    s.play().catch(() => {})
+  }
+}
+
 function initAudio() {
   try { audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)() } catch { audioCtx = null }
+  sounds['great'] = new Audio(soundGreat)
+  sounds['excellent'] = new Audio(soundExcellent)
+  sounds['amazing'] = new Audio(soundAmazing)
+  sounds['unbelievable'] = new Audio(soundUnbelievable)
+  sounds['next'] = new Audio(soundNext)
 }
 
 function tone(freq: number, start: number, dur: number, type: OscillatorType = 'sine', vol = 0.15) {
@@ -273,8 +293,18 @@ function next() {
 }
 
 function praise() {
-  const p = ['Great! 🎉', 'Nice! ✨', 'Perfect! 💯', 'Excellent! 🌟', 'Amazing! 🔥', 'Superb! 👏', 'Brilliant! 💎']
-  return p[Math.floor(Math.random() * p.length)]
+  const p = [
+    { text: 'Great! 🎉', sound: 'next' },
+    { text: 'Nice! ✨', sound: 'next' },
+    { text: 'Perfect! 💯', sound: 'next' },
+    { text: 'Excellent! 🌟', sound: 'excellent' },
+    { text: 'Amazing! 🔥', sound: 'amazing' },
+    { text: 'Superb! 👏', sound: 'next' },
+    { text: 'Unbelievable! 💎', sound: 'unbelievable' }
+  ]
+  const r = p[Math.floor(Math.random() * p.length)]
+  playSound(r.sound)
+  return r.text
 }
 
 function regret() {
