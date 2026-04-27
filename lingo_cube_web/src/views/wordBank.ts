@@ -2,6 +2,7 @@ export interface WordEntry {
   english: string
   chinese: string
   phonetic: string
+  examples?: { text: string; weight: number }[]
 }
 
 function genPhonetic(w: string): string {

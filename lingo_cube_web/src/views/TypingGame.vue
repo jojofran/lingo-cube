@@ -546,6 +546,12 @@ onUnmounted(() => { clearInterval(timer!); animating = false; confetti = []; aud
     </div>
 
     <!-- ============ FINISHED ============ -->
+    <router-link to="/" class="back-icon" title="Back">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+    </router-link>
     <div v-if="screen === 'finished'" class="finish-screen">
       <div class="finish-card">
         <div class="finish-emoji">🎊</div>
@@ -569,19 +575,18 @@ onUnmounted(() => { clearInterval(timer!); animating = false; confetti = []; aud
         <div v-if="failedWords.length" class="failed-list">
           <h3 class="failed-title">Review Needed</h3>
           <div v-for="w in failedWords" :key="w.english" class="failed-item">
-            <span class="failed-cn">{{ w.chinese }}</span>
-            <span class="failed-arrow">→</span>
-            <span class="failed-en">{{ w.english }}</span>
             <button class="mini-speak" @click="speak(w.english)">
               <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
                 <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
               </svg>
             </button>
+            <span class="failed-cn">{{ w.chinese }}</span>
+            <span class="failed-en">{{ w.english }}</span>
           </div>
         </div>
 
-        <button class="restart-btn" @click="restart">Play Again 🔄</button>
+        <button class="restart-btn" @click="restart">Play Again</button>
         <div class="mode-choice">
           <button class="sub-btn" @click="screen = 'select'; mode = 'normal'">Library</button>
           <button class="sub-btn" @click="screen = 'select'; mode = 'speed'">Speed</button>
@@ -591,7 +596,13 @@ onUnmounted(() => { clearInterval(timer!); animating = false; confetti = []; aud
     </div>
 
     <!-- Back to home -->
-    <router-link v-if="screen !== 'finished'" to="/" class="back-link">← Home</router-link>
+    <router-link to="/" class="back-icon" title="Back">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+    </router-link>
+
   </div>
 </template>
 
@@ -869,14 +880,14 @@ onUnmounted(() => { clearInterval(timer!); animating = false; confetti = []; aud
 @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 .finish-emoji { font-size: 3rem; margin-bottom: 4px; }
 .finish-grade { font-size: 1.4rem; font-weight: 700; margin-bottom: 18px; }
-.finish-stats { display: flex; gap: 10px; justify-content: center; margin-bottom: 22px; }
+.finish-stats { display: flex; gap: 6px; justify-content: center; margin-bottom: 24px; }
 .finish-stat {
   flex: 1 1 0;
   display: flex; flex-direction: column; align-items: center;
-  background: rgba(255,255,255,0.05); border-radius: 14px; padding: 12px 8px;
+  background: rgba(255,255,255,0.05); border-radius: 16px; padding: 16px 16px;
   min-width: 0;
 }
-.finish-num { font-size: 1.25rem; font-weight: 800; white-space: nowrap;
+.finish-num { font-size: 1.8rem; font-weight: 800; white-space: nowrap;
   background: linear-gradient(135deg, #ffd93d, #ff922b);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -886,9 +897,10 @@ onUnmounted(() => { clearInterval(timer!); animating = false; confetti = []; aud
 /* Failed words */
 .failed-list { margin-bottom: 18px; text-align: left; width: 100%; }
 .failed-title { font-size: 0.8rem; color: rgba(255,255,255,0.45); margin-bottom: 8px; font-weight: 600; letter-spacing: 1px; }
-.failed-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 12px; background: rgba(255,107,107,0.06); margin-bottom: 6px; font-size: 0.85rem; }
-.failed-cn { color: rgba(255,255,255,0.65); min-width: 0; flex: 0 1 auto; }
-.failed-arrow { color: rgba(255,255,255,0.15); flex-shrink: 0; font-size: 0.75rem; }
+.failed-item { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 12px; background: rgba(255,107,107,0.06); margin-bottom: 6px; font-size: 0.85rem; }
+.mini-speak { background: none; border: none; cursor: pointer; font-size: 0.9rem; padding: 4px; color: rgba(255,255,255,0.4); flex-shrink: 0; display: flex; align-items: center; transition: color 0.2s; order: -1; }
+.failed-cn { color: rgba(255,255,255,0.65); min-width: 0; flex: 0 1 auto; margin-right: 6px; }
+.failed-en { color: #ffd93d; font-weight: 600; font-family: 'SF Mono', 'Fira Code', monospace; letter-spacing: 1px; flex: 1 1 auto; text-align: right; }
 .failed-en { color: #ffd93d; font-weight: 600; font-family: 'SF Mono', 'Fira Code', monospace; letter-spacing: 1px; flex: 1 1 auto; }
 .mini-speak { background: none; border: none; cursor: pointer; font-size: 0.9rem; padding: 4px; color: rgba(255,255,255,0.4); flex-shrink: 0; display: flex; align-items: center; transition: color 0.2s; }
 .mini-speak:hover { color: #fff; }
@@ -910,9 +922,9 @@ onUnmounted(() => { clearInterval(timer!); animating = false; confetti = []; aud
 }
 .sub-btn:hover { border-color: rgba(255,255,255,0.3); color: #fff; }
 
-.home-link, .back-link { color: rgba(255,255,255,0.55); font-size: 0.8rem; text-decoration: none; transition: color 0.2s; }
-.home-link:hover, .back-link:hover { color: #4d96ff; }
-.back-link { position: fixed; top: 16px; left: 16px; z-index: 200; }
+.back-icon, .back-link { color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.2s; }
+.back-icon:hover, .back-link:hover { color: #4d96ff; }
+.back-icon { position: fixed; top: 16px; left: 16px; z-index: 200; width: 40px; height: 40px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; backdrop-filter: blur(8px); }
 
 .theme-toggle-global {
   position: fixed; top: 16px; right: 16px;
@@ -1083,23 +1095,12 @@ onUnmounted(() => { clearInterval(timer!); animating = false; confetti = []; aud
 }
 .game-wrapper.theme-ins .theme-toggle-global:hover { border-color: #667eea; color: #667eea; }
 
-.game-wrapper.theme-ins .home-link,
-.game-wrapper.theme-ins .back-link {
-  color: var(--text-primary);
-  font-weight: 500;
-}
-.game-wrapper.theme-ins .home-link:hover,
-.game-wrapper.theme-ins .back-link:hover { color: #667eea; }
-.game-wrapper.theme-ins .back-link {
+.game-wrapper.theme-ins .back-icon {
   background: var(--card-bg);
-  padding: 6px 16px;
-  border-radius: 20px;
   border: 1px solid var(--card-border);
-  box-shadow: var(--card-shadow);
-  font-size: 0.8rem;
-  top: 16px;
-  left: 16px;
+  color: var(--text-primary);
 }
+.game-wrapper.theme-ins .back-icon:hover { border-color: #667eea; color: #667eea; }
 
 /* ===== Cute Theme (mint + pink) ===== */
 .game-wrapper.theme-cute {
@@ -1256,23 +1257,12 @@ onUnmounted(() => { clearInterval(timer!); animating = false; confetti = []; aud
 }
 .game-wrapper.theme-cute .theme-toggle-global:hover { border-color: #7cc5b0; color: #7cc5b0; }
 
-.game-wrapper.theme-cute .home-link,
-.game-wrapper.theme-cute .back-link {
-  color: var(--text-primary);
-  font-weight: 500;
-}
-.game-wrapper.theme-cute .home-link:hover,
-.game-wrapper.theme-cute .back-link:hover { color: #7cc5b0; }
-.game-wrapper.theme-cute .back-link {
+.game-wrapper.theme-cute .back-icon {
   background: var(--card-bg);
-  padding: 6px 16px;
-  border-radius: 20px;
   border: 1px solid var(--card-border);
-  box-shadow: var(--card-shadow);
-  font-size: 0.8rem;
-  top: 16px;
-  left: 16px;
+  color: var(--text-primary);
 }
+.game-wrapper.theme-cute .back-icon:hover { border-color: #7cc5b0; color: #7cc5b0; }
 
 /* Cute decorations */
 .cute-deco { pointer-events: none; z-index: 0; position: fixed; inset: 0; overflow: hidden; }
