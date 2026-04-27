@@ -2,11 +2,15 @@
 import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
 import { wordBank, shuffleWords, type WordEntry } from './wordBank'
 import { fetchRandomWords } from '@/api/word'
+import { useTheme } from '@/composables/useTheme'
+import CuteDeco from '@/components/CuteDeco.vue'
 import soundGreat from '@/assets/audio/great.mp3'
 import soundExcellent from '@/assets/audio/excellent.wav'
 import soundAmazing from '@/assets/audio/amazing.mp3'
 import soundUnbelievable from '@/assets/audio/unbelievable.wav'
 import soundNext from '@/assets/audio/next.wav'
+
+const { theme, themeLabel, themeShort, cycleTheme } = useTheme()
 
 type GameMode = 'normal' | 'speed'
 type Screen = 'select' | 'playing' | 'finished'
@@ -17,22 +21,7 @@ const SPEED_TIME = 8
 
 const screen = ref<Screen>('select')
 const mode = ref<GameMode>('normal')
-const theme = ref<'dark' | 'ins' | 'cute'>('dark')
 
-const themeLabel = computed(() => {
-  const m: Record<string, string> = { dark: '🌙 Dark', ins: '🌸 INS', cute: '🍬 Cute' }
-  return m[theme.value]
-})
-const themeShort = computed(() => {
-  const m: Record<string, string> = { dark: '🌙', ins: '🌸', cute: '🍬' }
-  return m[theme.value]
-})
-
-function cycleTheme() {
-  const order: ('dark' | 'ins' | 'cute')[] = ['dark', 'ins', 'cute']
-  const i = order.indexOf(theme.value)
-  theme.value = order[(i + 1) % order.length]
-}
 const wordList = ref<WordEntry[]>([])
 const currentIndex = ref(0)
 const userInput = ref('')
@@ -334,90 +323,7 @@ onUnmounted(() => { clearInterval(timer!); animating = false; confetti = []; aud
     </button>
 
     <!-- Cute theme decorations -->
-    <div v-if="theme === 'cute'" class="cute-deco" aria-hidden="true">
-      <!-- flower -->
-      <svg class="deco deco-1" viewBox="0 0 40 40" width="44" height="44" fill="none" stroke="#e888a0" stroke-width="1.8" stroke-linecap="round">
-        <path d="M20 12c-4 0-6 3-6 6 0 4 2 6 6 6s6-2 6-6c0-3-2-6-6-6z" fill="rgba(232,136,160,0.35)"/>
-        <path d="M20 12c-3-3-6-3-7-2-2 1-1 5 2 8 3-1 5-3 5-6z" fill="rgba(232,136,160,0.3)"/>
-        <path d="M20 12c3-3 6-3 7-2 2 1 1 5-2 8-3-1-5-3-5-6z" fill="rgba(232,136,160,0.3)"/>
-        <path d="M20 22c2 3 2 6 1 7-1 2-5 1-7-2 1-3 3-5 6-5z" fill="rgba(232,136,160,0.3)"/>
-        <path d="M20 22c-2 3-2 6-1 7 1 2 5 1 7-2-1-3-3-5-6-5z" fill="rgba(232,136,160,0.3)"/>
-        <circle cx="20" cy="17" r="2.5" fill="#f0c890"/>
-      </svg>
-      <!-- star -->
-      <svg class="deco deco-2" viewBox="0 0 36 36" width="40" height="40" fill="none" stroke="#e8b840" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M18 4l3.5 10.5L32 14l-9 7.5 3 11.5L18 26l-8 7 3-11.5L4 14l10.5.5z" fill="rgba(232,184,64,0.35)"/>
-      </svg>
-      <!-- butterfly -->
-      <svg class="deco deco-3" viewBox="0 0 36 36" width="42" height="42" fill="none" stroke="#b888c8" stroke-width="1.6" stroke-linecap="round">
-        <path d="M18 18c-2-5-7-9-11-7-3 1-2 6 2 9 4 3 9 3 9 3s5 0 9-3c4-3 5-8 2-9-4-2-9 2-11 7z" fill="rgba(184,136,200,0.35)"/>
-        <path d="M18 18v14" stroke-dasharray="2 2"/>
-        <path d="M14 26c2-1 4-1 4-1s2 0 4 1"/>
-      </svg>
-      <!-- small flower -->
-      <svg class="deco deco-4" viewBox="0 0 28 28" width="30" height="30" fill="none" stroke="#e888a0" stroke-width="1.6" stroke-linecap="round">
-        <circle cx="14" cy="14" r="2" fill="#f0c890"/>
-        <path d="M14 6c-1 3 0 6 0 8" stroke="#e8b840"/>
-        <path d="M14 22c-1-3 0-6 0-8" stroke="#e8b840"/>
-        <path d="M6 14c3-1 6 0 8 0" stroke="#e8b840"/>
-        <path d="M22 14c-3-1-6 0-8 0" stroke="#e8b840"/>
-      </svg>
-      <!-- heart -->
-      <svg class="deco deco-5" viewBox="0 0 32 32" width="34" height="34" fill="none" stroke="#e888a0" stroke-width="1.8" stroke-linecap="round">
-        <path d="M16 26c0 0-12-7-12-14 0-4 3-7 6-7 3 0 6 2 6 2s3-2 6-2c3 0 6 3 6 7 0 7-12 14-12 14z" fill="rgba(232,136,160,0.3)"/>
-      </svg>
-      <!-- butterfly 2 -->
-      <svg class="deco deco-6" viewBox="0 0 32 32" width="36" height="36" fill="none" stroke="#6bb8a0" stroke-width="1.6" stroke-linecap="round">
-        <path d="M16 16c-2-4-6-7-9-6-2 1-2 5 1 8 3 2 8 2 8 2s5 0 8-2c3-3 3-7 1-8-3-1-7 2-9 6z" fill="rgba(107,184,160,0.3)"/>
-        <path d="M16 16v12" stroke-dasharray="1.5 2"/>
-      </svg>
-      <!-- cloud -->
-      <svg class="deco deco-7" viewBox="0 0 44 24" width="50" height="28" fill="none" stroke="#b8c8d8" stroke-width="1.6" stroke-linecap="round">
-        <path d="M8 18c-3 0-5-2-5-4 0-2 2-4 4-4 1-4 5-7 10-7 4 0 7 2 9 5 2-1 5-1 7 1 2 2 2 5-1 7 0 1-1 2-3 2H8z" fill="rgba(184,200,216,0.25)"/>
-      </svg>
-      <!-- sparkle -->
-      <svg class="deco deco-8" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#e8b840" stroke-width="1.5" stroke-linecap="round">
-        <path d="M12 2l1.5 5.5L19 9l-5.5 1.5L12 16l-1.5-5.5L5 9l5.5-1.5z" fill="rgba(232,184,64,0.35)"/>
-        <path d="M12 2v14M5 9h14" stroke="rgba(232,184,64,0.35)"/>
-      </svg>
-      <!-- heart small -->
-      <svg class="deco deco-9" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#e888a0" stroke-width="1.6" stroke-linecap="round">
-        <path d="M12 20c0 0-9-5-9-11 0-3 2-5 4-5 2 0 5 2 5 2s3-2 5-2c2 0 4 2 4 5 0 6-9 11-9 11z" fill="rgba(232,136,160,0.25)"/>
-      </svg>
-      <!-- flower -->
-      <svg class="deco deco-10" viewBox="0 0 28 28" width="28" height="28" fill="none" stroke="#6bb8a0" stroke-width="1.5" stroke-linecap="round">
-        <circle cx="14" cy="14" r="2" fill="#e8b840"/>
-        <path d="M14 6c-1 3 0 6 0 8"/><path d="M14 22c-1-3 0-6 0-8"/>
-        <path d="M6 14c3-1 6 0 8 0"/><path d="M22 14c-3-1-6 0-8 0"/>
-      </svg>
-      <!-- star small -->
-      <svg class="deco deco-11" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#e8b840" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 3l2 6 6.5.5L15 13l1.5 6.5L12 16l-4.5 3.5L9 13 4.5 9.5 11 9z" fill="rgba(232,184,64,0.25)"/>
-      </svg>
-      <!-- dot cluster -->
-      <svg class="deco deco-12" viewBox="0 0 40 20" width="36" height="18" fill="none" stroke="#b888c8" stroke-width="1.5" stroke-linecap="round">
-        <circle cx="10" cy="10" r="2.5" fill="rgba(184,136,200,0.25)"/>
-        <circle cx="22" cy="5" r="1.8" fill="rgba(184,136,200,0.2)"/>
-        <circle cx="30" cy="12" r="2" fill="rgba(184,136,200,0.25)"/>
-      </svg>
-      <!-- butterfly small -->
-      <svg class="deco deco-13" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#e888a0" stroke-width="1.4" stroke-linecap="round">
-        <path d="M12 12c-1-3-4-5-7-4-2 1-1 4 1 6 3 2 6 2 6 2s3 0 6-2c2-2 3-5 1-6-3-1-6 2-7 4z" fill="rgba(232,136,160,0.2)"/>
-        <path d="M12 12v8" stroke-dasharray="1.5 2"/>
-      </svg>
-      <!-- sparkle small -->
-      <svg class="deco deco-14" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="#e8b840" stroke-width="1.3" stroke-linecap="round">
-        <path d="M10 2l1 4 4.5.5L12 8.5 13 13l-3-2-3 2 1-4.5L3.5 6.5 8 6z" fill="rgba(232,184,64,0.25)"/>
-      </svg>
-      <!-- heart small 2 -->
-      <svg class="deco deco-15" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="#6bb8a0" stroke-width="1.4" stroke-linecap="round">
-        <path d="M10 17c0 0-8-4-8-9 0-3 2-4 4-4 2 0 4 1.5 4 1.5S12 4 14 4c2 0 4 1 4 4 0 5-8 9-8 9z" fill="rgba(107,184,160,0.25)"/>
-      </svg>
-      <!-- leaf -->
-      <svg class="deco deco-16" viewBox="0 0 20 24" width="18" height="22" fill="none" stroke="#6bb8a0" stroke-width="1.4" stroke-linecap="round">
-        <path d="M16 2C10-2 3 8 8 14c4 5 9 4 9 4s1-5-1-10c-2 3-5 4-6 3-2-1 0-7 6-9z" fill="rgba(107,184,160,0.2)"/>
-      </svg>
-    </div>
+    <CuteDeco />
 
     <!-- Title -->
     <div class="game-header">
@@ -591,7 +497,6 @@ onUnmounted(() => { clearInterval(timer!); animating = false; confetti = []; aud
           <button class="sub-btn" @click="screen = 'select'; mode = 'normal'">Library</button>
           <button class="sub-btn" @click="screen = 'select'; mode = 'speed'">Speed</button>
         </div>
-        <router-link to="/" class="home-link">← Back to Home</router-link>
       </div>
     </div>
 
@@ -1265,7 +1170,7 @@ onUnmounted(() => { clearInterval(timer!); animating = false; confetti = []; aud
 .game-wrapper.theme-cute .back-icon:hover { border-color: #7cc5b0; color: #7cc5b0; }
 
 /* Cute decorations */
-.cute-deco { pointer-events: none; z-index: 0; position: fixed; inset: 0; overflow: hidden; }
+.cute-deco { pointer-events: none; z-index: 0; position: fixed; inset: 0; overflow: hidden; display: var(--cute-deco-display, none); }
 .deco {
   position: absolute; opacity: 0.4;
   animation: deco-float 10s ease-in-out infinite;

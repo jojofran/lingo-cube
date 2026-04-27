@@ -1,30 +1,62 @@
 <script setup lang="ts">
+import { useTheme } from '@/composables/useTheme'
+import { computed } from 'vue'
+import CuteDeco from '@/components/CuteDeco.vue'
+
+const { theme, themeLabel, themeShort, cycleTheme } = useTheme()
+
+const themeClass = computed(() => {
+  return theme.value === 'ins' ? 'theme-ins' : theme.value === 'cute' ? 'theme-cute' : ''
+})
 </script>
 
 <template>
-  <div class="home">
-    <h1>Lingo Cube</h1>
-    <p class="subtitle">Welcome to Lingo Cube</p>
+  <div :class="['home', themeClass]">
+    <div class="theme-orbs">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+    </div>
+    <CuteDeco />
+
+    <button class="theme-toggle-global" @click="cycleTheme" :title="themeLabel">
+      {{ themeShort }}
+    </button>
+
+    <h1 class="theme-title">Lingo Cube</h1>
+    <p class="subtitle text-dim">Welcome to Lingo Cube !</p>
     <router-link to="/typing" class="game-link">
       <span class="game-icon">⌨️</span>
       <span class="game-label">Typing Challenge</span>
-      <span class="game-desc">IELTS Vocabulary Practice</span>
+      <span class="game-desc text-dim">Practice & Improve Your Spelling</span>
     </router-link>
   </div>
 </template>
 
 <style scoped>
 .home {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
+  background: var(--bg-gradient);
+  color: var(--text-primary);
+  transition: background 0.3s, color 0.3s;
+  position: relative;
+}
+
+.home > *:not(.theme-orbs) {
+  position: relative;
+  z-index: 1;
+}
+
+.theme-title {
+  font-size: 3rem;
 }
 
 .subtitle {
-  margin-bottom: 32px;
-  color: #666;
+  margin: 0 0 40px;
 }
 
 .game-link {
@@ -33,17 +65,17 @@
   align-items: center;
   gap: 4px;
   padding: 24px 36px;
-  border-radius: 16px;
-  border: 2px solid #e0e0e0;
+  border-radius: var(--card-radius, 16px);
+  border: 1px solid var(--card-border);
   text-decoration: none;
-  color: #333;
+  color: var(--text-primary);
   transition: all 0.25s;
-  background: #fff;
+  background: var(--card-bg);
+  box-shadow: var(--card-shadow);
 }
 
 .game-link:hover {
-  border-color: #4d96ff;
-  box-shadow: 0 8px 30px rgba(77, 150, 255, 0.15);
+  border-color: var(--accent);
   transform: translateY(-2px);
 }
 
@@ -59,6 +91,5 @@
 
 .game-desc {
   font-size: 0.8rem;
-  color: #999;
 }
 </style>
