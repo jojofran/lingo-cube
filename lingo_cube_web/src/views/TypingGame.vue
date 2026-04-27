@@ -113,11 +113,8 @@ function tone(freq: number, start: number, dur: number, type: OscillatorType = '
   osc.stop(now + start + dur)
 }
 
-function playSuccess() {
-  ;[523.25, 659.25, 783.99].forEach((f, i) => tone(f, i * 0.08, 0.3))
-}
 
-function playFail() {
+  function playFail() {
   if (!audioCtx) return
   const now = audioCtx.currentTime
   const osc = audioCtx.createOscillator()
@@ -244,7 +241,6 @@ function submit() {
     const bonus = Math.min(combo.value * 2, 20)
     score.value += (isSpeed.value ? 15 : 10) + bonus
     burstActive.value = true
-    playSuccess()
     launchConfetti()
     if (isSpeed.value) { score.value += Math.max(0, timeLeft.value * 2) }
   } else {
