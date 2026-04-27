@@ -682,23 +682,23 @@ onUnmounted(() => { clearInterval(timer!); animating = false; confetti = []; aud
 
 @media (max-width: 768px) {
   .playing-screen { height: auto; justify-content: flex-start; overflow: visible; min-height: auto; }
-  .playing-screen .prompt-card { flex: none; margin-bottom: 8px; padding: 14px 24px 12px; }
+  .playing-screen .prompt-card { flex: none; margin-bottom: 13px; padding: 14px 24px 12px; }
   .playing-screen .chinese-word { font-size: clamp(1.2rem, 5vw, 1.8rem); }
   .playing-screen .phonetic { font-size: 0.8rem; margin-top: 4px; }
-  .playing-screen .input-area { margin-top: 0; }
-  .playing-screen .stats-row { margin-bottom: 8px; padding: 0; gap: 6px; position: static; }
+  .playing-screen .input-area { margin-top: 5px; }
+  .playing-screen .stats-row { margin-bottom: 13px; padding: 0; gap: 6px; position: static; }
   .playing-screen .stat { padding: 8px 6px; }
   .playing-screen .stat-value { font-size: 0.95rem; }
   .playing-screen .stat-label { font-size: 0.6rem; }
-  .playing-screen .mode-badge { margin-bottom: 8px; font-size: 0.65rem; padding: 3px 12px; }
-  .playing-screen .timer-ring-wrap { width: 56px; height: 56px; margin: 0 auto 8px; }
+  .playing-screen .mode-badge { margin-bottom: 13px; font-size: 0.65rem; padding: 3px 12px; }
+  .playing-screen .timer-ring-wrap { width: 56px; height: 56px; margin: 0 auto 13px; }
   .playing-screen .timer-ring { width: 56px; height: 56px; }
   .playing-screen .timer-text { font-size: 1.1rem; }
-  .playing-screen .dots-row { margin-top: 4px; }
+  .playing-screen .dots-row { margin-top: 9px; }
   .playing-screen .dot { width: 5px; height: 5px; }
   .playing-screen .enter-btn { padding: 10px 24px; font-size: 0.9rem; }
   .playing-screen .typing-input { padding: 12px 18px; font-size: 1rem; }
-  .playing-screen .input-row { gap: 8px; margin-bottom: 8px; }
+  .playing-screen .input-row { gap: 8px; margin-bottom: 13px; }
 }
 
 .mode-badge {
