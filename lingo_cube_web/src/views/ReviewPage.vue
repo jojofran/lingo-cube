@@ -153,21 +153,39 @@ function addToVocab() {
 
       <!-- Example -->
       <div class="review-example">
-        <div class="example-label">Example:</div>
-        <div class="example-text">{{ selectedExample?.text }}</div>
-        <button class="example-btn" @click="selectExample">Another Example</button>
+        <span class="example-label">Example:</span>
+        <div class="example-text-wrapper">
+          <div class="example-text">{{ selectedExample?.text }}</div>
+        </div>
+        <button class="example-speak-btn" @click="speak(selectedExample?.text)">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+          </svg>
+        </button>
       </div>
 
       <!-- Actions -->
       <div class="review-actions">
         <button class="action-btn speak-action" @click="speak(currentWord.english)">
-          🔊 Speak
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+          </svg>
+          Speak
         </button>
         <button class="action-btn remembered-action" @click="markRemembered">
-          ✅ Remembered
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          Got it
         </button>
         <button class="action-btn vocab-action" @click="addToVocab">
-          📖 Add to Vocab
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+          </svg>
+          Vocab
         </button>
       </div>
     </div>
@@ -212,10 +230,19 @@ function addToVocab() {
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255,255,255,0.1);
   border-radius: 24px;
-  padding: 36px 28px;
+  padding: 28px 20px;
   text-align: center;
-  max-width: 500px; width: 100%;
+  max-width: 420px; width: 100%;
   animation: slideUp 0.5s ease;
+}
+
+@media (max-width: 480px) {
+  .review-card { padding: 20px 16px; border-radius: 20px; }
+  .review-title { font-size: 1.6rem; }
+  .review-word { font-size: 1.8rem; }
+  .review-chinese { font-size: 1.1rem; }
+  .action-btn { padding: 8px 12px; font-size: 0.8rem; }
+  .action-btn svg { width: 16px; height: 16px; }
 }
 
 @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
@@ -237,10 +264,24 @@ function addToVocab() {
 
 .review-example {
   background: rgba(255,255,255,0.05); border-radius: 12px;
-  padding: 16px; margin-bottom: 24px; text-align: left;
+  padding: 14px; margin-bottom: 20px; text-align: left;
+  display: flex; align-items: center; gap: 10px;
 }
-.example-label { font-size: 0.7rem; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
-.example-text { font-size: 0.95rem; color: rgba(255,255,255,0.7); line-height: 1.6; margin-bottom: 10px; font-style: italic; }
+.example-speak-btn {
+  background: none; border: none; cursor: pointer;
+  color: rgba(255,255,255,0.4); padding: 4px;
+  display: flex; align-items: center; transition: color 0.2s;
+  flex-shrink: 0;
+}
+.example-speak-btn:hover { color: #fff; }
+.review-wrapper.theme-ins .example-speak-btn { color: rgba(45,52,54,0.4); }
+.review-wrapper.theme-ins .example-speak-btn:hover { color: #667eea; }
+.review-wrapper.theme-cute .example-speak-btn { color: rgba(74,74,74,0.4); }
+.review-wrapper.theme-cute .example-speak-btn:hover { color: #7cc5b0; }
+
+.example-label { font-size: 0.7rem; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1px; }
+.example-text-wrapper { flex: 1; }
+.example-text { font-size: 0.95rem; color: rgba(255,255,255,0.7); line-height: 1.6; font-style: italic; }
 .example-btn {
   padding: 6px 14px; border-radius: 8px;
   border: 1px solid rgba(255,255,255,0.15); background: transparent;
@@ -248,10 +289,11 @@ function addToVocab() {
 }
 .example-btn:hover { border-color: rgba(255,255,255,0.3); color: #fff; }
 
-.review-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+.review-actions { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
 .action-btn {
-  padding: 12px 24px; border-radius: 12px; border: none;
-  font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.25s;
+  padding: 10px 18px; border-radius: 10px; border: none;
+  font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.25s;
+  display: flex; align-items: center; gap: 6px;
 }
 .speak-action { background: #4d96ff; color: #fff; }
 .speak-action:hover { background: #3a7bd5; transform: translateY(-2px); }
@@ -288,20 +330,46 @@ function addToVocab() {
 .review-wrapper.theme-ins {
   --bg-gradient: linear-gradient(135deg, #fce4ec 0%, #f3e5f5 25%, #ede7f6 50%, #e3f2fd 75%, #e0f7fa 100%);
   --text-primary: #2d3436;
+  --card-bg: rgba(255,255,255,0.92);
+  --card-border: rgba(0,0,0,0.08);
+  --accent-color: #667eea;
+  --text-dim: rgba(45,52,54,0.6);
+  --bg-dim: rgba(45,52,54,0.08);
 }
-.review-wrapper.theme-ins .review-title { color: #667eea; }
-.review-wrapper.theme-ins .review-word { color: #667eea; }
-.review-wrapper.theme-ins .review-card { background: rgba(255,255,255,0.82); border-color: rgba(0,0,0,0.06); }
+.review-wrapper.theme-ins .review-title { color: #667eea; font-size: 1.8rem; }
+.review-wrapper.theme-ins .review-word { color: #667eea; font-size: 2rem; }
+.review-wrapper.theme-ins .review-card { background: var(--card-bg); border-color: var(--card-border); }
+.review-wrapper.theme-ins .review-progress { color: rgba(45,52,54,0.5); }
+.review-wrapper.theme-ins .review-phonetic { color: rgba(45,52,54,0.55); }
+.review-wrapper.theme-ins .review-chinese { color: #2d3436; font-size: 1.2rem; }
+.review-wrapper.theme-ins .review-example { background: rgba(102,126,234,0.06); }
+.review-wrapper.theme-ins .example-label { color: rgba(45,52,54,0.45); }
+.review-wrapper.theme-ins .example-text { color: rgba(45,52,54,0.7); }
+.review-wrapper.theme-ins .example-btn { border-color: rgba(102,126,234,0.3); color: #667eea; }
+.review-wrapper.theme-ins .example-btn:hover { background: rgba(102,126,234,0.1); }
 .review-wrapper.theme-ins .speak-icon { color: rgba(45,52,54,0.4); }
 .review-wrapper.theme-ins .speak-icon.speaking { color: #667eea; }
 
 .review-wrapper.theme-cute {
   --bg-gradient: #fdf0f5;
   --text-primary: #4a4a4a;
+  --card-bg: #fff;
+  --card-border: rgba(124,197,176,0.15);
+  --accent-color: #7cc5b0;
+  --text-dim: rgba(74,74,74,0.5);
+  --bg-dim: rgba(124,197,176,0.08);
 }
-.review-wrapper.theme-cute .review-title { color: #7cc5b0; }
-.review-wrapper.theme-cute .review-word { color: #7cc5b0; }
-.review-wrapper.theme-cute .review-card { background: rgba(255,255,255,0.88); border-color: rgba(0,0,0,0.05); }
+.review-wrapper.theme-cute .review-title { color: #7cc5b0; font-size: 1.8rem; }
+.review-wrapper.theme-cute .review-word { color: #7cc5b0; font-size: 2rem; }
+.review-wrapper.theme-cute .review-card { background: var(--card-bg); border-color: var(--card-border); }
+.review-wrapper.theme-cute .review-progress { color: rgba(74,74,74,0.5); }
+.review-wrapper.theme-cute .review-phonetic { color: rgba(74,74,74,0.55); }
+.review-wrapper.theme-cute .review-chinese { color: #4a4a4a; font-size: 1.2rem; }
+.review-wrapper.theme-cute .review-example { background: rgba(124,197,176,0.06); }
+.review-wrapper.theme-cute .example-label { color: rgba(74,74,74,0.45); }
+.review-wrapper.theme-cute .example-text { color: rgba(74,74,74,0.7); }
+.review-wrapper.theme-cute .example-btn { border-color: rgba(124,197,176,0.3); color: #7cc5b0; }
+.review-wrapper.theme-cute .example-btn:hover { background: rgba(124,197,176,0.1); }
 .review-wrapper.theme-cute .speak-icon { color: rgba(74,74,74,0.4); }
 .review-wrapper.theme-cute .speak-icon.speaking { color: #f5a0b0; }
 </style>
