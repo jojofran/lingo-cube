@@ -121,10 +121,7 @@ function addToVocab() {
 
     <!-- Global theme toggle -->
     <button class="theme-toggle-global" @click="cycleTheme" :title="themeLabel">
-      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="12" cy="12" r="4"/>
-        <path d="M12 2v4M12 18v4M2 12h4M18 12h4"/>
-      </svg>
+      {{ themeShort }}
     </button>
 
     <!-- Cute theme decorations -->
@@ -272,7 +269,6 @@ function addToVocab() {
   color: rgba(255,255,255,0.55); text-decoration: none;
   backdrop-filter: blur(8px); transition: all 0.25s;
 }
-.back-icon svg, .theme-toggle-global svg { width: 20px; height: 20px; }
 .back-icon:hover { border-color: #4d96ff; color: #4d96ff; }
 
 .theme-toggle-global {
