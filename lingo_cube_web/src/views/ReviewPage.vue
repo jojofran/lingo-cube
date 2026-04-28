@@ -229,9 +229,6 @@ function addToVocab() {
 }
 
 /* Theme-specific styles */
-.review-wrapper.theme-ins {
-  --bg-gradient: linear-gradient(135deg, #fce4ec 0%, #f3e5f5 25%, #ede7f6 50%, #e3f2fd 75%, #e0f7fa 100%);
-}
 .review-wrapper.theme-ins .review-card { background: #fff; border-color: rgba(102,126,234,0.25); }
 .review-wrapper.theme-ins .review-title { color: #667eea; }
 .review-wrapper.theme-ins .review-subtitle { color: rgba(45,52,54,0.45); }
@@ -242,10 +239,6 @@ function addToVocab() {
 .review-wrapper.theme-ins .example-label { color: rgba(45,52,54,0.45); }
 .review-wrapper.theme-ins .example-text { color: rgba(45,52,54,0.7); }
 .review-wrapper.theme-ins .review-progress { color: rgba(45,52,54,0.45); }
-
-.review-wrapper.theme-cute {
-  --bg-gradient: #fdf0f5;
-}
 
 .review-wrapper.theme-cute .review-card { background: #fff; border-color: rgba(124,197,176,0.25); }
 .review-wrapper.theme-cute .review-title { color: #7cc5b0; }
