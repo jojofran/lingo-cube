@@ -309,6 +309,13 @@ function restart() {
   failedAtBottom.value = false
 }
 
+function startReview() {
+  if (failedWords.value.length === 0) return
+  // Save failed words to localStorage and navigate to review page
+  localStorage.setItem('failedWords', JSON.stringify(failedWords.value))
+  window.location.href = '/#/review'
+}
+
 // HTML 输入中按空格 = 下一个词（normal mode）
 function onKeydown(e: KeyboardEvent) {
   if (e.key === 'Enter' && userInput.value.trim() && !result.value) {
@@ -509,10 +516,9 @@ onUnmounted(() => { clearInterval(timer!); animating = false; confetti = []; aud
           </div>
         </div>
 
-        <button class="restart-btn" @click="restart">Play Again</button>
-        <div class="mode-choice">
-          <button class="sub-btn" @click="screen = 'select'; mode = 'normal'">Library</button>
-          <button class="sub-btn" @click="screen = 'select'; mode = 'speed'">Speed</button>
+        <div class="finish-buttons">
+          <button class="restart-btn" @click="restart">Play Again</button>
+          <button class="restart-btn review-btn" @click="startReview" :disabled="failedWords.length === 0">Review</button>
         </div>
       </div>
     </div>
@@ -838,13 +844,17 @@ onUnmounted(() => { clearInterval(timer!); animating = false; confetti = []; aud
 .mini-speak { background: none; border: none; cursor: pointer; font-size: 0.9rem; padding: 4px; color: rgba(255,255,255,0.4); flex-shrink: 0; display: flex; align-items: center; transition: color 0.2s; }
 .mini-speak:hover { color: #fff; }
 
+.finish-buttons { display: flex; gap: 12px; justify-content: center; margin-bottom: 14px; }
 .restart-btn {
   padding: 14px 40px; border-radius: 14px; border: none;
   font-size: 1.1rem; font-weight: 700; cursor: pointer;
-  background: #4d96ff; color: #fff; transition: all 0.25s; margin-bottom: 12px;
+  background: #4d96ff; color: #fff; transition: all 0.25s;
   box-shadow: 0 4px 16px rgba(77,150,255,0.2);
 }
 .restart-btn:hover { background: #3a7bd5; transform: translateY(-3px); box-shadow: 0 10px 30px rgba(77,150,255,0.3); }
+.review-btn { background: #ff922b; box-shadow: 0 4px 16px rgba(255,146,43,0.2); }
+.review-btn:hover { background: #e8821a; box-shadow: 0 10px 30px rgba(255,146,43,0.3); }
+.review-btn:disabled { background: #ccc; cursor: default; box-shadow: none; }
 
 .外-scroll-hint { display: flex; justify-content: center; margin-top: -12px; margin-bottom: 8px; position: relative; z-index: 1; }
 .scroll-hint-circle {

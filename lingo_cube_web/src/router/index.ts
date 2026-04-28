@@ -13,6 +13,11 @@ const router = createRouter({
       name: 'typing',
       component: () => import('@/views/TypingGame.vue'),
     },
+    {
+      path: '/review',
+      name: 'review',
+      component: () => import('@/views/ReviewPage.vue'),
+    },
   ],
 })
 
