@@ -113,6 +113,13 @@
   --title-fill: #7cc5b0;
 
   --orbs-display: none;
+
+  /* Cute hand-drawn decoration colors */
+  --hand-h1: #7cc5b0;
+  --hand-h2: #f5a0b0;
+  --hand-h3: #c8a0d0;
+  --hand-h4: #ffd93d;
+  --hand-h5: #ff8fab;
 }
 
 /* ========== Global Base ========== */
