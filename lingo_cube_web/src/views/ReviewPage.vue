@@ -235,6 +235,29 @@ function addToVocab() {
   animation: slideUp 0.5s ease;
 }
 
+/* Theme-specific card */
+.review-wrapper.theme-ins .review-card { background: #fff; border-color: rgba(102,126,234,0.25); }
+.review-wrapper.theme-ins .review-title { color: #667eea; }
+.review-wrapper.theme-ins .review-subtitle { color: rgba(45,52,54,0.45); }
+.review-wrapper.theme-ins .review-word { color: #667eea; }
+.review-wrapper.theme-ins .review-phonetic { color: rgba(45,52,54,0.5); }
+.review-wrapper.theme-ins .review-chinese { color: #2d3436; }
+.review-wrapper.theme-ins .review-example { background: rgba(102,126,234,0.05); }
+.review-wrapper.theme-ins .example-label { color: rgba(45,52,54,0.45); }
+.review-wrapper.theme-ins .example-text { color: rgba(45,52,54,0.7); }
+.review-wrapper.theme-ins .review-progress { color: rgba(45,52,54,0.45); }
+
+.review-wrapper.theme-cute .review-card { background: #fff; border-color: rgba(124,197,176,0.25); }
+.review-wrapper.theme-cute .review-title { color: #7cc5b0; }
+.review-wrapper.theme-cute .review-subtitle { color: rgba(74,74,74,0.45); }
+.review-wrapper.theme-cute .review-word { color: #7cc5b0; }
+.review-wrapper.theme-cute .review-phonetic { color: rgba(74,74,74,0.5); }
+.review-wrapper.theme-cute .review-chinese { color: #4a4a4a; }
+.review-wrapper.theme-cute .review-example { background: rgba(124,197,176,0.06); }
+.review-wrapper.theme-cute .example-label { color: rgba(74,74,74,0.45); }
+.review-wrapper.theme-cute .example-text { color: rgba(74,74,74,0.7); }
+.review-wrapper.theme-cute .review-progress { color: rgba(74,74,74,0.45); }
+
 @media (max-width: 480px) {
   .review-card { padding: 20px 16px; border-radius: 20px; }
   .review-title { font-size: 1.6rem; }
@@ -242,6 +265,27 @@ function addToVocab() {
   .review-chinese { font-size: 1.1rem; }
   .action-btn { padding: 8px 12px; font-size: 0.8rem; }
   .action-btn svg { width: 16px; height: 16px; }
+}
+
+.back-icon, .back-link { color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.2s; }
+.back-icon:hover, .back-link:hover { color: #4d96ff; }
+.back-icon { position: fixed; top: 16px; left: 16px; z-index: 200; width: 40px; height: 40px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; backdrop-filter: blur(8px); }
+.back-icon svg, .theme-toggle-global { width: 20px; height: 20px; }
+
+.theme-toggle-global {
+  position: fixed; top: 16px; right: 16px;
+  width: 40px; height: 40px; border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.08);
+  font-size: 1.1rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.25s; z-index: 200;
+  backdrop-filter: blur(8px); color: #fff;
+}
+.theme-toggle-global:hover {
+  border-color: rgba(255,255,255,0.4);
+  background: rgba(255,255,255,0.15);
+  transform: scale(1.1);
 }
 
 @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
@@ -284,4 +328,15 @@ function addToVocab() {
 .review-wrapper.theme-cute .example-speak-btn:hover { color: #7cc5b0; background: rgba(124,197,176,0.1); }
 
 .review-wrapper.theme-cute .review-example { background: rgba(124,197,176,0.05); }
+
+/* Theme-specific buttons */
+.review-wrapper.theme-ins .back-icon { color: rgba(45,52,54,0.5); border-color: rgba(45,52,54,0.2); background: rgba(255,255,255,0.5); }
+.review-wrapper.theme-ins .back-icon:hover { border-color: #667eea; color: #667eea; }
+.review-wrapper.theme-ins .theme-toggle-global { color: rgba(45,52,54,0.6); border-color: rgba(45,52,54,0.2); background: rgba(255,255,255,0.5); }
+.review-wrapper.theme-ins .theme-toggle-global:hover { border-color: #667eea; color: #667eea; background: rgba(102,126,234,0.1); }
+
+.review-wrapper.theme-cute .back-icon { color: rgba(74,74,74,0.5); border-color: rgba(124,197,176,0.3); background: rgba(255,255,255,0.6); }
+.review-wrapper.theme-cute .back-icon:hover { border-color: #7cc5b0; color: #7cc5b0; }
+.review-wrapper.theme-cute .theme-toggle-global { color: rgba(74,74,74,0.6); border-color: rgba(124,197,176,0.3); background: rgba(255,255,255,0.6); }
+.review-wrapper.theme-cute .theme-toggle-global:hover { border-color: #7cc5b0; color: #7cc5b0; background: rgba(124,197,176,0.1); }
 </style>
