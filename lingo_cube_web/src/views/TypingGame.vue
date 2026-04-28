@@ -313,7 +313,7 @@ function startReview() {
   if (failedWords.value.length === 0) return
   // Save failed words to localStorage and navigate to review page
   localStorage.setItem('failedWords', JSON.stringify(failedWords.value))
-  window.location.href = '/#/review'
+  window.location.href = '/lingo-cube/#/review'
 }
 
 // HTML 输入中按空格 = 下一个词（normal mode）
