@@ -19,7 +19,7 @@ const themeClass = computed(() => {
     </div>
     <CuteDeco />
 
-    <button class="theme-toggle-global" @click="cycleTheme" :title="themeLabel">
+    <button class="theme-toggle-global" @click="cycleTheme" :title="themeLabel" style="position: fixed; top: 16px; right: 16px; z-index: 200;">
       {{ themeShort }}
     </button>
 
@@ -44,6 +44,7 @@ const themeClass = computed(() => {
   color: var(--text-primary);
   transition: background 0.3s, color 0.3s;
   position: relative;
+  /* overflow: hidden;  -- removed to allow theme toggle button to show */
 }
 
 .home > *:not(.theme-orbs) {

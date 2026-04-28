@@ -318,7 +318,7 @@ onUnmounted(() => { clearInterval(timer!); animating = false; confetti = []; aud
     <canvas ref="canvasRef" class="confetti-layer" />
 
     <!-- Global theme toggle (top-right) -->
-    <button class="theme-toggle-global" @click="cycleTheme" :title="themeLabel">
+    <button class="theme-toggle-global" @click="cycleTheme" :title="themeLabel" style="position: fixed; top: 16px; right: 16px; z-index: 200;">
       {{ themeShort }}
     </button>
 
@@ -523,7 +523,7 @@ onUnmounted(() => { clearInterval(timer!); animating = false; confetti = []; aud
   color: var(--text-primary, #fff);
   font-family: 'PingFang SC', 'Microsoft YaHei', 'Hiragino Sans GB', 'Noto Sans SC', system-ui, -apple-system, sans-serif;
   position: relative;
-  overflow: hidden;
+  /* overflow: hidden; -- removed to allow theme toggle button to show */
   padding: 0 16px;
 }
 
@@ -579,13 +579,14 @@ onUnmounted(() => { clearInterval(timer!); animating = false; confetti = []; aud
 @keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 .select-heading { font-size: 1.6rem; font-weight: 700; margin-bottom: 6px; }
 .select-desc { color: rgba(255,255,255,0.5); font-size: 0.9rem; margin-bottom: 28px; }
-.mode-buttons { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
+.mode-buttons { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; min-width: 280px; }
 .mode-btn {
   display: flex; flex-direction: column; align-items: center;
   gap: 4px; padding: 18px 24px;
   border-radius: 16px; border: 2px solid rgba(255,255,255,0.12);
   background: rgba(255,255,255,0.05); color: #fff;
   cursor: pointer; transition: all 0.25s;
+  min-width: 240px;
 }
 .mode-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(0,0,0,0.3); }
 .mode-btn.normal:hover { background: rgba(77,150,255,0.15); border-color: #4d96ff; }
