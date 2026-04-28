@@ -32,6 +32,7 @@ const timeLeft = ref(SPEED_TIME)
 const result = ref<WordResult>(null)
 const resultMsg = ref('')
 const failedWords = ref<WordEntry[]>([])
+const failedAtBottom = ref(false)
 const shakeActive = ref(false)
 const burstActive = ref(false)
 const speaking = ref(false)
@@ -133,6 +134,12 @@ function speak(word: string) {
   u.onend = () => { speaking.value = false }
   u.onerror = () => { speaking.value = false }
   synth.speak(u)
+}
+
+function onFailedScroll(e: Event) {
+  const el = e.target as HTMLElement
+  const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 20
+  failedAtBottom.value = atBottom
 }
 
 function autoSpeak() {
@@ -299,6 +306,7 @@ function regret() {
 
 function restart() {
   screen.value = 'select'
+  failedAtBottom.value = false
 }
 
 // HTML 输入中按空格 = 下一个词（normal mode）
@@ -480,15 +488,24 @@ onUnmounted(() => { clearInterval(timer!); animating = false; confetti = []; aud
         <!-- Failed words review -->
         <div v-if="failedWords.length" class="failed-list">
           <h3 class="failed-title">Review Needed</h3>
-          <div v-for="w in failedWords" :key="w.english" class="failed-item">
-            <button class="mini-speak" @click="speak(w.english)">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-                <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+          <div class="failed-scroll" @scroll="onFailedScroll">
+            <div v-for="w in failedWords" :key="w.english" class="failed-item">
+              <button class="mini-speak" @click="speak(w.english)">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                  <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+                </svg>
+              </button>
+              <span class="failed-cn">{{ w.chinese }}</span>
+              <span class="failed-en">{{ w.english }}</span>
+            </div>
+          </div>
+          <div v-if="failedWords.length > 3 && !failedAtBottom" class="外-scroll-hint">
+            <div class="scroll-hint-circle">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 9l6 6 6-6"/>
               </svg>
-            </button>
-            <span class="failed-cn">{{ w.chinese }}</span>
-            <span class="failed-en">{{ w.english }}</span>
+            </div>
           </div>
         </div>
 
@@ -810,11 +827,13 @@ onUnmounted(() => { clearInterval(timer!); animating = false; confetti = []; aud
 
 /* Failed words */
 .failed-list { margin-bottom: 18px; text-align: left; width: 100%; }
+.failed-scroll { max-height: 240px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.15) transparent; background: rgba(255,255,255,0.03); border-radius: 10px; padding: 4px; }
+.failed-scroll::-webkit-scrollbar { width: 5px; }
+.failed-scroll::-webkit-scrollbar-track { background: transparent; }
+.failed-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
 .failed-title { font-size: 0.8rem; color: rgba(255,255,255,0.45); margin-bottom: 8px; font-weight: 600; letter-spacing: 1px; }
 .failed-item { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 12px; background: rgba(255,107,107,0.06); margin-bottom: 6px; font-size: 0.85rem; }
-.mini-speak { background: none; border: none; cursor: pointer; font-size: 0.9rem; padding: 4px; color: rgba(255,255,255,0.4); flex-shrink: 0; display: flex; align-items: center; transition: color 0.2s; order: -1; }
 .failed-cn { color: rgba(255,255,255,0.65); min-width: 0; flex: 0 1 auto; margin-right: 6px; }
-.failed-en { color: #ffd93d; font-weight: 600; font-family: 'SF Mono', 'Fira Code', monospace; letter-spacing: 1px; flex: 1 1 auto; text-align: right; }
 .failed-en { color: #ffd93d; font-weight: 600; font-family: 'SF Mono', 'Fira Code', monospace; letter-spacing: 1px; flex: 1 1 auto; }
 .mini-speak { background: none; border: none; cursor: pointer; font-size: 0.9rem; padding: 4px; color: rgba(255,255,255,0.4); flex-shrink: 0; display: flex; align-items: center; transition: color 0.2s; }
 .mini-speak:hover { color: #fff; }
@@ -826,6 +845,16 @@ onUnmounted(() => { clearInterval(timer!); animating = false; confetti = []; aud
   box-shadow: 0 4px 16px rgba(77,150,255,0.2);
 }
 .restart-btn:hover { background: #3a7bd5; transform: translateY(-3px); box-shadow: 0 10px 30px rgba(77,150,255,0.3); }
+
+.外-scroll-hint { display: flex; justify-content: center; margin-top: -12px; margin-bottom: 8px; position: relative; z-index: 1; }
+.scroll-hint-circle {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+  display: flex; align-items: center; justify-content: center;
+  animation: scroll-bounce 1.2s ease-in-out infinite;
+}
+.scroll-hint-circle svg { color: rgba(255,255,255,0.7); }
+@keyframes scroll-bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
 
 .mode-choice { display: flex; gap: 10px; justify-content: center; margin-bottom: 14px; }
 .sub-btn {
@@ -986,6 +1015,8 @@ onUnmounted(() => { clearInterval(timer!); animating = false; confetti = []; aud
 .game-wrapper.theme-ins .failed-en { color: #c08060; }
 .game-wrapper.theme-ins .mini-speak { color: var(--text-dim); }
 .game-wrapper.theme-ins .mini-speak:hover { color: #667eea; }
+.game-wrapper.theme-ins .failed-scroll { background: rgba(0,0,0,0.03); scrollbar-color: rgba(0,0,0,0.1) transparent; }
+.game-wrapper.theme-ins .failed-scroll::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); }
 
 .game-wrapper.theme-ins .restart-btn {
   background: #667eea;
@@ -994,6 +1025,8 @@ onUnmounted(() => { clearInterval(timer!); animating = false; confetti = []; aud
 .game-wrapper.theme-ins .restart-btn:hover {
   background: #5865e0; box-shadow: 0 6px 24px rgba(102,126,234,0.35);
 }
+.game-wrapper.theme-ins .scroll-hint-circle { background: rgba(0,0,0,0.06); border-color: rgba(0,0,0,0.1); }
+.game-wrapper.theme-ins .scroll-hint-circle svg { color: var(--text-dim); }
 
 .game-wrapper.theme-ins .sub-btn {
   background: var(--card-bg); border: 1px solid var(--card-border);
@@ -1148,6 +1181,8 @@ onUnmounted(() => { clearInterval(timer!); animating = false; confetti = []; aud
 .game-wrapper.theme-cute .failed-en { color: #f5a0b0; }
 .game-wrapper.theme-cute .mini-speak { color: var(--text-dim); }
 .game-wrapper.theme-cute .mini-speak:hover { color: #7cc5b0; }
+.game-wrapper.theme-cute .failed-scroll { background: rgba(124,197,176,0.04); scrollbar-color: rgba(124,197,176,0.2) transparent; }
+.game-wrapper.theme-cute .failed-scroll::-webkit-scrollbar-thumb { background: rgba(124,197,176,0.2); }
 
 .game-wrapper.theme-cute .restart-btn {
   background: #7cc5b0;
@@ -1156,6 +1191,8 @@ onUnmounted(() => { clearInterval(timer!); animating = false; confetti = []; aud
 .game-wrapper.theme-cute .restart-btn:hover {
   background: #6bb8a0; box-shadow: 0 6px 24px rgba(124,197,176,0.3);
 }
+.game-wrapper.theme-cute .scroll-hint-circle { background: rgba(124,197,176,0.12); border-color: rgba(124,197,176,0.25); }
+.game-wrapper.theme-cute .scroll-hint-circle svg { color: #7cc5b0; }
 
 .game-wrapper.theme-cute .sub-btn {
   background: var(--card-bg); border: 1px solid var(--card-border);
