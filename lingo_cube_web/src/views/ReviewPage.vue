@@ -135,9 +135,7 @@ function addToVocab() {
 
     <!-- Review Card -->
     <div v-if="currentWord" class="review-card">
-      <div class="review-progress">{{ progress }}</div>
-
-      <div class="word-section" @click="speak(currentWord.english)">
+      <div class="word-section">
         <div class="review-word">{{ currentWord.english }}</div>
         <button class="mini-speak">
           <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
@@ -180,6 +178,8 @@ function addToVocab() {
           Vocab
         </button>
       </div>
+
+      <div class="review-progress">{{ progress }}</div>
     </div>
 
     <!-- Back to home -->
@@ -221,34 +221,55 @@ function addToVocab() {
   background: var(--card-bg);
   backdrop-filter: var(--card-blur, blur(20px));
   border: 1px solid var(--card-border);
-  border-radius: 24px;
+  border-radius: var(--card-radius, 24px);
   padding: 28px 20px;
   text-align: center;
   max-width: 420px; width: 100%;
   animation: slideUp 0.5s ease;
 }
 
-/* Theme-specific styles (override global for specific elements if needed) */
-.review-wrapper.theme-ins .review-title { color: #667eea; }
-.review-wrapper.theme-ins .review-subtitle { color: rgba(45,52,54,0.45); }
-.review-wrapper.theme-ins .review-word { color: #667eea; }
-.review-wrapper.theme-ins .review-phonetic { color: rgba(45,52,54,0.5); }
-.review-wrapper.theme-ins .review-chinese { color: #2d3436; }
-.review-wrapper.theme-ins .review-example { background: rgba(102,126,234,0.05); }
-.review-wrapper.theme-ins .example-label { color: rgba(45,52,54,0.45); }
-.review-wrapper.theme-ins .example-text { color: rgba(45,52,54,0.7); }
-.review-wrapper.theme-ins .review-progress { color: rgba(45,52,54,0.45); }
+.review-word { font-size: 2.4rem; font-weight: 800; color: var(--word-color, #ffd93d); letter-spacing: 2px; }
+.review-phonetic { font-size: 1.3rem; color: var(--phonetic-color, rgba(255,255,255,0.55)); font-family: 'Times New Roman', serif; margin-bottom: 4px; }
+.review-chinese { font-size: 1.3rem; color: var(--text-primary); margin-bottom: 24px; }
 
-.review-wrapper.theme-cute .review-card { background: #fff; border-color: rgba(124,197,176,0.25); }
-.review-wrapper.theme-cute .review-title { color: #7cc5b0; }
-.review-wrapper.theme-cute .review-subtitle { color: rgba(74,74,74,0.45); }
-.review-wrapper.theme-cute .review-word { color: #7cc5b0; }
-.review-wrapper.theme-cute .review-phonetic { color: rgba(74,74,74,0.5); }
-.review-wrapper.theme-cute .review-chinese { color: #4a4a4a; }
-.review-wrapper.theme-cute .review-example { background: rgba(124,197,176,0.06); }
-.review-wrapper.theme-cute .example-label { color: rgba(74,74,74,0.45); }
-.review-wrapper.theme-cute .example-text { color: rgba(74,74,74,0.7); }
-.review-wrapper.theme-cute .review-progress { color: rgba(74,74,74,0.45); }
+.review-example {
+  background: var(--example-bg);
+  border-radius: 12px;
+  padding: 14px; margin-bottom: 20px; text-align: left;
+  display: flex; align-items: center; gap: 10px;
+}
+.example-label { color: var(--example-label); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; }
+.example-text { color: var(--example-text); font-size: 0.95rem; line-height: 1.5; }
+
+.example-speak-btn {
+  background: none; border: none; cursor: pointer;
+  color: var(--text-muted); padding: 6px;
+  display: flex; align-items: center; transition: all 0.2s; border-radius: 50%;
+  margin-left: auto;
+}
+.example-speak-btn:hover { color: var(--accent); background: var(--btn-bg); }
+
+.review-actions { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; }
+.action-btn {
+  padding: 10px 16px; border-radius: 10px; border: none;
+  font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.25s;
+  display: flex; align-items: center; gap: 6px;
+}
+.remembered-action { background: var(--accent-secondary); color: #fff; }
+.remembered-action:hover { filter: brightness(1.1); transform: translateY(-2px); }
+.vocab-action { background: var(--accent-tertiary); color: #fff; }
+.vocab-action:hover { filter: brightness(1.1); transform: translateY(-2px); }
+
+.mini-speak {
+  background: none; border: none; cursor: pointer;
+  color: var(--text-muted); padding: 6px;
+  display: flex; align-items: center; transition: all 0.2s; border-radius: 50%;
+}
+.mini-speak:hover { color: var(--accent); background: var(--btn-bg); }
+
+.review-progress { color: var(--stat-text); font-size: 0.85rem; }
+
+.word-section { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 4px; }
 
 @media (max-width: 480px) {
   .review-card { padding: 20px 16px; border-radius: 20px; }
@@ -278,65 +299,4 @@ function addToVocab() {
 }
 
 @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-
-.review-progress { font-size: 0.8rem; color: rgba(255,255,255,0.4); margin-bottom: 16px; letter-spacing: 1px; }
-
-.word-section {
-  display: flex; align-items: center; justify-content: center; gap: 12px;
-  margin-bottom: 8px;
-}
-.review-word { font-size: 2.4rem; font-weight: 800; color: #ffd93d; letter-spacing: 2px; }
-
-.review-actions { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: 16px; }
-.action-btn {
-  padding: 10px 16px; border-radius: 10px; border: none;
-  font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.25s;
-  display: flex; align-items: center; gap: 6px;
-}
-.remembered-action { background: #6bcb77; color: #fff; }
-.remembered-action:hover { background: #5abb67; transform: translateY(-2px); }
-.vocab-action { background: #ff922b; color: #fff; }
-.vocab-action:hover { background: #e8821a; transform: translateY(-2px); }
-
-/* Theme-specific action buttons */
-.review-wrapper.theme-ins .remembered-action { background: #6bcb77; }
-.review-wrapper.theme-ins .remembered-action:hover { background: #5abb67; }
-.review-wrapper.theme-ins .vocab-action { background: #f5a0b0; }
-.review-wrapper.theme-ins .vocab-action:hover { background: #e8828d; }
-
-.review-wrapper.theme-cute .remembered-action { background: #f5a0b0; }
-.review-wrapper.theme-cute .remembered-action:hover { background: #e8828d; }
-.review-wrapper.theme-cute .vocab-action { background: #c8a0d0; }
-.review-wrapper.theme-cute .vocab-action:hover { background: #b88fc0; }
-.mini-speak {
-  background: none; border: none; cursor: pointer;
-  color: rgba(255,255,255,0.45); padding: 6px;
-  display: flex; align-items: center; transition: all 0.2s; border-radius: 50%;
-}
-.mini-speak:hover { color: #fff; background: rgba(255,255,255,0.1); }
-.review-wrapper.theme-ins .mini-speak { color: rgba(45,52,54,0.5); }
-.review-wrapper.theme-ins .mini-speak:hover { color: #667eea; background: rgba(102,126,234,0.1); }
-.review-wrapper.theme-cute .mini-speak { color: rgba(74,74,74,0.5); }
-.review-wrapper.theme-cute .mini-speak:hover { color: #7cc5b0; background: rgba(124,197,176,0.1); }
-
-.review-phonetic { font-size: 1rem; color: rgba(255,255,255,0.55); font-family: 'Times New Roman', serif; margin-bottom: 12px; }
-.review-chinese { font-size: 1.3rem; color: rgba(255,255,255,0.8); margin-bottom: 24px; }
-
-.review-example {
-  background: rgba(255,255,255,0.05); border-radius: 12px;
-  padding: 14px; margin-bottom: 20px; text-align: left;
-  display: flex; align-items: center; gap: 10px;
-}
-.example-speak-btn {
-  background: none; border: none; cursor: pointer;
-  color: rgba(255,255,255,0.45); padding: 6px;
-  display: flex; align-items: center; transition: all 0.2s; border-radius: 50%;
-}
-.example-speak-btn:hover { color: #fff; background: rgba(255,255,255,0.1); }
-.review-wrapper.theme-ins .example-speak-btn { color: rgba(45,52,54,0.5); }
-.review-wrapper.theme-ins .example-speak-btn:hover { color: #667eea; background: rgba(102,126,234,0.1); }
-.review-wrapper.theme-cute .example-speak-btn { color: rgba(74,74,74,0.5); }
-.review-wrapper.theme-cute .example-speak-btn:hover { color: #7cc5b0; background: rgba(124,197,176,0.1); }
-
-.review-wrapper.theme-cute .review-example { background: rgba(124,197,176,0.05); }
 </style>
