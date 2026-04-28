@@ -166,13 +166,6 @@ function addToVocab() {
 
       <!-- Actions -->
       <div class="review-actions">
-        <button class="action-btn speak-action" @click="speak(currentWord.english)">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
-            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
-          </svg>
-          Speak
-        </button>
         <button class="action-btn remembered-action" @click="markRemembered">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5">
             <polyline points="20 6 9 17 4 12"/>
@@ -297,6 +290,28 @@ function addToVocab() {
   margin-bottom: 8px;
 }
 .review-word { font-size: 2.4rem; font-weight: 800; color: #ffd93d; letter-spacing: 2px; }
+
+.review-actions { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: 16px; }
+.action-btn {
+  padding: 10px 16px; border-radius: 10px; border: none;
+  font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.25s;
+  display: flex; align-items: center; gap: 6px;
+}
+.remembered-action { background: #6bcb77; color: #fff; }
+.remembered-action:hover { background: #5abb67; transform: translateY(-2px); }
+.vocab-action { background: #ff922b; color: #fff; }
+.vocab-action:hover { background: #e8821a; transform: translateY(-2px); }
+
+/* Theme-specific action buttons */
+.review-wrapper.theme-ins .remembered-action { background: #6bcb77; }
+.review-wrapper.theme-ins .remembered-action:hover { background: #5abb67; }
+.review-wrapper.theme-ins .vocab-action { background: #f5a0b0; }
+.review-wrapper.theme-ins .vocab-action:hover { background: #e8828d; }
+
+.review-wrapper.theme-cute .remembered-action { background: #f5a0b0; }
+.review-wrapper.theme-cute .remembered-action:hover { background: #e8828d; }
+.review-wrapper.theme-cute .vocab-action { background: #c8a0d0; }
+.review-wrapper.theme-cute .vocab-action:hover { background: #b88fc0; }
 .mini-speak {
   background: none; border: none; cursor: pointer;
   color: rgba(255,255,255,0.45); padding: 6px;
