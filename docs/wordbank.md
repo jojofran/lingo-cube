@@ -298,3 +298,23 @@ The `genPhonetic()` function is heuristic-based and may produce occasional inacc
 - `feat: add 200+ IELTS words with phonetic` - Initial word bank
 - `fix: correct phonetic generation` - IPA improvements
 - `feat: add word bank API endpoints` - Backend integration
+
+还是有问题，在不改变当前布局的情况下，以typing界面为参考，统一主题管理，在相同主题不同界面统一管理
+1. 统一返回按钮和切换主题按钮样式和布局，只不过根据情况选择是否展示
+2. 统一大标题副标题样式
+3. 统一主卡片样式，内嵌卡片样式
+4. 统一声音播放等各种通用图标
+5. 按钮样式跟随主题特色
+6. 注意单词和音标的对齐
+
+
+
+
+3. "回滚到ebfdddf9b7638b589a40c3946252d74162ea3873"
+4. "各个节目的返回和切换主题按钮没有统一，参考review,且注意功能的正确性"
+5. "Home.vue的切换按钮也和其他界面一样放到右上角，也统一出来"
+6. "home界面不在右上角啊"
+7. "review界面，单词前面加一个空白span对冲被播放按钮挤占的空间，使其一直居中"
+
+
+Home.vue的切换按钮也和其他界面一样放到右上角，也统一出来

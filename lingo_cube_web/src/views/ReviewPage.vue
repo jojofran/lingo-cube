@@ -136,6 +136,7 @@ function addToVocab() {
     <!-- Review Card -->
     <div v-if="currentWord" class="review-card">
       <div class="word-section">
+        <span class="word-spacer"></span>
         <div class="review-word">{{ currentWord.english }}</div>
         <button class="mini-speak">
           <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
@@ -270,6 +271,7 @@ function addToVocab() {
 .review-progress { color: var(--stat-text); font-size: 0.85rem; }
 
 .word-section { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 4px; }
+.word-spacer { width: 40px; flex-shrink: 0; }
 
 @media (max-width: 480px) {
   .review-card { padding: 20px 16px; border-radius: 20px; }

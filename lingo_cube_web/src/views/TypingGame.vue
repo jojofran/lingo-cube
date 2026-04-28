@@ -333,7 +333,7 @@ onUnmounted(() => { clearInterval(timer!); animating = false; confetti = []; aud
     <canvas ref="canvasRef" class="confetti-layer" />
 
     <!-- Global theme toggle (top-right) -->
-    <button class="theme-toggle-global" @click="cycleTheme" :title="themeLabel" style="position: fixed; top: 16px; right: 16px; z-index: 200;">
+    <button class="theme-toggle-global" @click="cycleTheme" :title="themeLabel">
       {{ themeShort }}
     </button>
 
@@ -875,28 +875,7 @@ onUnmounted(() => { clearInterval(timer!); animating = false; confetti = []; aud
 }
 .sub-btn:hover { border-color: rgba(255,255,255,0.3); color: #fff; }
 
-.back-icon, .back-link { color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.2s; }
-.back-icon:hover, .back-link:hover { color: #4d96ff; }
-.back-icon { position: fixed; top: 16px; left: 16px; z-index: 200; width: 40px; height: 40px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; backdrop-filter: blur(8px); }
-
-.theme-toggle-global {
-  position: fixed; top: 16px; right: 16px;
-  width: 40px; height: 40px; border-radius: 50%;
-  border: 2px solid rgba(255,255,255,0.2);
-  background: rgba(255,255,255,0.08);
-  font-size: 1.1rem; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: all 0.25s; z-index: 200;
-  backdrop-filter: blur(8px);
-}
-.theme-toggle-global:hover {
-  border-color: rgba(255,255,255,0.4);
-  background: rgba(255,255,255,0.15);
-  transform: scale(1.1);
-}
-
-/* ===== INS Theme ===== */
-.game-wrapper.theme-ins {
+@media (max-width: 768px) {
   --bg-gradient: linear-gradient(135deg, #fce4ec 0%, #f3e5f5 25%, #ede7f6 50%, #e3f2fd 75%, #e0f7fa 100%);
   --text-primary: #2d3436;
   --text-dim: rgba(45,52,54,0.6);
