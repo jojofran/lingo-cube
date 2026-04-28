@@ -19,7 +19,9 @@
   --dot-bg: rgba(255,255,255,0.15);
   --btn-bg: rgba(255,255,255,0.08);
   --btn-border: rgba(255,255,255,0.15);
+  --btn-color: #fff;
   --accent: #4d96ff;
+  --accent-hover: #3a7bd5;
   --orb-1: #4d96ff;
   --orb-2: #ff6b6b;
   --orb-3: #ffd93d;
@@ -40,7 +42,6 @@
   --orbs-display: block;
 }
 
-/* ===== INS Theme ===== */
 .theme-ins {
   --bg-gradient: linear-gradient(135deg, #fce4ec 0%, #f3e5f5 25%, #ede7f6 50%, #e3f2fd 75%, #e0f7fa 100%);
   --text-primary: #2d3436;
@@ -49,7 +50,6 @@
   --card-bg: rgba(255,255,255,0.82);
   --card-border: rgba(0,0,0,0.06);
   --card-shadow: 0 4px 24px rgba(0,0,0,0.06);
-  --card-blur: blur(0px);
   --card-blur: blur(0px);
   --stat-bg: rgba(255,255,255,0.75);
   --stat-border: rgba(0,0,0,0.05);
@@ -61,7 +61,9 @@
   --dot-bg: rgba(0,0,0,0.08);
   --btn-bg: rgba(255,255,255,0.82);
   --btn-border: rgba(0,0,0,0.06);
+  --btn-color: #2d3436;
   --accent: #667eea;
+  --accent-hover: #5865e0;
   --orb-1: #e8a87c;
   --orb-2: #d49aa0;
   --orb-3: #a0a8d0;
@@ -70,13 +72,10 @@
   --toggle-bg: var(--card-bg);
   --toggle-hover-border: #667eea;
   --toggle-hover-bg: var(--card-bg);
-
   --cute-deco-display: none;
-
   --title-gradient: none;
   --title-color: #667eea;
   --title-fill: #667eea;
-
   --orbs-display: block;
 }
 
@@ -100,7 +99,9 @@
   --dot-bg: rgba(74,74,74,0.08);
   --btn-bg: rgba(255,255,255,0.88);
   --btn-border: rgba(0,0,0,0.05);
+  --btn-color: #4a4a4a;
   --accent: #7cc5b0;
+  --accent-hover: #6bb8a0;
   --orb-1: #7cc5b0;
   --orb-2: #f5a0b0;
   --orb-3: #c8a0d0;
