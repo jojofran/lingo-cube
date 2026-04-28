@@ -139,13 +139,12 @@ function addToVocab() {
 
       <div class="word-section" @click="speak(currentWord.english)">
         <div class="review-word">{{ currentWord.english }}</div>
-        <div class="speak-icon" :class="{ speaking }">
-          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+        <button class="mini-speak">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
             <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
             <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
-            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
           </svg>
-        </div>
+        </button>
       </div>
 
       <div class="review-phonetic">{{ currentWord.phonetic }}</div>
@@ -158,7 +157,7 @@ function addToVocab() {
           <div class="example-text">{{ selectedExample?.text }}</div>
         </div>
         <button class="example-speak-btn" @click="speak(selectedExample?.text)">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
             <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
             <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
           </svg>
@@ -251,13 +250,19 @@ function addToVocab() {
 
 .word-section {
   display: flex; align-items: center; justify-content: center; gap: 12px;
-  cursor: pointer; margin-bottom: 8px;
+  margin-bottom: 8px;
 }
 .review-word { font-size: 2.4rem; font-weight: 800; color: #ffd93d; letter-spacing: 2px; }
-.speak-icon { opacity: 0.4; transition: all 0.25s; color: #fff; }
-.speak-icon:hover { opacity: 0.7; }
-.speak-icon.speaking { opacity: 0.9; color: #ffd93d; animation: speak-pulse 0.6s ease-in-out infinite; }
-@keyframes speak-pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.2); } }
+.mini-speak {
+  background: none; border: none; cursor: pointer;
+  color: rgba(255,255,255,0.45); padding: 6px;
+  display: flex; align-items: center; transition: all 0.2s; border-radius: 50%;
+}
+.mini-speak:hover { color: #fff; background: rgba(255,255,255,0.1); }
+.review-wrapper.theme-ins .mini-speak { color: rgba(45,52,54,0.5); }
+.review-wrapper.theme-ins .mini-speak:hover { color: #667eea; background: rgba(102,126,234,0.1); }
+.review-wrapper.theme-cute .mini-speak { color: rgba(74,74,74,0.5); }
+.review-wrapper.theme-cute .mini-speak:hover { color: #7cc5b0; background: rgba(124,197,176,0.1); }
 
 .review-phonetic { font-size: 1rem; color: rgba(255,255,255,0.55); font-family: 'Times New Roman', serif; margin-bottom: 12px; }
 .review-chinese { font-size: 1.3rem; color: rgba(255,255,255,0.8); margin-bottom: 24px; }
@@ -269,107 +274,14 @@ function addToVocab() {
 }
 .example-speak-btn {
   background: none; border: none; cursor: pointer;
-  color: rgba(255,255,255,0.4); padding: 4px;
-  display: flex; align-items: center; transition: color 0.2s;
-  flex-shrink: 0;
+  color: rgba(255,255,255,0.45); padding: 6px;
+  display: flex; align-items: center; transition: all 0.2s; border-radius: 50%;
 }
-.example-speak-btn:hover { color: #fff; }
-.review-wrapper.theme-ins .example-speak-btn { color: rgba(45,52,54,0.4); }
-.review-wrapper.theme-ins .example-speak-btn:hover { color: #667eea; }
-.review-wrapper.theme-cute .example-speak-btn { color: rgba(74,74,74,0.4); }
-.review-wrapper.theme-cute .example-speak-btn:hover { color: #7cc5b0; }
+.example-speak-btn:hover { color: #fff; background: rgba(255,255,255,0.1); }
+.review-wrapper.theme-ins .example-speak-btn { color: rgba(45,52,54,0.5); }
+.review-wrapper.theme-ins .example-speak-btn:hover { color: #667eea; background: rgba(102,126,234,0.1); }
+.review-wrapper.theme-cute .example-speak-btn { color: rgba(74,74,74,0.5); }
+.review-wrapper.theme-cute .example-speak-btn:hover { color: #7cc5b0; background: rgba(124,197,176,0.1); }
 
-.example-label { font-size: 0.7rem; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1px; }
-.example-text-wrapper { flex: 1; }
-.example-text { font-size: 0.95rem; color: rgba(255,255,255,0.7); line-height: 1.6; font-style: italic; }
-.example-btn {
-  padding: 6px 14px; border-radius: 8px;
-  border: 1px solid rgba(255,255,255,0.15); background: transparent;
-  color: rgba(255,255,255,0.5); font-size: 0.75rem; cursor: pointer; transition: all 0.2s;
-}
-.example-btn:hover { border-color: rgba(255,255,255,0.3); color: #fff; }
-
-.review-actions { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
-.action-btn {
-  padding: 10px 18px; border-radius: 10px; border: none;
-  font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.25s;
-  display: flex; align-items: center; gap: 6px;
-}
-.speak-action { background: #4d96ff; color: #fff; }
-.speak-action:hover { background: #3a7bd5; transform: translateY(-2px); }
-.remembered-action { background: #6bcb77; color: #fff; }
-.remembered-action:hover { background: #5abb67; transform: translateY(-2px); }
-.vocab-action { background: #ff922b; color: #fff; }
-.vocab-action:hover { background: #e8821a; transform: translateY(-2px); }
-
-.back-icon {
-  position: fixed; top: 16px; left: 16px; z-index: 200;
-  width: 40px; height: 40px; border-radius: 50%;
-  border: 2px solid rgba(255,255,255,0.2);
-  background: rgba(255,255,255,0.08);
-  display: flex; align-items: center; justify-content: center;
-  color: rgba(255,255,255,0.55); text-decoration: none;
-  backdrop-filter: blur(8px); transition: all 0.25s;
-}
-.back-icon:hover { border-color: #4d96ff; color: #4d96ff; }
-
-.theme-toggle-global {
-  position: fixed; top: 16px; right: 16px;
-  width: 40px; height: 40px; border-radius: 50%;
-  border: 2px solid rgba(255,255,255,0.2);
-  background: rgba(255,255,255,0.08);
-  font-size: 1.1rem; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: all 0.25s; z-index: 200;
-  backdrop-filter: blur(8px); color: #fff;
-}
-.theme-toggle-global:hover { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.15); transform: scale(1.1); }
-
-/* Theme styles */
-.game-wrapper.theme-ins,
-.review-wrapper.theme-ins {
-  --bg-gradient: linear-gradient(135deg, #fce4ec 0%, #f3e5f5 25%, #ede7f6 50%, #e3f2fd 75%, #e0f7fa 100%);
-  --text-primary: #2d3436;
-  --card-bg: rgba(255,255,255,0.92);
-  --card-border: rgba(0,0,0,0.08);
-  --accent-color: #667eea;
-  --text-dim: rgba(45,52,54,0.6);
-  --bg-dim: rgba(45,52,54,0.08);
-}
-.review-wrapper.theme-ins .review-title { color: #667eea; font-size: 1.8rem; }
-.review-wrapper.theme-ins .review-word { color: #667eea; font-size: 2rem; }
-.review-wrapper.theme-ins .review-card { background: var(--card-bg); border-color: var(--card-border); }
-.review-wrapper.theme-ins .review-progress { color: rgba(45,52,54,0.5); }
-.review-wrapper.theme-ins .review-phonetic { color: rgba(45,52,54,0.55); }
-.review-wrapper.theme-ins .review-chinese { color: #2d3436; font-size: 1.2rem; }
-.review-wrapper.theme-ins .review-example { background: rgba(102,126,234,0.06); }
-.review-wrapper.theme-ins .example-label { color: rgba(45,52,54,0.45); }
-.review-wrapper.theme-ins .example-text { color: rgba(45,52,54,0.7); }
-.review-wrapper.theme-ins .example-btn { border-color: rgba(102,126,234,0.3); color: #667eea; }
-.review-wrapper.theme-ins .example-btn:hover { background: rgba(102,126,234,0.1); }
-.review-wrapper.theme-ins .speak-icon { color: rgba(45,52,54,0.4); }
-.review-wrapper.theme-ins .speak-icon.speaking { color: #667eea; }
-
-.review-wrapper.theme-cute {
-  --bg-gradient: #fdf0f5;
-  --text-primary: #4a4a4a;
-  --card-bg: #fff;
-  --card-border: rgba(124,197,176,0.15);
-  --accent-color: #7cc5b0;
-  --text-dim: rgba(74,74,74,0.5);
-  --bg-dim: rgba(124,197,176,0.08);
-}
-.review-wrapper.theme-cute .review-title { color: #7cc5b0; font-size: 1.8rem; }
-.review-wrapper.theme-cute .review-word { color: #7cc5b0; font-size: 2rem; }
-.review-wrapper.theme-cute .review-card { background: var(--card-bg); border-color: var(--card-border); }
-.review-wrapper.theme-cute .review-progress { color: rgba(74,74,74,0.5); }
-.review-wrapper.theme-cute .review-phonetic { color: rgba(74,74,74,0.55); }
-.review-wrapper.theme-cute .review-chinese { color: #4a4a4a; font-size: 1.2rem; }
-.review-wrapper.theme-cute .review-example { background: rgba(124,197,176,0.06); }
-.review-wrapper.theme-cute .example-label { color: rgba(74,74,74,0.45); }
-.review-wrapper.theme-cute .example-text { color: rgba(74,74,74,0.7); }
-.review-wrapper.theme-cute .example-btn { border-color: rgba(124,197,176,0.3); color: #7cc5b0; }
-.review-wrapper.theme-cute .example-btn:hover { background: rgba(124,197,176,0.1); }
-.review-wrapper.theme-cute .speak-icon { color: rgba(74,74,74,0.4); }
-.review-wrapper.theme-cute .speak-icon.speaking { color: #f5a0b0; }
+.review-wrapper.theme-cute .review-example { background: rgba(124,197,176,0.05); }
 </style>
