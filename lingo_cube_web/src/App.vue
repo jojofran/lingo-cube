@@ -6,7 +6,7 @@ import { watchEffect } from 'vue'
 const { theme } = useTheme()
 
 watchEffect(() => {
-  document.body.className = theme.value === 'dark' ? '' : `theme-${theme.value}`
+  document.body.className = `theme-${theme.value}`
 })
 </script>
 

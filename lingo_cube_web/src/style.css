@@ -157,18 +157,12 @@ body {
 .back-icon {
   position: fixed; top: 16px; left: 16px; z-index: 200;
   width: 40px; height: 40px; border-radius: 50%;
-  border: 2px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.08);
+  border: 2px solid var(--toggle-border); background: var(--toggle-bg);
   display: flex; align-items: center; justify-content: center;
   backdrop-filter: blur(8px); color: var(--text-primary); text-decoration: none;
   transition: all 0.2s;
 }
 .back-icon:hover { border-color: var(--accent); color: var(--accent); }
-
-.theme-ins .back-icon,
-.theme-cute .back-icon {
-  border-color: var(--card-border); background: var(--card-bg);
-  box-shadow: var(--card-shadow);
-}
 
 /* Cute decorations */
 .cute-deco { pointer-events: none; z-index: 0; position: fixed; inset: 0; overflow: hidden; display: var(--cute-deco-display, none); }

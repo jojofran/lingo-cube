@@ -1044,21 +1044,6 @@ onUnmounted(() => { clearInterval(timer!); animating = false; confetti = []; aud
 }
 .game-wrapper.theme-ins .sub-btn:hover { border-color: #667eea; color: #667eea; }
 
-.game-wrapper.theme-ins .theme-toggle-global {
-  border-color: var(--card-border);
-  background: var(--card-bg);
-  color: var(--text-primary);
-  box-shadow: var(--card-shadow);
-}
-.game-wrapper.theme-ins .theme-toggle-global:hover { border-color: #667eea; color: #667eea; }
-
-.game-wrapper.theme-ins .back-icon {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  color: var(--text-primary);
-}
-.game-wrapper.theme-ins .back-icon:hover { border-color: #667eea; color: #667eea; }
-
 /* ===== Cute Theme (mint + pink) ===== */
 .game-wrapper.theme-cute {
   --bg-gradient: #fdf0f5;
@@ -1209,21 +1194,6 @@ onUnmounted(() => { clearInterval(timer!); animating = false; confetti = []; aud
   color: var(--text-primary); box-shadow: var(--card-shadow);
 }
 .game-wrapper.theme-cute .sub-btn:hover { border-color: #7cc5b0; color: #7cc5b0; }
-
-.game-wrapper.theme-cute .theme-toggle-global {
-  border-color: var(--card-border);
-  background: var(--card-bg);
-  color: var(--text-primary);
-  box-shadow: var(--card-shadow);
-}
-.game-wrapper.theme-cute .theme-toggle-global:hover { border-color: #7cc5b0; color: #7cc5b0; }
-
-.game-wrapper.theme-cute .back-icon {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  color: var(--text-primary);
-}
-.game-wrapper.theme-cute .back-icon:hover { border-color: #7cc5b0; color: #7cc5b0; }
 
 /* Cute decorations */
 .cute-deco { pointer-events: none; z-index: 0; position: fixed; inset: 0; overflow: hidden; display: var(--cute-deco-display, none); }
