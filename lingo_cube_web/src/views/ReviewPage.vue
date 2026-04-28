@@ -214,8 +214,8 @@ function addToVocab() {
 }
 
 .review-header { text-align: center; padding-top: 16px; margin-bottom: 20px; flex-shrink: 0; }
-.review-title { font-size: 2rem; font-weight: 800; letter-spacing: 2px; margin-bottom: 4px; }
-.review-subtitle { font-size: 0.9rem; color: rgba(255,255,255,0.45); letter-spacing: 4px; text-transform: uppercase; }
+.review-title { font-size: 2rem; font-weight: 800; letter-spacing: 2px; margin-bottom: 4px; color: var(--title-color); }
+.review-subtitle { font-size: 0.9rem; color: var(--text-muted); letter-spacing: 4px; text-transform: uppercase; }
 
 .review-card {
   background: var(--card-bg);
@@ -259,24 +259,24 @@ function addToVocab() {
   .action-btn svg { width: 16px; height: 16px; }
 }
 
-.back-icon, .back-link { color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.2s; }
-.back-icon:hover, .back-link:hover { color: #4d96ff; }
-.back-icon { position: fixed; top: 16px; left: 16px; z-index: 200; width: 40px; height: 40px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; backdrop-filter: blur(8px); }
+.back-icon, .back-link { color: var(--text-primary); text-decoration: none; transition: color 0.2s; }
+.back-icon:hover, .back-link:hover { color: var(--accent); }
+.back-icon { position: fixed; top: 16px; left: 16px; z-index: 200; width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--toggle-border); background: var(--toggle-bg); display: flex; align-items: center; justify-content: center; backdrop-filter: blur(8px); }
 .back-icon svg, .theme-toggle-global { width: 20px; height: 20px; }
 
 .theme-toggle-global {
   position: fixed; top: 16px; right: 16px;
   width: 40px; height: 40px; border-radius: 50%;
-  border: 2px solid rgba(255,255,255,0.2);
-  background: rgba(255,255,255,0.08);
+  border: 2px solid var(--toggle-border);
+  background: var(--toggle-bg);
   font-size: 1.1rem; cursor: pointer;
   display: flex; align-items: center; justify-content: center;
   transition: all 0.25s; z-index: 200;
-  backdrop-filter: blur(8px); color: #fff;
+  backdrop-filter: blur(8px); color: var(--text-primary);
 }
 .theme-toggle-global:hover {
-  border-color: rgba(255,255,255,0.4);
-  background: rgba(255,255,255,0.15);
+  border-color: var(--toggle-hover-border);
+  background: var(--toggle-hover-bg);
   transform: scale(1.1);
 }
 
