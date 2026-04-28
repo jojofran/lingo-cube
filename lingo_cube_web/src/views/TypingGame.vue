@@ -805,9 +805,9 @@ onUnmounted(() => { clearInterval(timer!); animating = false; confetti = []; aud
 /* ===== Finished Screen ===== */
 .finish-screen { display: flex; align-items: center; justify-content: center; width: 100%; }
 .finish-card {
-  background: rgba(255,255,255,0.07);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: var(--card-bg);
+  backdrop-filter: var(--card-blur, blur(20px));
+  border: 1px solid var(--card-border);
   border-radius: 24px;
   padding: 32px 24px;
   text-align: center;
