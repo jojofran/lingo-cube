@@ -590,9 +590,9 @@ onUnmounted(() => { clearInterval(timer!); animating = false; confetti = []; aud
   50% { transform: translateY(-30px) scale(1.05); }
 }
 .select-card {
-  background: rgba(255,255,255,0.07);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: var(--card-bg);
+  backdrop-filter: var(--card-blur, blur(20px));
+  border: 1px solid var(--card-border);
   border-radius: 24px;
   padding: 36px 32px;
   text-align: center;

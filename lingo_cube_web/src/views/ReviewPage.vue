@@ -218,9 +218,9 @@ function addToVocab() {
 .review-subtitle { font-size: 0.9rem; color: rgba(255,255,255,0.45); letter-spacing: 4px; text-transform: uppercase; }
 
 .review-card {
-  background: rgba(255,255,255,0.07);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: var(--card-bg);
+  backdrop-filter: var(--card-blur, blur(20px));
+  border: 1px solid var(--card-border);
   border-radius: 24px;
   padding: 28px 20px;
   text-align: center;
@@ -228,8 +228,7 @@ function addToVocab() {
   animation: slideUp 0.5s ease;
 }
 
-/* Theme-specific styles */
-.review-wrapper.theme-ins .review-card { background: #fff; border-color: rgba(102,126,234,0.25); }
+/* Theme-specific styles (override global for specific elements if needed) */
 .review-wrapper.theme-ins .review-title { color: #667eea; }
 .review-wrapper.theme-ins .review-subtitle { color: rgba(45,52,54,0.45); }
 .review-wrapper.theme-ins .review-word { color: #667eea; }

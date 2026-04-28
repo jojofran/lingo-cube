@@ -8,6 +8,7 @@
   --card-border: rgba(255,255,255,0.1);
   --card-shadow: none;
   --card-radius: 16px;
+  --card-blur: blur(20px);
   --stat-bg: rgba(255,255,255,0.05);
   --stat-border: rgba(255,255,255,0.08);
   --stat-text: rgba(255,255,255,0.4);
@@ -48,6 +49,8 @@
   --card-bg: rgba(255,255,255,0.82);
   --card-border: rgba(0,0,0,0.06);
   --card-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  --card-blur: blur(0px);
+  --card-blur: blur(0px);
   --stat-bg: rgba(255,255,255,0.75);
   --stat-border: rgba(0,0,0,0.05);
   --stat-text: #555;
@@ -86,6 +89,7 @@
   --card-bg: rgba(255,255,255,0.88);
   --card-border: rgba(0,0,0,0.05);
   --card-shadow: 0 4px 20px rgba(136,180,170,0.15);
+  --card-blur: blur(0px);
   --stat-bg: rgba(255,255,255,0.8);
   --stat-border: rgba(0,0,0,0.04);
   --stat-text: #777;
