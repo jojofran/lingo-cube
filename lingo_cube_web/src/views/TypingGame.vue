@@ -1,8 +1,13 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
-import { wordBank, shuffleWords, type WordEntry } from './wordBank'
-import { fetchRandomWords } from '@/api/word'
+import { ref, computed, onMounted, nextTick } from 'vue'
+import { wordBank } from './wordBank'
 import { useTheme } from '@/composables/useTheme'
+import { useAudio } from '@/composables/useAudio'
+import { useSpeech } from '@/composables/useSpeech'
+import { useTimer } from '@/composables/useTimer'
+import { useConfetti } from '@/composables/useConfetti'
+import { useScoring } from '@/composables/useScoring'
+import { useWordProvider } from '@/composables/useWordProvider'
 import CuteDeco from '@/components/CuteDeco.vue'
 import ThemeToggle from '@/components/common/ThemeToggle.vue'
 import BackButton from '@/components/common/BackButton.vue'
@@ -14,6 +19,12 @@ import soundNext from '@/assets/audio/next.wav'
 import type { GameMode, Screen, WordResult } from '@/types'
 
 const { theme } = useTheme()
+const { initAudio, playSound, playFail, playFinish } = useAudio()
+const { speak, speaking } = useSpeech()
+const { timeLeft, startTimer, stopTimer } = useTimer()
+const { canvasRef, launchConfetti } = useConfetti()
+const { score, combo, maxCombo, grade, praise, regret, onCorrect, onWrong, resetScore, failedWords } = useScoring()
+const { fetchWords, wordList } = useWordProvider()
 
 const TOTAL_ROUNDS = 20
 const SPEED_TIME = 8
@@ -21,33 +32,24 @@ const SPEED_TIME = 8
 const screen = ref<Screen>('select')
 const mode = ref<GameMode>('normal')
 
-const wordList = ref<WordEntry[]>([])
 const currentIndex = ref(0)
 const userInput = ref('')
-const score = ref(0)
-const combo = ref(0)
-const maxCombo = ref(0)
-const timeLeft = ref(SPEED_TIME)
 const result = ref<WordResult>(null)
 const resultMsg = ref('')
-const failedWords = ref<WordEntry[]>([])
 const failedAtBottom = ref(false)
 const shakeActive = ref(false)
 const burstActive = ref(false)
-const speaking = ref(false)
 
-// Speech synthesis
-let synth: SpeechSynthesis | null = null
-let timer: ReturnType<typeof setInterval> | null = null
-
-// Canvas confetti
-const canvasRef = ref<HTMLCanvasElement | null>(null)
-let confetti: Array<{ x: number; y: number; vx: number; vy: number; size: number; color: string; rotation: number; rv: number; life: number }> = []
-let animating = false
-const palette = ['#ff6b6b', '#ffd93d', '#6bcb77', '#4d96ff', '#ff922b', '#cc5de8', '#20c997', '#f06595']
-
-// Audio
-let audioCtx: AudioContext | null = null
+// Praise text → sound name mapping for manual sound playback
+const praiseToSound: Record<string, string> = {
+  'Great! 🎉': 'great',
+  'Nice! ✨': 'next',
+  'Perfect! 💯': 'next',
+  'Excellent! 🌟': 'excellent',
+  'Amazing! 🔥': 'amazing',
+  'Superb! 👏': 'next',
+  'Unbelievable! 💎': 'unbelievable'
+}
 
 const currentWord = computed(() => wordList.value[currentIndex.value] ?? null)
 const isSpeed = computed(() => mode.value === 'speed')
@@ -61,79 +63,6 @@ const inputClass = computed(() => {
   if (result.value === 'wrong') return 'input-wrong'
   return ''
 })
-const grade = computed(() => {
-  if (score.value >= 400) return { label: '🏆 Legendary', emoji: '🌟' }
-  if (score.value >= 250) return { label: '🔥 Excellent', emoji: '🎉' }
-  if (score.value >= 150) return { label: '👍 Good Job', emoji: '✨' }
-  return { label: '💪 Keep Practicing', emoji: '📖' }
-})
-
-// ---- Audio ----
-const sounds: Record<string, HTMLAudioElement> = {}
-
-function playSound(name: string) {
-  const s = sounds[name]
-  if (s) {
-    s.currentTime = 0
-    s.play().catch(() => {})
-  }
-}
-
-function initAudio() {
-  try { audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)() } catch { audioCtx = null }
-  sounds['great'] = new Audio(soundGreat)
-  sounds['excellent'] = new Audio(soundExcellent)
-  sounds['amazing'] = new Audio(soundAmazing)
-  sounds['unbelievable'] = new Audio(soundUnbelievable)
-  sounds['next'] = new Audio(soundNext)
-}
-
-function tone(freq: number, start: number, dur: number, type: OscillatorType = 'sine', vol = 0.15) {
-  if (!audioCtx) return
-  const now = audioCtx.currentTime
-  const osc = audioCtx.createOscillator()
-  const gain = audioCtx.createGain()
-  osc.type = type
-  osc.frequency.value = freq
-  gain.gain.setValueAtTime(vol, now + start)
-  gain.gain.exponentialRampToValueAtTime(0.001, now + start + dur)
-  osc.connect(gain).connect(audioCtx.destination)
-  osc.start(now + start)
-  osc.stop(now + start + dur)
-}
-
-
-  function playFail() {
-  if (!audioCtx) return
-  const now = audioCtx.currentTime
-  const osc = audioCtx.createOscillator()
-  const gain = audioCtx.createGain()
-  osc.type = 'triangle'
-  osc.frequency.setValueAtTime(280, now)
-  osc.frequency.linearRampToValueAtTime(180, now + 0.25)
-  gain.gain.setValueAtTime(0.12, now)
-  gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3)
-  osc.connect(gain).connect(audioCtx.destination)
-  osc.start(now); osc.stop(now + 0.3)
-}
-
-function playFinish() {
-  ;[523.25, 587.33, 659.25, 783.99, 1046.5].forEach((f, i) => tone(f, i * 0.12, 0.4))
-}
-
-// ---- Speech ----
-function speak(word: string) {
-  synth?.cancel()
-  synth = window.speechSynthesis
-  const u = new SpeechSynthesisUtterance(word)
-  u.lang = 'en-US'
-  u.rate = 0.85
-  u.pitch = 1
-  speaking.value = true
-  u.onend = () => { speaking.value = false }
-  u.onerror = () => { speaking.value = false }
-  synth.speak(u)
-}
 
 function onFailedScroll(e: Event) {
   const el = e.target as HTMLElement
@@ -148,63 +77,19 @@ function autoSpeak() {
   }
 }
 
-// ---- Confetti ----
-function launchConfetti() {
-  animating = true
-  const c = canvasRef.value
-  if (!c) return
-  const ctx = c.getContext('2d')
-  if (!ctx) return
-  c.width = window.innerWidth; c.height = window.innerHeight
-  for (let i = 0; i < 120; i++) {
-    confetti.push({
-      x: Math.random() * c.width, y: Math.random() * c.height * 0.3 - 20,
-      vx: (Math.random() - 0.5) * 8, vy: Math.random() * 6 + 3,
-      size: Math.random() * 10 + 4, color: palette[Math.floor(Math.random() * palette.length)],
-      rotation: Math.random() * Math.PI * 2, rv: (Math.random() - 0.5) * 0.3, life: 100 + Math.random() * 60,
-    })
-  }
-  requestAnimationFrame(drawConfetti)
-}
-
-function drawConfetti() {
-  const c = canvasRef.value
-  if (!c || !animating) return
-  const ctx = c.getContext('2d')
-  if (!ctx) return
-  ctx.clearRect(0, 0, c.width, c.height)
-  confetti = confetti.filter(p => p.life > 0)
-  for (const p of confetti) {
-    p.x += p.vx; p.vy += 0.12; p.y += p.vy; p.rotation += p.rv; p.life--
-    ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rotation)
-    ctx.globalAlpha = Math.min(1, p.life / 60); ctx.fillStyle = p.color
-    ctx.fillRect(-p.size / 2, -p.size / 4, p.size, p.size / 2); ctx.restore()
-  }
-  if (confetti.length > 0) requestAnimationFrame(drawConfetti)
-  else animating = false
-}
-
 // ---- Game Logic ----
 async function selectMode(m: GameMode) {
   mode.value = m
   currentIndex.value = 0
-  score.value = 0
-  combo.value = 0
-  maxCombo.value = 0
   userInput.value = ''
   result.value = null
   resultMsg.value = ''
-  failedWords.value = []
+  resetScore()
 
-  // Try fetching from API first, fall back to local word bank
-  try {
-    wordList.value = await fetchRandomWords(TOTAL_ROUNDS)
-  } catch {
-    wordList.value = shuffleWords(wordBank).slice(0, TOTAL_ROUNDS)
-  }
+  await fetchWords(TOTAL_ROUNDS)
 
   screen.value = 'playing'
-  if (isSpeed.value) { timeLeft.value = SPEED_TIME; startTimer() }
+  if (isSpeed.value) { startTimer(SPEED_TIME, () => timeout()) }
   nextTick(() => {
     document.getElementById('typing-input')?.focus()
     if (window.innerWidth <= 768) {
@@ -214,49 +99,38 @@ async function selectMode(m: GameMode) {
   })
 }
 
-function startTimer() {
-  clearInterval(timer!)
-  timer = setInterval(() => {
-    timeLeft.value--
-    if (timeLeft.value <= 0) timeout()
-  }, 1000)
-}
-
 function submit() {
   const v = userInput.value.trim()
   if (!v || !currentWord.value) return
   if (result.value) return
-  clearInterval(timer!)
+  stopTimer()
 
   if (v.toLowerCase() === currentWord.value.english.toLowerCase()) {
     result.value = 'correct'
-    resultMsg.value = praise()
-    combo.value++
-    if (combo.value > maxCombo.value) maxCombo.value = combo.value
-    const bonus = Math.min(combo.value * 2, 20)
-    score.value += (isSpeed.value ? 15 : 10) + bonus
+    const msg = praise()
+    resultMsg.value = msg
+    onCorrect(isSpeed.value, isSpeed.value ? timeLeft.value : 0)
     burstActive.value = true
     launchConfetti()
-    if (isSpeed.value) { score.value += Math.max(0, timeLeft.value * 2) }
+    const soundName = praiseToSound[msg] || 'next'
+    playSound(soundName)
   } else {
     result.value = 'wrong'
     resultMsg.value = regret()
-    combo.value = 0
+    onWrong(currentWord.value)
     shakeActive.value = true
     playFail()
-    failedWords.value.push(currentWord.value)
   }
   setTimeout(() => next(), 1500)
 }
 
 function timeout() {
-  clearInterval(timer!)
+  stopTimer()
   result.value = 'wrong'
   resultMsg.value = "Time's up! ⏱"
-  combo.value = 0
+  onWrong(currentWord.value!)
   shakeActive.value = true
   playFail()
-  if (currentWord.value) failedWords.value.push(currentWord.value)
   setTimeout(() => next(), 1500)
 }
 
@@ -273,7 +147,7 @@ function next() {
   shakeActive.value = false
   burstActive.value = false
   currentIndex.value++
-  if (isSpeed.value) { timeLeft.value = SPEED_TIME; startTimer() }
+  if (isSpeed.value) { startTimer(SPEED_TIME, () => timeout()) }
   nextTick(() => {
     document.getElementById('typing-input')?.focus()
     if (window.innerWidth <= 768) {
@@ -281,26 +155,6 @@ function next() {
     }
     autoSpeak()
   })
-}
-
-function praise() {
-  const p = [
-    { text: 'Great! 🎉', sound: 'next' },
-    { text: 'Nice! ✨', sound: 'next' },
-    { text: 'Perfect! 💯', sound: 'next' },
-    { text: 'Excellent! 🌟', sound: 'excellent' },
-    { text: 'Amazing! 🔥', sound: 'amazing' },
-    { text: 'Superb! 👏', sound: 'next' },
-    { text: 'Unbelievable! 💎', sound: 'unbelievable' }
-  ]
-  const r = p[Math.floor(Math.random() * p.length)]
-  playSound(r.sound)
-  return r.text
-}
-
-function regret() {
-  const r = ["Keep trying! 💪", "Almost there! 🎯", "Next one! 🚀", "Don't give up! ⚡", "You'll get it! 🍀"]
-  return r[Math.floor(Math.random() * r.length)]
 }
 
 function restart() {
@@ -315,7 +169,7 @@ function startReview() {
   window.location.href = '/lingo-cube/#/review'
 }
 
-// HTML 输入中按空格 = 下一个词（normal mode）
+// HTML 输入中按 Enter 提交
 function onKeydown(e: KeyboardEvent) {
   if (e.key === 'Enter' && userInput.value.trim() && !result.value) {
     e.preventDefault()
@@ -323,8 +177,9 @@ function onKeydown(e: KeyboardEvent) {
   }
 }
 
-onMounted(() => { initAudio() })
-onUnmounted(() => { clearInterval(timer!); animating = false; confetti = []; audioCtx?.close() })
+onMounted(() => {
+  initAudio({ great: soundGreat, excellent: soundExcellent, amazing: soundAmazing, unbelievable: soundUnbelievable, next: soundNext })
+})
 </script>
 
 <template>

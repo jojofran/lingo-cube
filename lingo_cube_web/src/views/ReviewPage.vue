@@ -1,13 +1,15 @@
 <script setup lang="ts">
-import { ref, computed, nextTick, onMounted, onUnmounted } from 'vue'
+import { ref, computed, nextTick, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { wordBank, type WordEntry } from './wordBank'
 import { useTheme } from '@/composables/useTheme'
+import { useSpeech } from '@/composables/useSpeech'
 import CuteDeco from '@/components/CuteDeco.vue'
 import ThemeToggle from '@/components/common/ThemeToggle.vue'
 import BackButton from '@/components/common/BackButton.vue'
 
 const { theme } = useTheme()
+const { speak } = useSpeech()
 const router = useRouter()
 
 // Get failed words from localStorage (set by TypingGame)
@@ -15,10 +17,7 @@ const failedWords = ref<WordEntry[]>([])
 const reviewIndex = ref(0)
 const rememberedWords = ref<Set<string>>(new Set())
 const selectedExample = ref<{ text: string; weight: number } | null>(null)
-const speaking = ref(false)
 
-// Speech synthesis
-let synth: SpeechSynthesis | null = null
 const canvasRef = ref<HTMLCanvasElement | null>(null)
 
 const currentWord = computed(() => failedWords.value[reviewIndex.value] ?? null)
@@ -42,23 +41,6 @@ onMounted(() => {
   speak(currentWord.value?.english)
 })
 
-onUnmounted(() => {
-  synth?.cancel()
-})
-
-function speak(word: string | undefined) {
-  if (!word) return
-  synth?.cancel()
-  synth = window.speechSynthesis
-  const u = new SpeechSynthesisUtterance(word)
-  u.lang = 'en-US'
-  u.rate = 0.85
-  u.pitch = 1
-  speaking.value = true
-  u.onend = () => { speaking.value = false }
-  u.onerror = () => { speaking.value = false }
-  synth.speak(u)
-}
 
 function selectExample() {
   const word = currentWord.value
