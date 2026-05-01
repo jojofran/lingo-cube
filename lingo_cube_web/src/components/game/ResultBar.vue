@@ -34,12 +34,12 @@ defineProps<{
   max-width: 420px;
 }
 .result-bar.correct {
-  color: #6bcb77;
-  background: rgba(107, 203, 119, 0.08);
+  color: var(--state-correct);
+  background: var(--state-correct-bg);
 }
 .result-bar.wrong {
-  color: #ff6b6b;
-  background: rgba(255, 107, 107, 0.08);
+  color: var(--state-wrong);
+  background: var(--state-wrong-bg);
 }
 .result-emoji {
   font-size: 1.6rem;
@@ -50,11 +50,11 @@ defineProps<{
 }
 .result-answer {
   font-size: 1rem;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--result-answer-color);
   margin-top: 2px;
 }
 .result-answer strong {
-  color: #ffd93d;
+  color: var(--result-answer-strong-color);
   font-weight: 700;
 }
 

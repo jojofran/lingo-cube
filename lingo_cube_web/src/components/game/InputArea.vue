@@ -83,17 +83,17 @@ const localInput = computed({
 }
 .typing-input:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 30px rgba(77, 150, 255, 0.15);
+  box-shadow: var(--input-focus-shadow);
 }
 .input-correct {
-  border-color: #6bcb77 !important;
-  background: rgba(107, 203, 119, 0.1) !important;
-  box-shadow: 0 0 24px rgba(107, 203, 119, 0.25) !important;
+  border-color: var(--state-correct) !important;
+  background: var(--state-correct-bg) !important;
+  box-shadow: 0 0 24px var(--state-correct)55 !important;
 }
 .input-wrong {
-  border-color: #ff6b6b !important;
-  background: rgba(255, 107, 107, 0.1) !important;
-  box-shadow: 0 0 24px rgba(255, 107, 107, 0.25) !important;
+  border-color: var(--state-wrong) !important;
+  background: var(--state-wrong-bg) !important;
+  box-shadow: 0 0 24px var(--state-wrong)55 !important;
 }
 
 .enter-btn {
@@ -101,7 +101,7 @@ const localInput = computed({
   border-radius: 14px;
   border: 2px solid var(--accent);
   background: #fff;
-  color: #1a3d7a;
+  color: var(--enter-btn-color);
   font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
@@ -112,23 +112,23 @@ const localInput = computed({
   letter-spacing: 1.5px;
 }
 .enter-btn:not(:disabled):hover {
-  background: #eef4ff;
+  background: var(--enter-btn-hover-bg);
   border-color: var(--accent-hover);
 }
 .enter-btn:disabled {
-  border-color: #c0d0e8;
-  background: #f5f7fa;
-  color: #a0b0c8;
+  border-color: var(--enter-btn-disabled-border);
+  background: var(--enter-btn-disabled-bg);
+  color: var(--enter-btn-disabled-color);
   cursor: default;
 }
 .btn-ok {
-  border-color: #6bcb77 !important;
-  background: #f0faf2 !important;
-  color: #2d7a38 !important;
+  border-color: var(--state-correct) !important;
+  background: var(--state-correct-bg) !important;
+  color: var(--state-correct) !important;
 }
 .btn-bad {
-  border-color: #ff6b6b !important;
-  background: #fef0f0 !important;
-  color: #b33a3a !important;
+  border-color: var(--state-wrong) !important;
+  background: var(--state-wrong-bg) !important;
+  color: var(--state-wrong) !important;
 }
 </style>

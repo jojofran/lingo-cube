@@ -60,8 +60,8 @@ const emit = defineEmits<{
   justify-content: center;
 }
 .prompt-card:hover {
-  border-color: rgba(255, 255, 255, 0.2);
-  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--prompt-hover-border);
+  background: var(--prompt-hover-bg);
 }
 .prompt-card:active {
   transform: scale(0.99);
@@ -80,7 +80,7 @@ const emit = defineEmits<{
 }
 .speak-icon.speaking {
   opacity: 0.8;
-  color: #ffd93d;
+  color: var(--speak-active-color);
   animation: speak-pulse 0.6s ease-in-out infinite;
 }
 @keyframes speak-pulse {
@@ -97,7 +97,7 @@ const emit = defineEmits<{
   font-size: clamp(1.4rem, 4.5vw, 2.2rem);
   font-weight: 800;
   letter-spacing: 3px;
-  text-shadow: 0 0 50px rgba(77, 150, 255, 0.3);
+  text-shadow: var(--chinese-text-shadow);
   overflow-wrap: break-word;
   word-break: keep-all;
   line-height: 1.2;

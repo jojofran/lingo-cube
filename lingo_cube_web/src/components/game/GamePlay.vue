@@ -112,12 +112,12 @@ const emit = defineEmits<{
   white-space: nowrap;
 }
 .mode-badge.normal {
-  background: rgba(77, 150, 255, 0.2);
-  color: #4d96ff;
+  background: var(--mode-badge-normal-bg);
+  color: var(--mode-badge-normal-color);
 }
 .mode-badge.speed {
-  background: rgba(255, 107, 107, 0.2);
-  color: #ff6b6b;
+  background: var(--mode-badge-speed-bg);
+  color: var(--mode-badge-speed-color);
 }
 
 @media (max-width: 768px) {

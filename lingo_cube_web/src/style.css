@@ -148,6 +148,128 @@
   --hand-h5: #ff8fab;
 }
 
+/* ========== Semantic / Component-Level Tokens ========== */
+
+:root {
+  /* Enter button */
+  --enter-btn-color: #1a3d7a;
+  --enter-btn-hover-bg: #eef4ff;
+  --enter-btn-disabled-border: #c0d0e8;
+  --enter-btn-disabled-bg: #f5f7fa;
+  --enter-btn-disabled-color: #a0b0c8;
+
+  /* Semantic state colors (correct / wrong / pending overlays) */
+  --state-correct: #6bcb77;
+  --state-correct-bg: rgba(107,203,119,0.1);
+  --state-wrong: #ff6b6b;
+  --state-wrong-bg: rgba(255,107,107,0.1);
+
+  /* Timer ring bg stroke */
+  --timer-ring-bg: rgba(255,255,255,0.08);
+
+  /* Prompt card hover */
+  --prompt-hover-border: rgba(255,255,255,0.2);
+  --prompt-hover-bg: rgba(255,255,255,0.06);
+
+  /* Speak icon active color */
+  --speak-active-color: #ffd93d;
+
+  /* Chinese word text shadow (dark glow → none for light themes) */
+  --chinese-text-shadow: 0 0 50px rgba(77,150,255,0.3);
+
+  /* Input focus */
+  --input-focus-shadow: 0 0 30px rgba(77,150,255,0.15);
+
+  /* Result answer bar */
+  --result-answer-color: rgba(255,255,255,0.5);
+  --result-answer-strong-color: #ffd93d;
+
+  /* Progress dots */
+  --dot-done-bg: #6bcb77;
+  --dot-current-bg: #4d96ff;
+  --dot-current-shadow: 0 0 8px rgba(77,150,255,0.5);
+  --dot-fail-bg: #ff6b6b;
+
+  /* Mode badge */
+  --mode-badge-normal-bg: rgba(77,150,255,0.2);
+  --mode-badge-normal-color: #4d96ff;
+  --mode-badge-speed-bg: rgba(255,107,107,0.2);
+  --mode-badge-speed-color: #ff6b6b;
+
+  /* Select icon */
+  --select-desc-color: rgba(255,255,255,0.5);
+}
+
+.theme-ins {
+  --enter-btn-color: #2a3f8a;
+  --enter-btn-hover-bg: #f0f1ff;
+  --enter-btn-disabled-border: #c0c8ec;
+  --enter-btn-disabled-bg: #f5f6fc;
+  --enter-btn-disabled-color: #909cc8;
+
+  --state-correct: #38b000;
+  --state-correct-bg: rgba(107,203,119,0.1);
+  --state-wrong: #e03131;
+  --state-wrong-bg: rgba(255,107,107,0.1);
+
+  --timer-ring-bg: rgba(0,0,0,0.06);
+  --prompt-hover-border: rgba(0,0,0,0.12);
+  --prompt-hover-bg: #fff;
+  --speak-active-color: #667eea;
+  --chinese-text-shadow: none;
+  --input-focus-shadow: 0 0 0 3px rgba(102,126,234,0.15);
+
+  --result-answer-color: rgba(45,52,54,0.5);
+  --result-answer-strong-color: #667eea;
+
+  --dot-done-bg: #6bcb77;
+  --dot-current-bg: #667eea;
+  --dot-current-shadow: 0 0 8px rgba(102,126,234,0.5);
+  --dot-fail-bg: #e03131;
+
+  --mode-badge-normal-bg: rgba(102,126,234,0.12);
+  --mode-badge-normal-color: #667eea;
+  --mode-badge-speed-bg: rgba(208,140,120,0.12);
+  --mode-badge-speed-color: #c08060;
+
+  --select-desc-color: rgba(45,52,54,0.5);
+}
+
+.theme-cute {
+  --enter-btn-color: #2a7a68;
+  --enter-btn-hover-bg: #f0faf6;
+  --enter-btn-disabled-border: #b8ddd0;
+  --enter-btn-disabled-bg: #f5fbf8;
+  --enter-btn-disabled-color: #7ab8a8;
+
+  --state-correct: #5ca385;
+  --state-correct-bg: rgba(124,197,176,0.1);
+  --state-wrong: #e88598;
+  --state-wrong-bg: rgba(245,160,176,0.1);
+
+  --timer-ring-bg: rgba(0,0,0,0.05);
+  --prompt-hover-border: #f5a0b0;
+  --prompt-hover-bg: #fff;
+  --speak-active-color: #f5a0b0;
+  --chinese-text-shadow: none;
+  --input-focus-shadow: 0 0 0 3px rgba(124,197,176,0.12);
+
+  --result-answer-color: rgba(74,74,74,0.55);
+  --result-answer-strong-color: #7cc5b0;
+
+  --dot-done-bg: #5ca385;
+  --dot-current-bg: #7cc5b0;
+  --dot-current-shadow: 0 0 8px rgba(124,197,176,0.5);
+  --dot-fail-bg: #e88598;
+
+  --mode-badge-normal-bg: rgba(124,197,176,0.12);
+  --mode-badge-normal-color: #7cc5b0;
+  --mode-badge-speed-bg: rgba(245,160,176,0.12);
+  --mode-badge-speed-color: #f5a0b0;
+
+  --select-desc-color: rgba(74,74,74,0.55);
+}
+
 /* ========== Global Base ========== */
 body {
   margin: 0;

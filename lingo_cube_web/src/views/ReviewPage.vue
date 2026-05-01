@@ -257,23 +257,5 @@ function addToVocab() {
   .action-btn svg { width: 16px; height: 16px; }
 }
 
-.back-icon svg, .theme-toggle-global { width: 20px; height: 20px; }
-
-.theme-toggle-global {
-  position: fixed; top: 16px; right: 16px;
-  width: 40px; height: 40px; border-radius: 50%;
-  border: 2px solid var(--toggle-border);
-  background: var(--toggle-bg);
-  font-size: 1.1rem; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: all 0.25s; z-index: 200;
-  backdrop-filter: blur(8px); color: var(--text-primary);
-}
-.theme-toggle-global:hover {
-  border-color: var(--toggle-hover-border);
-  background: var(--toggle-hover-bg);
-  transform: scale(1.1);
-}
-
 @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 </style>

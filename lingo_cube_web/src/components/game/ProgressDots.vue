@@ -50,13 +50,13 @@ defineProps<{
   flex-shrink: 0;
 }
 .dot.done {
-  background: #6bcb77;
+  background: var(--dot-done-bg);
 }
 .dot.current {
-  background: #4d96ff;
-  box-shadow: 0 0 8px rgba(77, 150, 255, 0.5);
+  background: var(--dot-current-bg);
+  box-shadow: var(--dot-current-shadow);
 }
 .dot.fail {
-  background: #ff6b6b;
+  background: var(--dot-fail-bg);
 }
 </style>

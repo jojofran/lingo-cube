@@ -39,7 +39,7 @@ defineProps<{
 }
 .timer-bg {
   fill: none;
-  stroke: rgba(255, 255, 255, 0.08);
+  stroke: var(--timer-ring-bg);
   stroke-width: 4;
 }
 .timer-fg {
