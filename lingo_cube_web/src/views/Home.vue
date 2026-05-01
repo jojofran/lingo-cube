@@ -2,8 +2,9 @@
 import { useTheme } from '@/composables/useTheme'
 import { computed } from 'vue'
 import CuteDeco from '@/components/CuteDeco.vue'
+import ThemeToggle from '@/components/common/ThemeToggle.vue'
 
-const { theme, themeLabel, themeShort, cycleTheme } = useTheme()
+const { theme } = useTheme()
 
 const themeClass = computed(() => {
   return theme.value === 'ins' ? 'theme-ins' : theme.value === 'cute' ? 'theme-cute' : ''
@@ -28,9 +29,7 @@ const themeClass = computed(() => {
     </div>
     <CuteDeco />
 
-    <button class="theme-toggle-global" @click="cycleTheme" :title="themeLabel">
-      {{ themeShort }}
-    </button>
+    <ThemeToggle />
 
     <h1 class="theme-title">Lingo Cube</h1>
     <p class="subtitle text-dim">Welcome to Lingo Cube !</p>

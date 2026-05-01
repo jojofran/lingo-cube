@@ -4,17 +4,16 @@ import { wordBank, shuffleWords, type WordEntry } from './wordBank'
 import { fetchRandomWords } from '@/api/word'
 import { useTheme } from '@/composables/useTheme'
 import CuteDeco from '@/components/CuteDeco.vue'
+import ThemeToggle from '@/components/common/ThemeToggle.vue'
+import BackButton from '@/components/common/BackButton.vue'
 import soundGreat from '@/assets/audio/great.mp3'
 import soundExcellent from '@/assets/audio/excellent.wav'
 import soundAmazing from '@/assets/audio/amazing.mp3'
 import soundUnbelievable from '@/assets/audio/unbelievable.wav'
 import soundNext from '@/assets/audio/next.wav'
+import type { GameMode, Screen, WordResult } from '@/types'
 
-const { theme, themeLabel, themeShort, cycleTheme } = useTheme()
-
-type GameMode = 'normal' | 'speed'
-type Screen = 'select' | 'playing' | 'finished'
-type WordResult = 'correct' | 'wrong' | null
+const { theme } = useTheme()
 
 const TOTAL_ROUNDS = 20
 const SPEED_TIME = 8
@@ -332,10 +331,7 @@ onUnmounted(() => { clearInterval(timer!); animating = false; confetti = []; aud
   <div class="game-wrapper" :class="{ 'theme-ins': theme === 'ins', 'theme-cute': theme === 'cute' }">
     <canvas ref="canvasRef" class="confetti-layer" />
 
-    <!-- Global theme toggle (top-right) -->
-    <button class="theme-toggle-global" @click="cycleTheme" :title="themeLabel">
-      {{ themeShort }}
-    </button>
+    <ThemeToggle />
 
     <!-- Cute theme decorations -->
     <CuteDeco />
@@ -467,12 +463,7 @@ onUnmounted(() => { clearInterval(timer!); animating = false; confetti = []; aud
     </div>
 
     <!-- ============ FINISHED ============ -->
-    <router-link to="/" class="back-icon" title="Back">
-      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="19" y1="12" x2="5" y2="12"></line>
-        <polyline points="12 19 5 12 12 5"></polyline>
-      </svg>
-    </router-link>
+    <BackButton to="/" />
     <div v-if="screen === 'finished'" class="finish-screen">
       <div class="finish-card">
         <div class="finish-emoji">🎊</div>
@@ -524,12 +515,7 @@ onUnmounted(() => { clearInterval(timer!); animating = false; confetti = []; aud
     </div>
 
     <!-- Back to home -->
-    <router-link to="/" class="back-icon" title="Back">
-      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="19" y1="12" x2="5" y2="12"></line>
-        <polyline points="12 19 5 12 12 5"></polyline>
-      </svg>
-    </router-link>
+    <BackButton to="/" />
 
   </div>
 </template>

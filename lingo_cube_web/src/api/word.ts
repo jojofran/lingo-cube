@@ -1,5 +1,5 @@
 import axios from 'axios'
-import type { WordEntry } from '@/views/wordBank'
+import type { WordEntry } from '@/types'
 
 interface ApiResponse<T> {
   code: number

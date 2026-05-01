@@ -4,8 +4,10 @@ import { useRouter } from 'vue-router'
 import { wordBank, type WordEntry } from './wordBank'
 import { useTheme } from '@/composables/useTheme'
 import CuteDeco from '@/components/CuteDeco.vue'
+import ThemeToggle from '@/components/common/ThemeToggle.vue'
+import BackButton from '@/components/common/BackButton.vue'
 
-const { theme, themeLabel, themeShort, cycleTheme } = useTheme()
+const { theme } = useTheme()
 const router = useRouter()
 
 // Get failed words from localStorage (set by TypingGame)
@@ -119,10 +121,7 @@ function addToVocab() {
   <div class="review-wrapper" :class="{ 'theme-ins': theme === 'ins', 'theme-cute': theme === 'cute' }">
     <canvas ref="canvasRef" class="confetti-layer" />
 
-    <!-- Global theme toggle -->
-    <button class="theme-toggle-global" @click="cycleTheme" :title="themeLabel">
-      {{ themeShort }}
-    </button>
+    <ThemeToggle />
 
     <!-- Cute theme decorations -->
     <CuteDeco />
@@ -183,13 +182,7 @@ function addToVocab() {
       <div class="review-progress">{{ progress }}</div>
     </div>
 
-    <!-- Back to home -->
-    <router-link to="/typing" class="back-icon" title="Back">
-      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
-        <line x1="19" y1="12" x2="5" y2="12"></line>
-        <polyline points="12 19 5 12 12 5"></polyline>
-      </svg>
-    </router-link>
+    <BackButton to="/typing" />
   </div>
 </template>
 

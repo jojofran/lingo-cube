@@ -1,9 +1,5 @@
-export interface WordEntry {
-  english: string
-  chinese: string
-  phonetic: string
-  examples?: { text: string; weight: number }[]
-}
+import type { WordEntry } from '@/types'
+export type { WordEntry }
 
 function genPhonetic(w: string): string {
   const word = w.toLowerCase()
