@@ -20,6 +20,7 @@ import soundAmazing from '@/assets/audio/amazing.mp3'
 import soundUnbelievable from '@/assets/audio/unbelievable.wav'
 import soundNext from '@/assets/audio/next.wav'
 import type { GameMode, Screen, WordResult } from '@/types'
+import { useGameSessionStore } from '@/stores/gameSession'
 
 const { theme } = useTheme()
 const { initAudio, playSound, playFail, playFinish } = useAudio()
@@ -28,6 +29,7 @@ const { timeLeft, startTimer, stopTimer } = useTimer()
 const { canvasRef, launchConfetti } = useConfetti()
 const { score, combo, maxCombo, grade, praise, regret, onCorrect, onWrong, resetScore, failedWords } = useScoring()
 const { fetchWords, wordList } = useWordProvider()
+const gameSession = useGameSessionStore()
 
 const TOTAL_ROUNDS = 20
 const SPEED_TIME = 8
@@ -77,6 +79,7 @@ function autoSpeak() {
 // ---- Game Logic ----
 async function selectMode(m: GameMode) {
   mode.value = m
+  gameSession.mode = m
   currentIndex.value = 0
   userInput.value = ''
   result.value = null
@@ -134,6 +137,7 @@ function timeout() {
 function next() {
   if (currentIndex.value >= TOTAL_ROUNDS - 1) {
     screen.value = 'finished'
+    gameSession.recordGame(score.value, maxCombo.value)
     launchConfetti()
     playFinish()
     return
