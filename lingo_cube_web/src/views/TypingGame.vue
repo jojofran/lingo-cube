@@ -11,6 +11,9 @@ import { useWordProvider } from '@/composables/useWordProvider'
 import CuteDeco from '@/components/CuteDeco.vue'
 import ThemeToggle from '@/components/common/ThemeToggle.vue'
 import BackButton from '@/components/common/BackButton.vue'
+import ModeSelect from '@/components/game/ModeSelect.vue'
+import GamePlay from '@/components/game/GamePlay.vue'
+import GameFinished from '@/components/game/GameFinished.vue'
 import soundGreat from '@/assets/audio/great.mp3'
 import soundExcellent from '@/assets/audio/excellent.wav'
 import soundAmazing from '@/assets/audio/amazing.mp3'
@@ -63,12 +66,6 @@ const inputClass = computed(() => {
   if (result.value === 'wrong') return 'input-wrong'
   return ''
 })
-
-function onFailedScroll(e: Event) {
-  const el = e.target as HTMLElement
-  const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 20
-  failedAtBottom.value = atBottom
-}
 
 function autoSpeak() {
   if (currentWord.value) {
@@ -198,176 +195,53 @@ onMounted(() => {
     </div>
 
     <!-- ============ MODE SELECT ============ -->
-    <div v-if="screen === 'select'" class="select-screen">
-      <div class="orb orb-1" /><div class="orb orb-2" /><div class="orb orb-3" />
-
-      <div class="select-card">
-        <div class="select-icon">🎯</div>
-        <h2 class="select-heading">Choose Your Mode</h2>
-        <p class="select-desc">Read Chinese, listen, spell English</p>
-
-        <div class="mode-buttons">
-          <button class="mode-btn normal" @click="selectMode('normal')">
-            <span class="mode-icon">📖</span>
-            <span class="mode-label">Library Mode</span>
-            <span class="mode-desc">No timer · Learn at your pace</span>
-          </button>
-          <button class="mode-btn speed" @click="selectMode('speed')">
-            <span class="mode-icon">⚡</span>
-            <span class="mode-label">Speed Mode</span>
-            <span class="mode-desc">{{ SPEED_TIME }} seconds · Challenge high score</span>
-          </button>
-        </div>
-        <p class="select-hint">{{ TOTAL_ROUNDS }} words / round · {{ wordBank.length }} word bank</p>
-      </div>
-    </div>
+    <ModeSelect
+      v-if="screen === 'select'"
+      :total-rounds="TOTAL_ROUNDS"
+      :word-bank-count="wordBank.length"
+      @select-mode="selectMode"
+    />
 
     <!-- ============ PLAYING ============ -->
-    <div v-if="screen === 'playing'" class="playing-screen">
-      <!-- Mode badge -->
-      <div class="mode-badge" :class="mode">
-        {{ isSpeed ? '⚡ Speed' : '📖 Library' }}
-      </div>
-
-      <!-- Stats -->
-      <div class="stats-row">
-        <div class="stat">
-          <span class="stat-label">Score</span>
-          <span class="stat-value">{{ score }}</span>
-        </div>
-        <div class="stat">
-          <span class="stat-label">{{ isSpeed ? 'Combo' : 'Correct' }}</span>
-          <span class="stat-value" :class="{ fire: combo >= 5 }">
-            {{ isSpeed ? `${combo >= 5 ? '🔥 ' : ''}${combo}x` : `${currentIndex} / ${TOTAL_ROUNDS}` }}
-          </span>
-        </div>
-        <div class="stat">
-          <span class="stat-label">{{ isSpeed ? 'Round' : 'Progress' }}</span>
-          <span class="stat-value">{{ currentIndex + 1 }} / {{ TOTAL_ROUNDS }}</span>
-        </div>
-      </div>
-
-      <!-- Timer ring (speed only) -->
-      <div v-if="isSpeed" class="timer-ring-wrap">
-        <svg class="timer-ring" viewBox="0 0 100 100">
-          <circle cx="50" cy="50" r="45" class="timer-bg" />
-          <circle cx="50" cy="50" r="45" class="timer-fg"
-            :style="{ strokeDashoffset: (283 * (1 - timeLeft / SPEED_TIME)), stroke: timerColor }" />
-        </svg>
-        <span class="timer-text" :style="{ color: timerColor }">{{ timeLeft }}</span>
-      </div>
-
-      <!-- Chinese Prompt -->
-      <div v-if="currentWord" class="prompt-card" :class="{ shake: shakeActive, burst: burstActive }" @click="speak(currentWord.english)">
-        <svg class="speak-icon" :class="{ speaking }" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-          <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
-          <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
-        </svg>
-        <span class="chinese-word">{{ currentWord.chinese }}</span>
-        <span class="phonetic">{{ currentWord.phonetic }}</span>
-      </div>
-
-      <!-- Result (between word and input, visible on mobile) -->
-      <transition :name="result === 'correct' ? 'fly-top' : 'fly-side'">
-        <div v-if="result" class="result-bar" :class="result">
-          <span class="result-emoji">{{ result === 'correct' ? '🎉' : '😢' }}</span>
-          <span class="result-text">{{ resultMsg }}</span>
-          <span v-if="result === 'wrong' && currentWord" class="result-answer">
-             Answer: <strong>{{ currentWord.english }}</strong>
-          </span>
-        </div>
-      </transition>
-
-      <!-- Input -->
-      <div class="input-area">
-        <form class="input-row" @submit.prevent="submit">
-          <input
-            id="typing-input"
-            v-model="userInput"
-            :class="inputClass"
-            type="text"
-            autocomplete="off"
-            autocorrect="off"
-            autocapitalize="off"
-            spellcheck="false"
-            :placeholder="isSpeed ? 'Type fast...' : 'Type in English...'"
-            :disabled="!!result"
-            class="typing-input"
-            @keydown="onKeydown"
-          />
-          <button type="submit" class="enter-btn" :disabled="!userInput.trim() || !!result"
-            :class="{ 'btn-ok': result === 'correct', 'btn-bad': result === 'wrong' }">
-            Confirm
-          </button>
-        </form>
-      </div>
-
-      <!-- Progress dots -->
-      <div class="dots-scroll">
-        <div class="dots-row">
-          <span v-for="i in TOTAL_ROUNDS" :key="i"
-            class="dot"
-            :class="{
-              done: i <= currentIndex,
-              current: i === currentIndex + 1 && !result,
-              fail: i <= currentIndex && result === 'wrong' && i === currentIndex,
-            }" />
-        </div>
-      </div>
-    </div>
+    <GamePlay
+      v-if="screen === 'playing'"
+      :mode="mode"
+      :score="score"
+      :combo="combo"
+      :current-index="currentIndex"
+      :time-left="timeLeft"
+      :total-rounds="TOTAL_ROUNDS"
+      :speed-time="SPEED_TIME"
+      :current-word="currentWord"
+      :user-input="userInput"
+      :result="result"
+      :result-msg="resultMsg"
+      :shake-active="shakeActive"
+      :burst-active="burstActive"
+      :speaking="speaking"
+      :is-speed="isSpeed"
+      :timer-color="timerColor"
+      :input-class="inputClass"
+      :is-disabled="!!result"
+      @submit="submit"
+      @speak="speak"
+      @update:user-input="userInput = $event"
+      @keydown="onKeydown"
+    />
 
     <!-- ============ FINISHED ============ -->
-    <BackButton to="/" />
-    <div v-if="screen === 'finished'" class="finish-screen">
-      <div class="finish-card">
-        <div class="finish-emoji">🎊</div>
-        <h2 class="finish-grade">{{ grade.label }}</h2>
-        <div class="finish-stats">
-          <div class="finish-stat">
-            <span class="finish-num">{{ score }}</span>
-            <span class="finish-label">Total Score</span>
-          </div>
-          <div class="finish-stat">
-            <span class="finish-num">🔥 {{ maxCombo }}</span>
-            <span class="finish-label">Best Combo</span>
-          </div>
-          <div class="finish-stat">
-            <span class="finish-num">{{ TOTAL_ROUNDS - failedWords.length }} / {{ TOTAL_ROUNDS }}</span>
-            <span class="finish-label">Accuracy</span>
-          </div>
-        </div>
-
-        <!-- Failed words review -->
-        <div v-if="failedWords.length" class="failed-list">
-          <h3 class="failed-title">Review Needed</h3>
-          <div class="failed-scroll" @scroll="onFailedScroll">
-            <div v-for="w in failedWords" :key="w.english" class="failed-item">
-              <button class="mini-speak" @click="speak(w.english)">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-                  <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
-                </svg>
-              </button>
-              <span class="failed-cn">{{ w.chinese }}</span>
-              <span class="failed-en">{{ w.english }}</span>
-            </div>
-          </div>
-          <div v-if="failedWords.length > 3 && !failedAtBottom" class="外-scroll-hint">
-            <div class="scroll-hint-circle">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M6 9l6 6 6-6"/>
-              </svg>
-            </div>
-          </div>
-        </div>
-
-        <div class="finish-buttons">
-          <button class="restart-btn" @click="restart">Play Again</button>
-          <button class="restart-btn review-btn" @click="startReview" :disabled="failedWords.length === 0">Review</button>
-        </div>
-      </div>
-    </div>
+    <GameFinished
+      v-if="screen === 'finished'"
+      :score="score"
+      :max-combo="maxCombo"
+      :failed-words="failedWords"
+      :total-rounds="TOTAL_ROUNDS"
+      :grade="grade"
+      :failed-at-bottom="failedAtBottom"
+      @restart="restart"
+      @review="startReview"
+      @speak="speak"
+    />
 
     <!-- Back to home -->
     <BackButton to="/" />
