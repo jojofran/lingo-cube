@@ -2,8 +2,8 @@
 
 **⚠️ MANDATORY READ: 新会话开始必须读取此文件**
 
-**最后更新**: 2026-05-02 17:56  
-**最新提交**: 9caf6c9 fix: ReviewPage word speak button missing click handler
+**最后更新**: 2026-05-02 21:56  
+**最新提交**: 1d6666d refactor: word card component system, theme integration, and demo page
 
 ---
 
@@ -21,7 +21,8 @@
 
 ### Git 提交历史（最近 10 条）
 ```
-9caf6c9 fix: ReviewPage word speak button missing click handler
+1d6666d refactor: word card component system, theme integration, and demo page
+100a44a fix: ReviewPage word speak button missing click handler
 da83324 refactor: extract PromptCard into generic WordCard component (R-C-1)
 cd89938 docs: add module/requirement indexing system, design docs, and WordCard plan
 3b8cd2f refactor: integrate gameSession store into TypingGame (R-A-1)
@@ -30,7 +31,6 @@ a9eba02 fix: CuteDeco position override in Home scoped CSS (B-A-1)
 e13d964 test: verify post-commit hook
 d21d63e fix: restore Phase 2 component imports and remove Phase 4 scope creep
 0eaa95f feat: add Pinia game session store
-96a23b6 refactor: remove inline theme CSS and extract backend word data
 ```
 
 ### Git 状态
@@ -46,7 +46,7 @@ d21d63e fix: restore Phase 2 component imports and remove Phase 4 scope creep
 |--------|------|
 | 前端构建 | ✅ 通过 |
 | Git 状态 | ✅ 干净 |
-| 最新提交 | 9caf6c9 fix: ReviewPage word speak button missing click handler |
+| 最新提交 | 1d6666d refactor: word card component system, theme integration, and demo page |
 
 ---
 
@@ -74,4 +74,4 @@ d21d63e fix: restore Phase 2 component imports and remove Phase 4 scope creep
 
 ---
 
-**项目状态**: 自动更新于 Sat May  2 17:56:41 CST 2026
+**项目状态**: 自动更新于 Sat May  2 21:56:24 CST 2026

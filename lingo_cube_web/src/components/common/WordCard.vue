@@ -1,27 +1,34 @@
 <script setup lang="ts">
-import { useSlots } from 'vue'
 import type { WordEntry } from '@/types'
+import WordSpeaker from '@/components/word/WordSpeaker.vue'
 
-const props = defineProps<{
+type WordPrimary = 'chinese' | 'english'
+
+const props = withDefaults(defineProps<{
   word: WordEntry | null
+  primary?: WordPrimary
+  showSecondary?: boolean
   showPhonetic?: boolean
   showSpeak?: boolean
   animatable?: boolean
   shakeActive?: boolean
   burstActive?: boolean
   speaking?: boolean
-}>()
+}>(), {
+  primary: 'chinese',
+  showSecondary: true,
+  showPhonetic: true,
+  showSpeak: true,
+})
 
 const emit = defineEmits<{
   speak: [word: string]
 }>()
 
-const slots = useSlots()
-
 function onCardClick() {
-  if (props.showSpeak !== false && props.word && !slots.action) {
-    emit('speak', props.word.english)
-  }
+  if (props.showSpeak === false || !props.word) return
+  // WordCard 只负责播单词。播例句是 WordCardEx 的行为
+  emit('speak', props.word.english)
 }
 </script>
 
@@ -35,33 +42,28 @@ function onCardClick() {
     }"
     @click="onCardClick"
   >
-    <svg
-      v-if="showSpeak !== false && !slots.action"
-      class="speak-icon"
-      :class="{ speaking: speaking }"
-      viewBox="0 0 24 24"
-      width="20"
-      height="20"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    >
-      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
-      <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
-      <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
-    </svg>
+    <WordSpeaker
+      v-if="showSpeak !== false"
+      class="word-card__speaker"
+      :speaking="speaking"
+      @click.stop
+      @speak="emit('speak', word.english)"
+    />
 
-    <div v-if="slots.action" class="word-card__actions" @click.stop>
-      <slot name="action" />
-    </div>
+    <!-- primary='chinese': Chinese as primary word -->
+    <template v-if="primary === 'chinese'">
+      <span class="word-primary">{{ word.chinese }}</span>
+      <span v-if="showPhonetic !== false" class="phonetic">{{ word.phonetic }}</span>
+    </template>
 
-    <span class="chinese-word">{{ word.chinese }}</span>
+    <!-- primary='english': English as primary word, optional Chinese as secondary -->
+    <template v-else>
+      <span class="word-primary">{{ word.english }}</span>
+      <span v-if="showPhonetic !== false" class="phonetic">{{ word.phonetic }}</span>
+      <span v-if="showSecondary !== false" class="word-secondary">{{ word.chinese }}</span>
+    </template>
 
-    <span v-if="showPhonetic !== false" class="phonetic">{{ word.phonetic }}</span>
-
-    <div v-if="slots.default" class="word-card__extra" @click.stop>
+    <div v-if="$slots.default" class="word-card__extra">
       <slot />
     </div>
   </div>
@@ -95,7 +97,31 @@ function onCardClick() {
   transform: scale(0.99);
 }
 
-.speak-icon {
+.word-primary {
+  font-size: clamp(1.5rem, 5vw, 2.4rem);
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-shadow: var(--chinese-text-shadow);
+  overflow-wrap: break-word;
+  word-break: keep-all;
+  line-height: 1.2;
+  text-align: center;
+  color: var(--word-color, #ffd93d);
+}
+
+.word-secondary {
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  overflow-wrap: break-word;
+  word-break: keep-all;
+  line-height: 1.3;
+  text-align: center;
+  margin-top: 10px;
+  color: var(--word-secondary-color, var(--text-primary));
+}
+
+.word-card__speaker {
   position: absolute;
   top: 8px;
   right: 10px;
@@ -104,40 +130,12 @@ function onCardClick() {
   color: var(--text-primary);
 }
 
-.word-card:hover .speak-icon {
+.word-card:hover .word-card__speaker {
   opacity: 0.6;
 }
 
-.speak-icon.speaking {
-  opacity: 0.8;
-  color: var(--speak-active-color);
-  animation: speak-pulse 0.6s ease-in-out infinite;
-}
-
-@keyframes speak-pulse {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.2);
-  }
-}
-
-.chinese-word {
-  font-size: clamp(1.4rem, 4.5vw, 2.2rem);
-  font-weight: 800;
-  letter-spacing: 3px;
-  text-shadow: var(--chinese-text-shadow);
-  overflow-wrap: break-word;
-  word-break: keep-all;
-  line-height: 1.2;
-  text-align: center;
-  color: var(--text-primary);
-}
-
 .phonetic {
-  font-size: 0.95rem;
+  font-size: 1.3rem;
   color: var(--phonetic-color, rgba(255, 255, 255, 0.55));
   font-family: 'Times New Roman', 'STIX Two Text', serif;
   letter-spacing: 0.5px;
@@ -145,14 +143,9 @@ function onCardClick() {
   margin-top: 8px;
 }
 
-.word-card__actions {
-  position: absolute;
-  top: 8px;
-  right: 10px;
-}
-
 .word-card__extra {
   width: 100%;
+  margin-top: 8px;
 }
 
 .shake {

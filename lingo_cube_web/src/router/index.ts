@@ -18,6 +18,11 @@ const router = createRouter({
       name: 'review',
       component: () => import('@/views/ReviewPage.vue'),
     },
+    {
+      path: '/word-demo',
+      name: 'WordCardDemo',
+      component: () => import('@/views/WordCardDemo.vue'),
+    },
   ],
 })
 

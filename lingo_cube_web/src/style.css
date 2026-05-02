@@ -29,6 +29,7 @@
   --example-label: rgba(255,255,255,0.5);
   --phonetic-color: rgba(255,255,255,0.55);
   --word-color: #ffd93d;
+  --word-secondary-color: rgba(255,255,255,0.75);
   --orb-1: #4d96ff;
   --orb-2: #ff6b6b;
   --orb-3: #ffd93d;
@@ -78,6 +79,7 @@
   --example-label: rgba(45,52,54,0.45);
   --phonetic-color: rgba(45,52,54,0.55);
   --word-color: #667eea;
+  --word-secondary-color: rgba(45,52,54,0.7);
   --orb-1: #e8a87c;
   --orb-2: #d49aa0;
   --orb-3: #a0a8d0;
@@ -123,6 +125,7 @@
   --example-label: rgba(74,74,74,0.45);
   --phonetic-color: rgba(74,74,74,0.55);
   --word-color: #7cc5b0;
+  --word-secondary-color: rgba(74,74,74,0.7);
   --orb-1: #7cc5b0;
   --orb-2: #f5a0b0;
   --orb-3: #c8a0d0;

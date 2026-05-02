@@ -10,6 +10,17 @@ export default defineConfig({
       '@': resolve(__dirname, 'src'),
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('/common/WordCard') || id.includes('/components/word/')) {
+            return 'word-components'
+          }
+        },
+      },
+    },
+  },
   server: {
     host: '0.0.0.0',
     port: 3000,

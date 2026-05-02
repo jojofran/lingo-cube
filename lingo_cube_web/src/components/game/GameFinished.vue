@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 import type { WordEntry } from '@/types'
+import WordListItem from '@/components/word/WordListItem.vue'
 
 const props = defineProps<{
   score: number
@@ -54,16 +55,7 @@ function onFailedScroll(e: Event) {
       <div v-if="failedWords.length" class="failed-list">
         <h3 class="failed-title">Review Needed</h3>
         <div class="failed-scroll" @scroll="onFailedScroll">
-          <div v-for="w in failedWords" :key="w.english" class="failed-item">
-            <button class="mini-speak" @click="$emit('speak', w.english)">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-                <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
-              </svg>
-            </button>
-            <span class="failed-cn">{{ w.chinese }}</span>
-            <span class="failed-en">{{ w.english }}</span>
-          </div>
+          <WordListItem v-for="w in failedWords" :key="w.english" :word="w" @speak="$emit('speak', w.english)" />
         </div>
         <div v-if="failedWords.length > 3 && !localFailedAtBottom" class="外-scroll-hint">
           <div class="scroll-hint-circle">
@@ -183,43 +175,11 @@ function onFailedScroll(e: Event) {
   font-weight: 600;
   letter-spacing: 1px;
 }
-.failed-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 14px;
+.failed-scroll :deep(.list-item) {
   border-radius: 12px;
   background: var(--stat-bg);
   margin-bottom: 6px;
   font-size: 0.85rem;
-}
-.failed-cn {
-  color: var(--text-dim);
-  min-width: 0;
-  flex: 0 1 auto;
-  margin-right: 6px;
-}
-.failed-en {
-  color: var(--word-color);
-  font-weight: 600;
-  font-family: 'SF Mono', 'Fira Code', monospace;
-  letter-spacing: 1px;
-  flex: 1 1 auto;
-}
-.mini-speak {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 0.9rem;
-  padding: 4px;
-  color: var(--text-dim);
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  transition: color 0.2s;
-}
-.mini-speak:hover {
-  color: var(--accent);
 }
 
 .finish-buttons {
