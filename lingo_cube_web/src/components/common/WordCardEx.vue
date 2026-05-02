@@ -38,19 +38,24 @@ const currentExample = computed<{ text: string; weight: number } | null>(() => {
     :speaking="speaking"
     @speak="emit('speak', $event)"
   >
-    <template v-if="currentExample" #default>
-      <slot v-if="$slots.example" name="example" :example="currentExample" />
-      <div v-else class="wx-example">
-        <span class="wx-example-label">Example</span>
-        <div class="wx-example-body">
-          <span class="wx-example-text">{{ currentExample.text }}</span>
-          <WordSpeaker
-            :speaking="speaking"
-            @click.stop
-            @speak="emit('speak', currentExample.text)"
-          />
+    <template #default>
+      <!-- 词库数据中的例句（如果有） -->
+      <template v-if="currentExample">
+        <slot v-if="$slots.example" name="example" :example="currentExample" />
+        <div v-else class="wx-example">
+          <span class="wx-example-label">Example</span>
+          <div class="wx-example-body">
+            <span class="wx-example-text">{{ currentExample.text }}</span>
+            <WordSpeaker
+              :speaking="speaking"
+              @click.stop
+              @speak="emit('speak', currentExample.text)"
+            />
+          </div>
         </div>
-      </div>
+      </template>
+      <!-- 父组件传入的底部内容（如 Got it / Vocab 按钮） -->
+      <slot />
     </template>
   </WordCard>
 </template>
