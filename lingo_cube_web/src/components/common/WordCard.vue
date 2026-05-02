@@ -1,28 +1,44 @@
 <script setup lang="ts">
+import { useSlots } from 'vue'
 import type { WordEntry } from '@/types'
 
-defineProps<{
+const props = defineProps<{
   word: WordEntry | null
-  shakeActive: boolean
-  burstActive: boolean
-  speaking: boolean
+  showPhonetic?: boolean
+  showSpeak?: boolean
+  animatable?: boolean
+  shakeActive?: boolean
+  burstActive?: boolean
+  speaking?: boolean
 }>()
 
 const emit = defineEmits<{
   speak: [word: string]
 }>()
+
+const slots = useSlots()
+
+function onCardClick() {
+  if (props.showSpeak !== false && props.word && !slots.action) {
+    emit('speak', props.word.english)
+  }
+}
 </script>
 
 <template>
   <div
     v-if="word"
-    class="prompt-card"
-    :class="{ shake: shakeActive, burst: burstActive }"
-    @click="emit('speak', word.english)"
+    class="word-card"
+    :class="{
+      shake: animatable !== false && shakeActive,
+      burst: animatable !== false && burstActive,
+    }"
+    @click="onCardClick"
   >
     <svg
+      v-if="showSpeak !== false && !slots.action"
       class="speak-icon"
-      :class="{ speaking }"
+      :class="{ speaking: speaking }"
       viewBox="0 0 24 24"
       width="20"
       height="20"
@@ -36,13 +52,23 @@ const emit = defineEmits<{
       <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
       <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
     </svg>
+
+    <div v-if="slots.action" class="word-card__actions" @click.stop>
+      <slot name="action" />
+    </div>
+
     <span class="chinese-word">{{ word.chinese }}</span>
-    <span class="phonetic">{{ word.phonetic }}</span>
+
+    <span v-if="showPhonetic !== false" class="phonetic">{{ word.phonetic }}</span>
+
+    <div v-if="slots.default" class="word-card__extra" @click.stop>
+      <slot />
+    </div>
   </div>
 </template>
 
 <style scoped>
-.prompt-card {
+.word-card {
   position: relative;
   width: 100%;
   max-width: 420px;
@@ -59,11 +85,13 @@ const emit = defineEmits<{
   align-items: center;
   justify-content: center;
 }
-.prompt-card:hover {
+
+.word-card:hover {
   border-color: var(--prompt-hover-border);
   background: var(--prompt-hover-bg);
 }
-.prompt-card:active {
+
+.word-card:active {
   transform: scale(0.99);
 }
 
@@ -75,14 +103,17 @@ const emit = defineEmits<{
   transition: opacity 0.25s;
   color: var(--text-primary);
 }
-.prompt-card:hover .speak-icon {
+
+.word-card:hover .speak-icon {
   opacity: 0.6;
 }
+
 .speak-icon.speaking {
   opacity: 0.8;
   color: var(--speak-active-color);
   animation: speak-pulse 0.6s ease-in-out infinite;
 }
+
 @keyframes speak-pulse {
   0%,
   100% {
@@ -104,6 +135,7 @@ const emit = defineEmits<{
   text-align: center;
   color: var(--text-primary);
 }
+
 .phonetic {
   font-size: 0.95rem;
   color: var(--phonetic-color, rgba(255, 255, 255, 0.55));
@@ -113,9 +145,20 @@ const emit = defineEmits<{
   margin-top: 8px;
 }
 
+.word-card__actions {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+}
+
+.word-card__extra {
+  width: 100%;
+}
+
 .shake {
   animation: shake 0.5s ease-in-out;
 }
+
 @keyframes shake {
   0%,
   100% {
@@ -135,6 +178,7 @@ const emit = defineEmits<{
 .burst {
   animation: burst 0.8s ease;
 }
+
 @keyframes burst {
   0% {
     transform: scale(1);

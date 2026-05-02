@@ -2,7 +2,7 @@
 import type { GameMode, WordEntry, WordResult } from '@/types'
 import StatsRow from './StatsRow.vue'
 import TimerRing from './TimerRing.vue'
-import PromptCard from './PromptCard.vue'
+import WordCard from '@/components/common/WordCard.vue'
 import ResultBar from './ResultBar.vue'
 import InputArea from './InputArea.vue'
 import ProgressDots from './ProgressDots.vue'
@@ -58,8 +58,9 @@ const emit = defineEmits<{
       :timer-color="timerColor"
     />
 
-    <PromptCard
+    <WordCard
       :word="currentWord"
+      :animatable="true"
       :shake-active="shakeActive"
       :burst-active="burstActive"
       :speaking="speaking"
