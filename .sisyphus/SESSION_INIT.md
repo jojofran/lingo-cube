@@ -17,12 +17,13 @@ if [ -n "$PLAN" ]; then
   # 检查最近5个提交
   git log -5 --pretty="%h %s" 2>/dev/null | while read -r HASH MSG; do
     # 提取完整ID：前缀-子类-步骤 (如 R-A-1, F-B-2, T-A-1)
-    COMMIT_ID=$(echo "$MSG" | grep -oE '[RFT]-[A-Z]-[0-9]+' | head -1)
+    COMMIT_ID=$(echo "$MSG" | grep -oE '[BRFT]-[A-Z]-[0-9]+' | head -1)
     
     if [ -n "$COMMIT_ID" ]; then
       # 判断类型前缀
       PREFIX=$(echo "$COMMIT_ID" | cut -d'-' -f1)
       case "$PREFIX" in
+        B) TYPE="修复" ;;
         R) TYPE="重构" ;;
         F) TYPE="功能" ;;
         T) TYPE="测试" ;;

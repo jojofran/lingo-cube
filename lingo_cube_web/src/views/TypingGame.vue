@@ -6,7 +6,7 @@ import { useAudio } from '@/composables/useAudio'
 import { useSpeech } from '@/composables/useSpeech'
 import { useTimer } from '@/composables/useTimer'
 import { useConfetti } from '@/composables/useConfetti'
-import { useScoring } from '@/composables/useScoring'
+import { useGameSessionStore } from '@/stores/gameSession'
 import { useWordProvider } from '@/composables/useWordProvider'
 import CuteDeco from '@/components/CuteDeco.vue'
 import ThemeToggle from '@/components/common/ThemeToggle.vue'
@@ -26,22 +26,25 @@ const { initAudio, playSound, playFail, playFinish } = useAudio()
 const { speak, speaking } = useSpeech()
 const { timeLeft, startTimer, stopTimer } = useTimer()
 const { canvasRef, launchConfetti } = useConfetti()
-const { score, combo, maxCombo, grade, praise, regret, onCorrect, onWrong, resetScore, failedWords } = useScoring()
+const gameSession = useGameSessionStore()
 const { fetchWords, wordList } = useWordProvider()
 
 const TOTAL_ROUNDS = 20
 const SPEED_TIME = 8
 
 const screen = ref<Screen>('select')
-const mode = ref<GameMode>('normal')
-
-const currentIndex = ref(0)
 const userInput = ref('')
 const result = ref<WordResult>(null)
 const resultMsg = ref('')
 const failedAtBottom = ref(false)
 const shakeActive = ref(false)
 const burstActive = ref(false)
+
+const praiseStrings = ['Great! 🎉', 'Nice! ✨', 'Perfect! 💯', 'Excellent! 🌟', 'Amazing! 🔥', 'Superb! 👏', 'Unbelievable! 💎'] as const
+const praise = (): string => praiseStrings[Math.floor(Math.random() * praiseStrings.length)]
+
+const regretStrings = ["Keep trying! 💪", "Almost there! 🎯", "Next one! 🚀", "Don't give up! ⚡", "You'll get it! 🍀"] as const
+const regret = (): string => regretStrings[Math.floor(Math.random() * regretStrings.length)]
 
 // Praise text → sound name mapping for manual sound playback
 const praiseToSound: Record<string, string> = {
@@ -54,8 +57,8 @@ const praiseToSound: Record<string, string> = {
   'Unbelievable! 💎': 'unbelievable'
 }
 
-const currentWord = computed(() => wordList.value[currentIndex.value] ?? null)
-const isSpeed = computed(() => mode.value === 'speed')
+const currentWord = computed(() => wordList.value[gameSession.currentIndex] ?? null)
+const isSpeed = computed(() => gameSession.mode === 'speed')
 const timerColor = computed(() => {
   if (timeLeft.value > 5) return '#6bcb77'
   if (timeLeft.value > 2) return '#ffd93d'
@@ -76,12 +79,10 @@ function autoSpeak() {
 
 // ---- Game Logic ----
 async function selectMode(m: GameMode) {
-  mode.value = m
-  currentIndex.value = 0
+  gameSession.setMode(m)
   userInput.value = ''
   result.value = null
   resultMsg.value = ''
-  resetScore()
 
   await fetchWords(TOTAL_ROUNDS)
 
@@ -106,7 +107,7 @@ function submit() {
     result.value = 'correct'
     const msg = praise()
     resultMsg.value = msg
-    onCorrect(isSpeed.value, isSpeed.value ? timeLeft.value : 0)
+    gameSession.onCorrect(isSpeed.value, isSpeed.value ? timeLeft.value : 0)
     burstActive.value = true
     launchConfetti()
     const soundName = praiseToSound[msg] || 'next'
@@ -114,7 +115,7 @@ function submit() {
   } else {
     result.value = 'wrong'
     resultMsg.value = regret()
-    onWrong(currentWord.value)
+    gameSession.onWrong(currentWord.value)
     shakeActive.value = true
     playFail()
   }
@@ -125,14 +126,15 @@ function timeout() {
   stopTimer()
   result.value = 'wrong'
   resultMsg.value = "Time's up! ⏱"
-  onWrong(currentWord.value!)
+  gameSession.onWrong(currentWord.value!)
   shakeActive.value = true
   playFail()
   setTimeout(() => next(), 1500)
 }
 
 function next() {
-  if (currentIndex.value >= TOTAL_ROUNDS - 1) {
+  if (gameSession.currentIndex >= TOTAL_ROUNDS - 1) {
+    gameSession.recordGame(gameSession.score, gameSession.combo)
     screen.value = 'finished'
     launchConfetti()
     playFinish()
@@ -143,7 +145,7 @@ function next() {
   resultMsg.value = ''
   shakeActive.value = false
   burstActive.value = false
-  currentIndex.value++
+  gameSession.currentIndex++
   if (isSpeed.value) { startTimer(SPEED_TIME, () => timeout()) }
   nextTick(() => {
     document.getElementById('typing-input')?.focus()
@@ -160,9 +162,9 @@ function restart() {
 }
 
 function startReview() {
-  if (failedWords.value.length === 0) return
+  if (gameSession.failedWords.length === 0) return
   // Save failed words to localStorage and navigate to review page
-  localStorage.setItem('failedWords', JSON.stringify(failedWords.value))
+  localStorage.setItem('failedWords', JSON.stringify(gameSession.failedWords))
   window.location.href = '/lingo-cube/#/review'
 }
 
@@ -205,10 +207,10 @@ onMounted(() => {
     <!-- ============ PLAYING ============ -->
     <GamePlay
       v-if="screen === 'playing'"
-      :mode="mode"
-      :score="score"
-      :combo="combo"
-      :current-index="currentIndex"
+      :mode="gameSession.mode"
+      :score="gameSession.score"
+      :combo="gameSession.combo"
+      :current-index="gameSession.currentIndex"
       :time-left="timeLeft"
       :total-rounds="TOTAL_ROUNDS"
       :speed-time="SPEED_TIME"
@@ -232,11 +234,11 @@ onMounted(() => {
     <!-- ============ FINISHED ============ -->
     <GameFinished
       v-if="screen === 'finished'"
-      :score="score"
-      :max-combo="maxCombo"
-      :failed-words="failedWords"
+      :score="gameSession.score"
+      :max-combo="gameSession.maxCombo"
+      :failed-words="gameSession.failedWords"
       :total-rounds="TOTAL_ROUNDS"
-      :grade="grade"
+      :grade="gameSession.grade"
       :failed-at-bottom="failedAtBottom"
       @restart="restart"
       @review="startReview"
