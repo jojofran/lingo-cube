@@ -6,7 +6,6 @@ import { useTheme } from '@/composables/useTheme'
 import { useSpeech } from '@/composables/useSpeech'
 import { useGameSessionStore } from '@/stores/gameSession'
 import ReviewCard from '@/components/common/ReviewCard.vue'
-import WordSpeaker from '@/components/word/WordSpeaker.vue'
 import CuteDeco from '@/components/CuteDeco.vue'
 import ThemeToggle from '@/components/common/ThemeToggle.vue'
 import BackButton from '@/components/common/BackButton.vue'
@@ -26,16 +25,25 @@ const canvasRef = ref<HTMLCanvasElement | null>(null)
 const currentWord = computed(() => failedWords.value[reviewIndex.value] ?? null)
 const progress = computed(() => `${reviewIndex.value + 1} / ${failedWords.value.length}`)
 
+/** 给没有例句的词注入 mock 例句 */
+function ensureExample(word: WordEntry): WordEntry {
+  if (word.examples?.length) return word
+  return {
+    ...word,
+    examples: [{ text: `This is test example to show ${word.english}`, weight: 1 }],
+  }
+}
+
 onMounted(() => {
   // 优先从 store 读取（同一会话内跳转）
   if (gameSession.failedWords.length > 0) {
-    failedWords.value = [...gameSession.failedWords]
+    failedWords.value = gameSession.failedWords.map(ensureExample)
   } else {
     // store 为空时降级到 localStorage（页面刷新后）
     const stored = localStorage.getItem('failedWords')
     if (stored) {
       try {
-        failedWords.value = JSON.parse(stored)
+        failedWords.value = (JSON.parse(stored) as WordEntry[]).map(ensureExample)
       } catch {
         failedWords.value = []
       }
@@ -43,7 +51,7 @@ onMounted(() => {
   }
   if (failedWords.value.length === 0) {
     // 空数据时用词库前 5 条做展示
-    failedWords.value = wordBank.slice(0, 5)
+    failedWords.value = wordBank.slice(0, 5).map(ensureExample)
   }
   selectExample()
   speak(currentWord.value?.english)
@@ -52,24 +60,15 @@ onMounted(() => {
 
 function selectExample() {
   const word = currentWord.value
-  if (word?.examples && word.examples.length > 0) {
-    // Weighted random selection
-    const totalWeight = word.examples.reduce((sum, ex) => sum + (ex.weight || 1), 0)
-    let random = Math.random() * totalWeight
-    for (const example of word.examples) {
-      random -= (example.weight || 1)
-      if (random <= 0) {
-        selectedExample.value = example
-        return
-      }
-    }
-    selectedExample.value = word.examples[0]
-  } else {
-    selectedExample.value = {
-      text: `This is test example to show ${word?.english || 'word'}`,
-      weight: 1
-    }
+  if (!word?.examples?.length) return
+  const exs = word.examples
+  const totalWeight = exs.reduce((sum, ex) => sum + (ex.weight || 1), 0)
+  let random = Math.random() * totalWeight
+  for (const example of exs) {
+    random -= (example.weight || 1)
+    if (random <= 0) { selectedExample.value = example; return }
   }
+  selectedExample.value = exs[0]
 }
 
 function nextWord() {
@@ -124,15 +123,6 @@ function addToVocab() {
 
     <!-- Review Card -->
     <ReviewCard v-if="currentWord" :word="currentWord" :speaking="false" @speak="speak">
-      <!-- Example -->
-      <div class="review-example">
-        <span class="example-label">Example:</span>
-        <div class="example-text-wrapper">
-          <div class="example-text">{{ selectedExample?.text }}</div>
-        </div>
-        <WordSpeaker @speak="speak(selectedExample?.text || '')" />
-      </div>
-
       <!-- Actions -->
       <div class="review-actions">
         <button class="action-btn remembered-action" @click="markRemembered">
@@ -182,35 +172,7 @@ function addToVocab() {
 .review-title { font-size: 2rem; font-weight: 800; letter-spacing: 2px; margin-bottom: 4px; color: var(--title-color); }
 .review-subtitle { font-size: 0.9rem; color: var(--text-muted); letter-spacing: 4px; text-transform: uppercase; }
 
-.review-example {
-  margin: 4px 0 24px;
-  padding: 16px;
-  border-radius: 14px;
-  background: var(--example-bg, rgba(255,255,255,0.04));
-  border: 1px solid var(--card-border);
-  text-align: left;
-}
-.example-label {
-  display: block;
-  font-size: 0.7rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: var(--text-muted, rgba(255,255,255,0.35));
-  margin-bottom: 10px;
-}
-.example-text {
-  flex: 1;
-  min-width: 0;
-  font-size: 0.95rem;
-  line-height: 1.7;
-  color: var(--text-primary);
-  font-style: italic;
-}
-.example-text-wrapper {
-  flex: 1;
-  min-width: 0;
-}
+.review-progress { color: var(--stat-text); font-size: 0.85rem; text-align: center; }
 
 .review-actions { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; }
 .action-btn {
@@ -222,8 +184,6 @@ function addToVocab() {
 .remembered-action:hover { filter: brightness(1.1); transform: translateY(-2px); }
 .vocab-action { background: var(--accent-tertiary); color: #fff; }
 .vocab-action:hover { filter: brightness(1.1); transform: translateY(-2px); }
-
-.review-progress { color: var(--stat-text); font-size: 0.85rem; }
 
 @media (max-width: 480px) {
   .review-title { font-size: 1.6rem; }

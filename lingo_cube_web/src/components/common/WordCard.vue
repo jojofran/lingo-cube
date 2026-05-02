@@ -75,7 +75,7 @@ function onCardClick() {
   width: 100%;
   max-width: 420px;
   box-sizing: border-box;
-  padding: 20px 28px 16px;
+  padding: 16px;
   margin-bottom: 16px;
   border: 1px solid var(--card-border);
   border-radius: 20px;

@@ -27,19 +27,10 @@ const emit = defineEmits<{
 
 <style scoped>
 .review-card {
-  --wc-padding: 28px 20px;
   --wc-radius: var(--card-radius, 24px);
 }
 
 .review-card :deep(.word-card) {
-  padding: var(--wc-padding);
   border-radius: var(--wc-radius);
-}
-
-@media (max-width: 480px) {
-  .review-card :deep(.word-card) {
-    padding: 20px 16px;
-    border-radius: 20px;
-  }
 }
 </style>
