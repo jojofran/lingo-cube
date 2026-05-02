@@ -33,13 +33,22 @@ export const useGameSessionStore = defineStore('gameSession', () => {
     failedWords.value = []
   }
 
-  function onCorrect(isSpeed: boolean, timeLeft: number): void {
+  function onCorrect(isSpeed: boolean, timeLeft: number, mode?: GameMode): void {
     combo.value++
     if (combo.value > maxCombo.value) {
       maxCombo.value = combo.value
     }
     const bonus = Math.min(combo.value * 2, 20)
-    const base = isSpeed ? 15 : 10
+    let base: number
+    if (isSpeed) {
+      base = 15
+    } else if (mode === 'listen') {
+      base = 15
+    } else if (mode === 'spell') {
+      base = 12
+    } else {
+      base = 10
+    }
     score.value += base + bonus
     if (isSpeed) {
       score.value += Math.max(0, timeLeft * 2)

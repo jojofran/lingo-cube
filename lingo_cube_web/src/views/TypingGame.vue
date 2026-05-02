@@ -97,7 +97,11 @@ async function selectMode(m: GameMode) {
     if (window.innerWidth <= 768) {
       document.querySelector('.stats-row')?.scrollIntoView({ behavior: 'auto', block: 'start' })
     }
-    autoSpeak()
+    if (gameSession.mode === 'listen') {
+      speak(currentWord.value?.english ?? '')
+    } else {
+      autoSpeak()
+    }
   })
 }
 
@@ -111,7 +115,7 @@ function submit() {
     result.value = 'correct'
     const msg = praise()
     resultMsg.value = msg
-    gameSession.onCorrect(isSpeed.value, isSpeed.value ? timeLeft.value : 0)
+    gameSession.onCorrect(isSpeed.value, isSpeed.value ? timeLeft.value : 0, gameSession.mode)
     burstActive.value = true
     launchConfetti()
     const soundName = praiseToSound[msg] || 'next'
@@ -156,7 +160,11 @@ function next() {
     if (window.innerWidth <= 768) {
       document.querySelector('.stats-row')?.scrollIntoView({ behavior: 'auto', block: 'start' })
     }
-    autoSpeak()
+    if (gameSession.mode === 'listen') {
+      speak(currentWord.value?.english ?? '')
+    } else {
+      autoSpeak()
+    }
   })
 }
 

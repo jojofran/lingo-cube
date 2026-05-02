@@ -31,6 +31,16 @@ const emit = defineEmits<{
           <span class="mode-label">Speed Mode</span>
           <span class="mode-desc">8 seconds · Challenge high score</span>
         </button>
+        <button class="mode-btn spell" @click="emit('select-mode', 'spell')">
+          <span class="mode-icon">✍️</span>
+          <span class="mode-label">Spelling Mode</span>
+          <span class="mode-desc">See Chinese · Type the English</span>
+        </button>
+        <button class="mode-btn listen" @click="emit('select-mode', 'listen')">
+          <span class="mode-icon">🎧</span>
+          <span class="mode-label">Listening Mode</span>
+          <span class="mode-desc">Hear the word · Type what you hear</span>
+        </button>
       </div>
       <p class="select-hint">{{ totalRounds }} words / round · {{ wordBankCount }} word bank</p>
     </div>
@@ -149,6 +159,12 @@ const emit = defineEmits<{
 }
 .mode-btn.speed:hover {
   border-color: var(--accent-secondary);
+}
+.mode-btn.spell:hover {
+  border-color: var(--accent-tertiary);
+}
+.mode-btn.listen:hover {
+  border-color: var(--accent);
 }
 .mode-icon {
   font-size: 1.6rem;

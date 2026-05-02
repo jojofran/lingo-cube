@@ -40,7 +40,7 @@ const emit = defineEmits<{
   <div class="playing-screen">
     <!-- Mode badge -->
     <div class="mode-badge" :class="mode">
-      {{ isSpeed ? '⚡ Speed' : '📖 Library' }}
+      {{ mode === 'speed' ? '⚡ Speed' : mode === 'spell' ? '✍️ Spell' : mode === 'listen' ? '🎧 Listen' : '📖 Library' }}
     </div>
 
     <StatsRow
@@ -58,7 +58,14 @@ const emit = defineEmits<{
       :timer-color="timerColor"
     />
 
+    <template v-if="mode === 'listen'">
+      <div class="listening-card">
+        <div class="listening-icon">🎧</div>
+        <div class="listening-text">Listen & Type</div>
+      </div>
+    </template>
     <WordCard
+      v-else
       :word="currentWord"
       :animatable="true"
       :shake-active="shakeActive"
@@ -120,6 +127,51 @@ const emit = defineEmits<{
   background: var(--mode-badge-speed-bg);
   color: var(--mode-badge-speed-color);
 }
+.mode-badge.spell {
+  background: var(--mode-badge-spell-bg);
+  color: var(--mode-badge-spell-color);
+}
+.mode-badge.listen {
+  background: var(--mode-badge-listen-bg);
+  color: var(--mode-badge-listen-color);
+}
+
+/* ===== Listening Card ===== */
+.listening-card {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  box-sizing: border-box;
+  padding: 16px;
+  margin-bottom: 16px;
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  background: var(--card-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.3s, background 0.3s;
+}
+.listening-card:hover {
+  border-color: var(--prompt-hover-border);
+  background: var(--prompt-hover-bg);
+}
+.listening-icon {
+  font-size: 2.4rem;
+  margin-bottom: 8px;
+  animation: listen-pulse 1.8s ease-in-out infinite;
+}
+@keyframes listen-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.08); opacity: 1; }
+}
+.listening-text {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-dim);
+  letter-spacing: 2px;
+}
 
 @media (max-width: 768px) {
   .playing-screen {
@@ -134,6 +186,12 @@ const emit = defineEmits<{
     font-size: 0.65rem;
     padding: 3px 12px;
     flex-shrink: 0;
+  }
+  .listening-icon {
+    font-size: 1.8rem;
+  }
+  .listening-text {
+    font-size: 0.9rem;
   }
 }
 </style>

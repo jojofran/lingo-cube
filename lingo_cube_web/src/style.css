@@ -198,6 +198,10 @@
   --mode-badge-normal-color: #4d96ff;
   --mode-badge-speed-bg: rgba(255,107,107,0.2);
   --mode-badge-speed-color: #ff6b6b;
+  --mode-badge-spell-bg: rgba(255,146,43,0.2);
+  --mode-badge-spell-color: #ff922b;
+  --mode-badge-listen-bg: rgba(102,126,234,0.2);
+  --mode-badge-listen-color: #667eea;
 
   /* Select icon */
   --select-desc-color: rgba(255,255,255,0.5);
@@ -234,6 +238,10 @@
   --mode-badge-normal-color: #667eea;
   --mode-badge-speed-bg: rgba(208,140,120,0.12);
   --mode-badge-speed-color: #c08060;
+  --mode-badge-spell-bg: rgba(236,159,5,0.18);
+  --mode-badge-spell-color: #ec9f05;
+  --mode-badge-listen-bg: rgba(102,126,234,0.12);
+  --mode-badge-listen-color: #667eea;
 
   --select-desc-color: rgba(45,52,54,0.5);
 }
@@ -269,6 +277,10 @@
   --mode-badge-normal-color: #7cc5b0;
   --mode-badge-speed-bg: rgba(245,160,176,0.12);
   --mode-badge-speed-color: #f5a0b0;
+  --mode-badge-spell-bg: rgba(200,160,208,0.18);
+  --mode-badge-spell-color: #c8a0d0;
+  --mode-badge-listen-bg: rgba(200,160,208,0.2);
+  --mode-badge-listen-color: #c8a0d0;
 
   --select-desc-color: rgba(74,74,74,0.55);
 }
