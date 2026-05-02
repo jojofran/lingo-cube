@@ -2,8 +2,8 @@
 
 **⚠️ MANDATORY READ: 新会话开始必须读取此文件**
 
-**最后更新**: 2026-05-02 23:15  
-**最新提交**: 3fa53bc fix: review page example dedup and WordCard padding standardization
+**最后更新**: 2026-05-02 23:32  
+**最新提交**: a4f24c6 feat: ReviewSessionCard component + useVocabBook + REQ-011
 
 ---
 
@@ -21,7 +21,8 @@
 
 ### Git 提交历史（最近 10 条）
 ```
-3fa53bc fix: review page example dedup and WordCard padding standardization
+a4f24c6 feat: ReviewSessionCard component + useVocabBook + REQ-011
+6dbdedd fix: review page example dedup and WordCard padding standardization
 8428d65 fix: ReviewCard slot passthrough and WordCardEx slot coexistence
 efb2b60 refactor: complete R-A-2/3, R-B-1/2/3 remaining refactoring tasks
 44af3ef refactor: word card component system, theme integration, and demo page
@@ -30,7 +31,6 @@ da83324 refactor: extract PromptCard into generic WordCard component (R-C-1)
 cd89938 docs: add module/requirement indexing system, design docs, and WordCard plan
 3b8cd2f refactor: integrate gameSession store into TypingGame (R-A-1)
 a9eba02 fix: CuteDeco position override in Home scoped CSS (B-A-1)
-8d8601e docs: add session init protocol and refactor plan management
 ```
 
 ### Git 状态
@@ -46,7 +46,7 @@ a9eba02 fix: CuteDeco position override in Home scoped CSS (B-A-1)
 |--------|------|
 | 前端构建 | ✅ 通过 |
 | Git 状态 | ✅ 干净 |
-| 最新提交 | 3fa53bc fix: review page example dedup and WordCard padding standardization |
+| 最新提交 | a4f24c6 feat: ReviewSessionCard component + useVocabBook + REQ-011 |
 
 ---
 
@@ -74,4 +74,4 @@ a9eba02 fix: CuteDeco position override in Home scoped CSS (B-A-1)
 
 ---
 
-**项目状态**: 自动更新于 Sat May  2 23:15:12 CST 2026
+**项目状态**: 自动更新于 Sat May  2 23:32:07 CST 2026

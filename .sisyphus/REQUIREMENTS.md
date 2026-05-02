@@ -118,15 +118,26 @@
 ## REQ-010: 通用单词卡片组件
 | 字段 | 值 |
 |------|-----|
-| **状态** | 📋 proposed |
+| **状态** | ✅ done |
 | **优先级** | P0 |
 | **起源** | PromptCard (`components/game/`) 目前紧耦合于游戏场景，ReviewPage 和未来页面都需要展示单词卡片但无法复用 |
 | **决策** | 待定 — 提取为 `components/common/WordCard.vue`，保留核心展示逻辑，动画和交互通过 props/slots 可配 |
 | **为什么不是...** | 非 inline 样式（需要主题变量）、非纯函数式（需交互能力） |
 | **设计** | `designs/REQ-010-word-card.md` |
 | **模块** | `mod:ui-comps` (WordCard), `mod:game-engine` (消费方) |
-| **任务** | R-C-1 |
+| **任务** | R-C-1, F-D-1 |
 | **废弃条件** | 被更成熟的组件库替代 |
+
+## REQ-011: 复习会话卡片 + 生词本
+| 字段 | 值 |
+|------|-----|
+| **状态** | ✅ done |
+| **优先级** | P1 |
+| **起源** | ReviewPage 内联的复习交互逻辑（nextWord、markRemembered、addToVocab）与展示耦合，需要抽取为独立组件；生词本目前直接操作 localStorage，需要封装 |
+| **决策** | ReviewSessionCard 组件 + useVocabBook composable，与 ReviewCard 组合使用 |
+| **模块** | `mod:review` (ReviewSessionCard), `mod:game-engine` (消费方) |
+| **任务** | F-D-1 |
+| **废弃条件** | 被更完善的学习系统替代 |
 
 ---
 
