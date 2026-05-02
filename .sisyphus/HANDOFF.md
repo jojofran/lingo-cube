@@ -2,8 +2,8 @@
 
 **⚠️ MANDATORY READ: 新会话开始必须读取此文件**
 
-**最后更新**: 2026-05-03 00:14  
-**最新提交**: 6556bd3 test: add useWordProvider unit test (T-A-3)
+**最后更新**: 2026-05-03 00:16  
+**最新提交**: 86f96b3 test: create unit test for useScoring (T-A-1)
 
 ---
 
@@ -21,7 +21,8 @@
 
 ### Git 提交历史（最近 10 条）
 ```
-6556bd3 test: add useWordProvider unit test (T-A-3)
+86f96b3 test: create unit test for useScoring (T-A-1)
+3d3b274 test: add useWordProvider unit test (T-A-3)
 64697b9 test: add useTimer unit test (T-A-2)
 154d623 feat: F-B-1 achievements and F-C-1 word bank manager
 68d9632 feat: F-A-1 spelling mode and F-A-2 listening mode
@@ -30,15 +31,11 @@
 8428d65 fix: ReviewCard slot passthrough and WordCardEx slot coexistence
 efb2b60 refactor: complete R-A-2/3, R-B-1/2/3 remaining refactoring tasks
 44af3ef refactor: word card component system, theme integration, and demo page
-100a44a fix: ReviewPage word speak button missing click handler
 ```
 
 ### Git 状态
 ```
- M .sisyphus/REFACTOR_PLAN.md
-?? lingo_cube_web/test/components/
-?? lingo_cube_web/test/composables/useScoring.test.ts
-?? lingo_cube_web/test/e2e/
+
 ```
 
 ---
@@ -48,8 +45,8 @@ efb2b60 refactor: complete R-A-2/3, R-B-1/2/3 remaining refactoring tasks
 | 检查项 | 状态 |
 |--------|------|
 | 前端构建 | ✅ 通过 |
-| Git 状态 | ⚠️ 有变更 |
-| 最新提交 | 6556bd3 test: add useWordProvider unit test (T-A-3) |
+| Git 状态 | ✅ 干净 |
+| 最新提交 | 86f96b3 test: create unit test for useScoring (T-A-1) |
 
 ---
 
@@ -77,4 +74,4 @@ efb2b60 refactor: complete R-A-2/3, R-B-1/2/3 remaining refactoring tasks
 
 ---
 
-**项目状态**: 自动更新于 Sun May  3 00:14:49 CST 2026
+**项目状态**: 自动更新于 Sun May  3 00:16:48 CST 2026
