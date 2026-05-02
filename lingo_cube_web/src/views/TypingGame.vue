@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, nextTick } from 'vue'
+import { ref, computed, onMounted, nextTick, defineAsyncComponent } from 'vue'
 import { wordBank } from './wordBank'
 import { useTheme } from '@/composables/useTheme'
 import { useAudio } from '@/composables/useAudio'
@@ -13,7 +13,11 @@ import ThemeToggle from '@/components/common/ThemeToggle.vue'
 import BackButton from '@/components/common/BackButton.vue'
 import ModeSelect from '@/components/game/ModeSelect.vue'
 import GamePlay from '@/components/game/GamePlay.vue'
-import GameFinished from '@/components/game/GameFinished.vue'
+const GameFinished = defineAsyncComponent({
+  loader: () => import('@/components/game/GameFinished.vue'),
+  loadingComponent: { template: '<div class="finish-loading">Loading...</div>' },
+  delay: 200,
+})
 import soundGreat from '@/assets/audio/great.mp3'
 import soundExcellent from '@/assets/audio/excellent.wav'
 import soundAmazing from '@/assets/audio/amazing.mp3'

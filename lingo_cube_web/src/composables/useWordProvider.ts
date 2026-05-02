@@ -1,10 +1,10 @@
-import { ref, readonly } from 'vue'
+import { ref, shallowRef, readonly } from 'vue'
 import type { WordEntry } from '@/types'
 import { fetchRandomWords } from '@/api/word'
 import { wordBank, shuffleWords } from '@/views/wordBank'
 
 export function useWordProvider() {
-  const wordList = ref<WordEntry[]>([])
+  const wordList = shallowRef<WordEntry[]>([])
   const loading = ref(false)
   const error = ref<string | null>(null)
 

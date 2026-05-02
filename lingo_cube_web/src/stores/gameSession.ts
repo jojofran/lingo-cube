@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
+import { ref, shallowRef, computed } from 'vue'
 import type { WordEntry, GameMode } from '@/types'
 
 export const useGameSessionStore = defineStore('gameSession', () => {
@@ -13,7 +13,7 @@ export const useGameSessionStore = defineStore('gameSession', () => {
   const score = ref(0)
   const combo = ref(0)
   const maxCombo = ref(0)
-  const failedWords = ref<WordEntry[]>([])
+  const failedWords = shallowRef<WordEntry[]>([])
 
   // ---- Computed ----
   const grade = computed(() => {

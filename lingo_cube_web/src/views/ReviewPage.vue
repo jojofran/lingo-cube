@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router'
 import { wordBank, type WordEntry } from './wordBank'
 import { useTheme } from '@/composables/useTheme'
 import { useSpeech } from '@/composables/useSpeech'
+import { useGameSessionStore } from '@/stores/gameSession'
 import ReviewCard from '@/components/common/ReviewCard.vue'
 import WordSpeaker from '@/components/word/WordSpeaker.vue'
 import CuteDeco from '@/components/CuteDeco.vue'
@@ -12,9 +13,9 @@ import BackButton from '@/components/common/BackButton.vue'
 
 const { theme } = useTheme()
 const { speak } = useSpeech()
+const gameSession = useGameSessionStore()
 const router = useRouter()
 
-// Get failed words from localStorage (set by TypingGame)
 const failedWords = ref<WordEntry[]>([])
 const reviewIndex = ref(0)
 const rememberedWords = ref<Set<string>>(new Set())
@@ -25,18 +26,23 @@ const canvasRef = ref<HTMLCanvasElement | null>(null)
 const currentWord = computed(() => failedWords.value[reviewIndex.value] ?? null)
 const progress = computed(() => `${reviewIndex.value + 1} / ${failedWords.value.length}`)
 
-// Load failed words from localStorage on mount
 onMounted(() => {
-  const stored = localStorage.getItem('failedWords')
-  if (stored) {
-    try {
-      failedWords.value = JSON.parse(stored)
-    } catch {
-      failedWords.value = []
+  // 优先从 store 读取（同一会话内跳转）
+  if (gameSession.failedWords.length > 0) {
+    failedWords.value = [...gameSession.failedWords]
+  } else {
+    // store 为空时降级到 localStorage（页面刷新后）
+    const stored = localStorage.getItem('failedWords')
+    if (stored) {
+      try {
+        failedWords.value = JSON.parse(stored)
+      } catch {
+        failedWords.value = []
+      }
     }
   }
   if (failedWords.value.length === 0) {
-    // If no failed words, use some from wordBank for demo
+    // 空数据时用词库前 5 条做展示
     failedWords.value = wordBank.slice(0, 5)
   }
   selectExample()

@@ -9,7 +9,7 @@ defineProps<{
 </script>
 
 <template>
-  <div class="stats-row">
+  <div class="stats-row" v-memo="[score, combo, currentIndex, isSpeed]">
     <div class="stat">
       <span class="stat-label">Score</span>
       <span class="stat-value">{{ score }}</span>
