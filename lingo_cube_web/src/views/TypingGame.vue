@@ -6,11 +6,13 @@ import { useAudio } from '@/composables/useAudio'
 import { useSpeech } from '@/composables/useSpeech'
 import { useTimer } from '@/composables/useTimer'
 import { useConfetti } from '@/composables/useConfetti'
+import { useAchievements } from '@/composables/useAchievements'
 import { useGameSessionStore } from '@/stores/gameSession'
 import { useWordProvider } from '@/composables/useWordProvider'
 import CuteDeco from '@/components/CuteDeco.vue'
 import ThemeToggle from '@/components/common/ThemeToggle.vue'
 import BackButton from '@/components/common/BackButton.vue'
+import AchievementToast from '@/components/common/AchievementToast.vue'
 import ModeSelect from '@/components/game/ModeSelect.vue'
 import GamePlay from '@/components/game/GamePlay.vue'
 const GameFinished = defineAsyncComponent({
@@ -32,6 +34,7 @@ const { timeLeft, startTimer, stopTimer } = useTimer()
 const { canvasRef, launchConfetti } = useConfetti()
 const gameSession = useGameSessionStore()
 const { fetchWords, wordList } = useWordProvider()
+const achievements = useAchievements()
 
 const TOTAL_ROUNDS = 20
 const SPEED_TIME = 8
@@ -146,6 +149,15 @@ function next() {
     screen.value = 'finished'
     launchConfetti()
     playFinish()
+
+    const modesPlayed: string[] =
+      gameSession.mode !== 'normal' ? [gameSession.mode] : []
+    achievements.checkAll({
+      gamesPlayed: 1,
+      bestCombo: gameSession.maxCombo,
+      bestScore: gameSession.score,
+      modesPlayed,
+    })
     return
   }
   userInput.value = ''
@@ -201,6 +213,9 @@ onMounted(() => {
 
     <!-- Cute theme decorations -->
     <CuteDeco />
+
+    <!-- Achievement toasts -->
+    <AchievementToast />
 
     <!-- Title -->
     <div class="game-header">

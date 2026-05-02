@@ -3,8 +3,10 @@ import { useTheme } from '@/composables/useTheme'
 import { computed } from 'vue'
 import CuteDeco from '@/components/CuteDeco.vue'
 import ThemeToggle from '@/components/common/ThemeToggle.vue'
+import { wordBank } from './wordBank'
 
 const { theme } = useTheme()
+const wordCount = wordBank.length
 
 const themeClass = computed(() => {
   return theme.value === 'ins' ? 'theme-ins' : theme.value === 'cute' ? 'theme-cute' : ''
@@ -37,6 +39,18 @@ const themeClass = computed(() => {
       <span class="game-icon">⌨️</span>
       <span class="game-label">Typing Challenge</span>
       <span class="game-desc text-dim">Practice & Improve Your Spelling</span>
+    </router-link>
+
+    <router-link to="/word-bank" class="game-link">
+      <span class="game-icon">📚</span>
+      <span class="game-label">Word Bank</span>
+      <span class="game-desc text-dim">Browse {{ wordCount }} Words</span>
+    </router-link>
+
+    <router-link to="/achievements" class="game-link">
+      <span class="game-icon">🏆</span>
+      <span class="game-label">Achievements</span>
+      <span class="game-desc text-dim">Track Your Progress</span>
     </router-link>
   </div>
 </template>
@@ -130,6 +144,10 @@ const themeClass = computed(() => {
 .game-link:hover {
   border-color: var(--accent);
   transform: translateY(-2px);
+}
+
+.game-link + .game-link {
+  margin-top: 12px;
 }
 
 .game-icon {

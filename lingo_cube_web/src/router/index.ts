@@ -19,9 +19,19 @@ const router = createRouter({
       component: () => import('@/views/ReviewPage.vue'),
     },
     {
+      path: '/achievements',
+      name: 'achievements',
+      component: () => import('@/views/AchievementsPage.vue'),
+    },
+    {
       path: '/word-demo',
       name: 'WordCardDemo',
       component: () => import('@/views/WordCardDemo.vue'),
+    },
+    {
+      path: '/word-bank',
+      name: 'wordBank',
+      component: () => import('@/views/WordBankManager.vue'),
     },
   ],
 })

@@ -2,8 +2,8 @@
 
 **⚠️ MANDATORY READ: 新会话开始必须读取此文件**
 
-**最后更新**: 2026-05-02 23:46  
-**最新提交**: 01d6ce0 feat: F-A-1 spelling mode and F-A-2 listening mode
+**最后更新**: 2026-05-03 00:02  
+**最新提交**: 467373e feat: F-B-1 achievements and F-C-1 word bank manager
 
 ---
 
@@ -21,7 +21,8 @@
 
 ### Git 提交历史（最近 10 条）
 ```
-01d6ce0 feat: F-A-1 spelling mode and F-A-2 listening mode
+467373e feat: F-B-1 achievements and F-C-1 word bank manager
+68d9632 feat: F-A-1 spelling mode and F-A-2 listening mode
 13a0e65 feat: ReviewSessionCard component + useVocabBook + REQ-011
 6dbdedd fix: review page example dedup and WordCard padding standardization
 8428d65 fix: ReviewCard slot passthrough and WordCardEx slot coexistence
@@ -30,7 +31,6 @@ efb2b60 refactor: complete R-A-2/3, R-B-1/2/3 remaining refactoring tasks
 100a44a fix: ReviewPage word speak button missing click handler
 da83324 refactor: extract PromptCard into generic WordCard component (R-C-1)
 cd89938 docs: add module/requirement indexing system, design docs, and WordCard plan
-3b8cd2f refactor: integrate gameSession store into TypingGame (R-A-1)
 ```
 
 ### Git 状态
@@ -46,7 +46,7 @@ cd89938 docs: add module/requirement indexing system, design docs, and WordCard 
 |--------|------|
 | 前端构建 | ✅ 通过 |
 | Git 状态 | ✅ 干净 |
-| 最新提交 | 01d6ce0 feat: F-A-1 spelling mode and F-A-2 listening mode |
+| 最新提交 | 467373e feat: F-B-1 achievements and F-C-1 word bank manager |
 
 ---
 
@@ -74,4 +74,4 @@ cd89938 docs: add module/requirement indexing system, design docs, and WordCard 
 
 ---
 
-**项目状态**: 自动更新于 Sat May  2 23:46:32 CST 2026
+**项目状态**: 自动更新于 Sun May  3 00:02:49 CST 2026
