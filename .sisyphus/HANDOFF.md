@@ -2,8 +2,8 @@
 
 **⚠️ MANDATORY READ: 新会话开始必须读取此文件**
 
-**最后更新**: 2026-05-02 17:47  
-**最新提交**: ccb8076 refactor: extract PromptCard into generic WordCard component (R-C-1)
+**最后更新**: 2026-05-02 17:56  
+**最新提交**: 9caf6c9 fix: ReviewPage word speak button missing click handler
 
 ---
 
@@ -21,7 +21,8 @@
 
 ### Git 提交历史（最近 10 条）
 ```
-ccb8076 refactor: extract PromptCard into generic WordCard component (R-C-1)
+9caf6c9 fix: ReviewPage word speak button missing click handler
+da83324 refactor: extract PromptCard into generic WordCard component (R-C-1)
 cd89938 docs: add module/requirement indexing system, design docs, and WordCard plan
 3b8cd2f refactor: integrate gameSession store into TypingGame (R-A-1)
 a9eba02 fix: CuteDeco position override in Home scoped CSS (B-A-1)
@@ -30,12 +31,11 @@ e13d964 test: verify post-commit hook
 d21d63e fix: restore Phase 2 component imports and remove Phase 4 scope creep
 0eaa95f feat: add Pinia game session store
 96a23b6 refactor: remove inline theme CSS and extract backend word data
-c64da91 refactor: decompose TypingGame template into screen components
 ```
 
 ### Git 状态
 ```
-?? .sisyphus/ralph-loop.local.md
+
 ```
 
 ---
@@ -45,8 +45,8 @@ c64da91 refactor: decompose TypingGame template into screen components
 | 检查项 | 状态 |
 |--------|------|
 | 前端构建 | ✅ 通过 |
-| Git 状态 | ⚠️ 有变更 |
-| 最新提交 | ccb8076 refactor: extract PromptCard into generic WordCard component (R-C-1) |
+| Git 状态 | ✅ 干净 |
+| 最新提交 | 9caf6c9 fix: ReviewPage word speak button missing click handler |
 
 ---
 
@@ -74,4 +74,4 @@ c64da91 refactor: decompose TypingGame template into screen components
 
 ---
 
-**项目状态**: 自动更新于 Sat May  2 17:47:37 CST 2026
+**项目状态**: 自动更新于 Sat May  2 17:56:41 CST 2026
