@@ -307,6 +307,11 @@ cd lingo_cube_server && go build -o server .
 ```
 .sisyphus/
 ├── REFACTOR_PLAN.md        # 总进度：✅已完成 / ⏳待执行 / 🎯当前
+├── MODULES.md              # 模块定义 + 边界 + 依赖
+├── REQUIREMENTS.md         # 需求定义 + 生命周期 + 设计链接
+├── designs/                # 需求设计文档（PRD / 技术方案 / UI 稿）
+│   ├── REQ-010-word-card.md
+│   └── ...
 └── plans/
     ├── B/
     │   ├── index.md        # 表格: ID | 目标 | 文件
@@ -327,17 +332,68 @@ cd lingo_cube_server && go build -o server .
 ```
 用户请求 → "添加用户登录功能"
   ↓
+0. 检查相关模块 (MODULES.md) 和需求 (REQUIREMENTS.md), 确认关联索引
 1. 分配前缀: F（功能）, section: 按功能分组分配下个字母（如D）
 2. 创建 plans/F/D.md:
    ## D-1 用户登录
+   **模块**: mod:user-system           ← 必须: 关联到 MODULES.md 中的模块
+   **需求**: REQ-010                   ← 必须: 关联到 REQUIREMENTS.md 中的需求
    - 注册/登录表单
    - JWT token 管理
    验证: npm run build
 3. 更新 plans/F/index.md 表格:
-   | F-D-1 | 用户登录 | F/D.md |
+   | F-D-1 | 用户登录 | mod:user-system | REQ-010 | F/D.md |
 4. 更新 REFACTOR_PLAN.md ⏳ 行末尾: +F-D-1
 5. 🎯 保持当前不变（除非用户要求直接执行）
 ```
+
+### 创建新需求流程（首次出现时）
+```
+用户提出新需求 → "做个成就系统"
+  ↓
+0. 检查 REQUIREMENTS.md 是否已有类似条目（避免重复）
+1. 分配 ID: REQ-{三位数序列}（如 REQ-005, REQ-010）
+2. 编写设计文档 .sisyphus/designs/REQ-005-achievements.md:
+   - 标题 + 状态/优先级头信息
+   - 目标 / 使用场景 / API 设计 / UI 描述
+   - 不做范围 / 验证方法
+   - 参考 design/REQ-010-word-card.md 示例
+3. 在 REQUIREMENTS.md 中登记新需求:
+   | REQ-005 | 成就系统 | details/design link |
+   **设计**: designs/REQ-005-achievements.md
+4. 按"创建新任务流程"将需求拆解为可执行任务
+5. 🎯 新任务加入 ⏳ 待执行
+```
+
+### 设计文档格式建议
+设计文档放 `.sisyphus/designs/{REQ-ID}-{简短标题}.md`，建议包含：
+- **目标**: 这个需求要解决什么问题
+- **使用场景**: 谁在什么情况下使用
+- **API/UI 设计**: 接口签名 / 组件 props / 页面布局
+- **迁移策略**: 如果涉及重构，分几步走
+- **不做范围**: 明确不做什么（防 scope creep）
+- **验证**: 怎么才算做完了
+
+**索引查询**:
+```bash
+# 模块 → 所有关联任务
+grep -rn 'mod:user-system' .sisyphus/plans/ | grep '##.*→'
+
+# 需求 → 所有关联任务
+grep -rn 'REQ-010' .sisyphus/plans/ | grep '##.*→'
+
+# 任务 → 模块/需求 (直接读取任务文件)
+```
+
+> **注意**: `**模块**` 和 `##` 在不同行，`grep -B2` 可显示任务标题上下文：
+> ```bash
+> # 模块 → 所有关联任务
+> grep -rn 'mod:game-engine' .sisyphus/plans/ -B2 | grep '##'
+> # 需求 → 所有关联任务
+> grep -rn 'REQ-002' .sisyphus/plans/ -B2 | grep '##'
+> ```
+> 
+> **模块标注**可用括号补充具体文件，如 `mod:game-engine (useScoring)`，括号内容为注释不参与索引。
 
 ### ID 格式约定
 ```

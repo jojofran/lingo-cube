@@ -1,6 +1,8 @@
 # F-A: 游戏模式
 
 ## A-1 → 新增拼写模式
+**模块**: mod:game-engine
+**需求**: REQ-004
 **步骤**:
 1. ModeSelect 增加"拼写"选项
 2. 拼写模式下显示中文+音标，用户输入对应英文
@@ -8,6 +10,8 @@
 **验证**: `npm run build` + 人工测试
 
 ## A-2 → 新增听力模式
+**模块**: mod:game-engine, mod:speech
+**需求**: REQ-004
 **步骤**:
 1. ModeSelect 增加"听力"选项
 2. 听力模式下使用 `useSpeech` 播放语音

@@ -1,6 +1,8 @@
 # T-A: 单元测试
 
 ## A-1 → useScoring 单元测试
+**模块**: mod:game-engine (useScoring)
+**需求**: REQ-008
 **用例**:
 1. 正确输入 → 加分
 2. 错误输入 → 不加分
@@ -9,6 +11,8 @@
 **验证**: `npx vitest run test/composables/useScoring.test.ts`
 
 ## A-2 → useTimer 单元测试
+**模块**: mod:game-engine (useTimer)
+**需求**: REQ-008
 **用例**:
 1. `start()` → 时间减少
 2. `pause()` → 时间暂停
@@ -17,6 +21,8 @@
 **验证**: `npx vitest run test/composables/useTimer.test.ts`
 
 ## A-3 → useWordProvider 单元测试
+**模块**: mod:game-engine (useWordProvider)
+**需求**: REQ-008
 **用例**:
 1. 获取随机词 → 返回 `WordEntry`
 2. 指定数量 → 对应数量
@@ -24,6 +30,8 @@
 **验证**: `npx vitest run test/composables/useWordProvider.test.ts`
 
 ## A-4 → GamePlay 组件测试
+**模块**: mod:game-engine (GamePlay)
+**需求**: REQ-008
 **用例**:
 1. 接收 props → 正确渲染
 2. `@submit` 事件 → 触发

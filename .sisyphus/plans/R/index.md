@@ -8,3 +8,4 @@
 | R-B-1 | shallowRef 优化 wordBank 等大对象 | R/B.md |
 | R-B-2 | PromptCard/StatsRow 添加 v-memo | R/B.md |
 | R-B-3 | 游戏组件懒加载 | R/B.md |
+| R-C-1 | 提取 PromptCard 为通用 WordCard 组件 | R/C.md |

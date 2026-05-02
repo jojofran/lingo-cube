@@ -1,6 +1,8 @@
 # B-A Bug 修复
 
 ## B-A-1 修复 CuteDeco 在 Home 页面不显示
+**模块**: mod:theme, mod:home
+**需求**: REQ-003
 
 **根因**: Home.vue scoped CSS 规则 `.home > *:not(.theme-orbs):not(.theme-toggle-global)` 设置了 `position: relative; z-index: 1`。由于 Vue scoped CSS 会让子组件根元素带上父组件的 data attribute，此规则命中 `<CuteDeco />` 的根元素 `<div class="cute-deco">`，覆盖了全局 `.cute-deco` 的 `position: fixed`，导致容器 collapse 为零高度（所有 SVG 子元素均为 `position: absolute`），装饰不可见。
 
