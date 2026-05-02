@@ -2,8 +2,8 @@
 
 **⚠️ MANDATORY READ: 新会话开始必须读取此文件**
 
-**最后更新**: 2026-05-02 14:28  
-**最新提交**: c309b8f docs: add session init protocol and refactor plan management
+**最后更新**: 2026-05-02 14:42  
+**最新提交**: c342970 fix: CuteDeco position override in Home scoped CSS (B-A-1)
 
 ---
 
@@ -21,7 +21,8 @@
 
 ### Git 提交历史（最近 10 条）
 ```
-c309b8f docs: add session init protocol and refactor plan management
+c342970 fix: CuteDeco position override in Home scoped CSS (B-A-1)
+8d8601e docs: add session init protocol and refactor plan management
 e13d964 test: verify post-commit hook
 d21d63e fix: restore Phase 2 component imports and remove Phase 4 scope creep
 0eaa95f feat: add Pinia game session store
@@ -30,7 +31,6 @@ c64da91 refactor: decompose TypingGame template into screen components
 929e174 refactor: extract game composables and integrate into views
 9353605 refactor: extract shared types and shared components
 04dc55d reinit project from stupid ai
-ebfdddf refactor: unify ReviewPage styling with global CSS variables, move progress to bottom
 ```
 
 ### Git 状态
@@ -46,7 +46,7 @@ ebfdddf refactor: unify ReviewPage styling with global CSS variables, move progr
 |--------|------|
 | 前端构建 | ✅ 通过 |
 | Git 状态 | ⚠️ 有变更 |
-| 最新提交 | c309b8f docs: add session init protocol and refactor plan management |
+| 最新提交 | c342970 fix: CuteDeco position override in Home scoped CSS (B-A-1) |
 
 ---
 
@@ -74,4 +74,4 @@ ebfdddf refactor: unify ReviewPage styling with global CSS variables, move progr
 
 ---
 
-**项目状态**: 自动更新于 Sat May  2 14:28:02 CST 2026
+**项目状态**: 自动更新于 Sat May  2 14:42:51 CST 2026

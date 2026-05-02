@@ -49,6 +49,11 @@ task(description="Parse refactor plan from index files", prompt="读取 .sisyphu
 ✅ 总计完成: 10 项 | ⏳ 总计待执行: 15 项
 🎯 当前任务: R-A-1 → 集成 gameSession store to TypingGame
 
+🐛 修复 (B) - 已完成 0/1
+  ⏳ B-A: [A-1]
+    A-1 → 修复 CuteDeco 在 Home 不显示
+  🎯 当前: B-A-1
+
 📦 重构 (R) - 已完成 0/6
   ⏳ R-A: [A-1 A-2 A-3]
     A-1 → 集成 gameSession store to TypingGame
@@ -58,7 +63,7 @@ task(description="Parse refactor plan from index files", prompt="读取 .sisyphu
     B-1 → 重构组件结构
     B-2 → 优化渲染性能
     B-3 → 添加虚拟滚动
-  🎯 当前: R-A-1
+  🎯 当前: B-A-1
 
 🚀 功能 (F) - 已完成 0/4  
   ⏳ F-A: [A-1 A-2]
@@ -68,7 +73,6 @@ task(description="Parse refactor plan from index files", prompt="读取 .sisyphu
     B-1 → 用户登录
   ⏳ F-C: [C-1]
     C-1 → 词库管理
-  🎯 当前: F-A-1
 
 🧪 测试 (T) - 已完成 0/5
   ⏳ T-A: [A-1 A-2 A-3 A-4]
@@ -78,7 +82,6 @@ task(description="Parse refactor plan from index files", prompt="读取 .sisyphu
     A-4 → useGameConfig 单元测试
   ⏳ T-B: [B-1]
     B-1 → E2E 游戏流程测试
-  🎯 当前: T-A-1
 
 📜 历史任务 - 已完成 10/10
   ✅ A: [1 2 3 4 5 6 7 8] E: [1 2]
@@ -264,9 +267,10 @@ cd lingo_cube_server && go build -o server .
 ```
 三段式: {prefix}-{section}-{step}
   示例: R-A-1  → prefix=R(重构), section=A(Pinia集成), step=1(集成store)
-  路径: .sisyphus/plans/R/A.md → 查找章节 ## A-1
-         .sisyphus/plans/F/B.md → 查找章节 ## B-1
-         .sisyphus/plans/T/A.md → 查找章节 ## A-1
+  路径: .sisyphus/plans/B/A.md → 查找章节 ## A-1
+        .sisyphus/plans/R/A.md → 查找章节 ## A-1
+        .sisyphus/plans/F/B.md → 查找章节 ## B-1
+        .sisyphus/plans/T/A.md → 查找章节 ## A-1
   规则: 前缀→目录名, 子类→文件名, 章节→## {section}-{step}
 ```
 
@@ -287,9 +291,10 @@ cd lingo_cube_server && go build -o server .
     - commit 信息格式 `{type}: {描述} ({索引ID})`
 12. **示例**：🎯 R-A-1 → 读 `plans/R/A.md` → `## A-1` 找到 `验证: npm run build` → 执行 + 验证 → 更新 PLAN → commit
 
-### 三维度说明
+### 四维度说明
 | 前缀 | 含义 | 子类 | 示例 |
 |------|------|------|------|
+| B | 修复 (Bug Fix) | B-A:主题修复 | B-A-1 |
 | R | 重构 (Refactor) | R-A:Pinia集成, R-B:性能优化 | R-A-1 |
 | F | 功能 (Feature) | F-A:游戏模式, F-B:用户系统, F-C:词库管理 | F-B-1 |
 | T | 测试 (Test) | T-A:单元测试, T-B:E2E测试 | T-A-3 |
@@ -303,6 +308,9 @@ cd lingo_cube_server && go build -o server .
 .sisyphus/
 ├── REFACTOR_PLAN.md        # 总进度：✅已完成 / ⏳待执行 / 🎯当前
 └── plans/
+    ├── B/
+    │   ├── index.md        # 表格: ID | 目标 | 文件
+    │   └── A.md            # ## A-N 详细内容 + 验证
     ├── R/
     │   ├── index.md        # 表格: ID | 目标 | 文件
     │   ├── A.md            # ## A-N 详细内容 + 验证
@@ -342,6 +350,7 @@ cd lingo_cube_server && go build -o server .
 ### 展示约定
 ```
 子类分组下，ID 显示时省略前缀（避免冗余）:
+  B-A: [A-1]             ← 完整ID: B-A-1
   R-A: [A-1 A-2 A-3]     ← 完整ID: R-A-1, R-A-2, R-A-3
   F-B: [B-1 B-2]         ← 完整ID: F-B-1, F-B-2
   T-A: [A-1 A-2 A-3 A-4] ← 完整ID: T-A-1, T-A-2, T-A-3, T-A-4

@@ -55,7 +55,7 @@ const themeClass = computed(() => {
   /* overflow: hidden;  -- removed to allow theme toggle button to show */
 }
 
-.home > *:not(.theme-orbs):not(.theme-toggle-global) {
+.home > *:not(.theme-orbs):not(.theme-toggle-global):not(.cute-deco) {
   position: relative;
   z-index: 1;
 }
