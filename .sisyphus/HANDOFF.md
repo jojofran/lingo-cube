@@ -2,8 +2,8 @@
 
 **⚠️ MANDATORY READ: 新会话开始必须读取此文件**
 
-**最后更新**: 2026-05-03 00:11  
-**最新提交**: e1e7d26 test: add useTimer unit test (T-A-2)
+**最后更新**: 2026-05-03 00:14  
+**最新提交**: 6556bd3 test: add useWordProvider unit test (T-A-3)
 
 ---
 
@@ -21,7 +21,8 @@
 
 ### Git 提交历史（最近 10 条）
 ```
-e1e7d26 test: add useTimer unit test (T-A-2)
+6556bd3 test: add useWordProvider unit test (T-A-3)
+64697b9 test: add useTimer unit test (T-A-2)
 154d623 feat: F-B-1 achievements and F-C-1 word bank manager
 68d9632 feat: F-A-1 spelling mode and F-A-2 listening mode
 13a0e65 feat: ReviewSessionCard component + useVocabBook + REQ-011
@@ -30,18 +31,14 @@ e1e7d26 test: add useTimer unit test (T-A-2)
 efb2b60 refactor: complete R-A-2/3, R-B-1/2/3 remaining refactoring tasks
 44af3ef refactor: word card component system, theme integration, and demo page
 100a44a fix: ReviewPage word speak button missing click handler
-da83324 refactor: extract PromptCard into generic WordCard component (R-C-1)
 ```
 
 ### Git 状态
 ```
- M lingo_cube_web/package-lock.json
- M lingo_cube_web/package.json
+ M .sisyphus/REFACTOR_PLAN.md
 ?? lingo_cube_web/test/components/
 ?? lingo_cube_web/test/composables/useScoring.test.ts
-?? lingo_cube_web/test/composables/useWordProvider.test.ts
 ?? lingo_cube_web/test/e2e/
-?? lingo_cube_web/vitest.config.ts
 ```
 
 ---
@@ -52,7 +49,7 @@ da83324 refactor: extract PromptCard into generic WordCard component (R-C-1)
 |--------|------|
 | 前端构建 | ✅ 通过 |
 | Git 状态 | ⚠️ 有变更 |
-| 最新提交 | e1e7d26 test: add useTimer unit test (T-A-2) |
+| 最新提交 | 6556bd3 test: add useWordProvider unit test (T-A-3) |
 
 ---
 
@@ -80,4 +77,4 @@ da83324 refactor: extract PromptCard into generic WordCard component (R-C-1)
 
 ---
 
-**项目状态**: 自动更新于 Sun May  3 00:11:27 CST 2026
+**项目状态**: 自动更新于 Sun May  3 00:14:49 CST 2026
