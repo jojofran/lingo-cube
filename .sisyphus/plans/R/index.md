@@ -14,6 +14,7 @@
 | R-D-3 | 移除 ReviewPage localStorage 兜底 | R/D.md |
 | R-D-4 | 提取内联 SVG 到共享组件 Icon.vue | R/D.md |
 | R-D-5 | 字体家族提取到全局 CSS | R/D.md |
+| R-D-6 | 提取 WordList 共享组件 + 修复 WordListItem 布局 | R/D.md |
 | R-E-1 | 删除后端 genPhonetic 死代码 | R/E.md |
 | R-E-2 | 收紧后端 CORS 配置 | R/E.md |
 | R-E-3 | 后端词查找 O(1) 优化 | R/E.md |

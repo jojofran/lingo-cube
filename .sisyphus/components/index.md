@@ -12,6 +12,7 @@
 | C-common-5 | ThemeToggle | common | 固定定位的主题切换按钮（dark/ins/cute循环） | components/C-common.md | stable |
 | C-common-6 | AchievementToast | common | 成就解锁通知弹窗（自动消失） | components/C-common.md | stable |
 | C-common-7 | CuteDeco | common | Cute 主题 SVG 手绘装饰（所有页面必须加） | components/C-common.md | stable |
+| C-common-8 | WordList | common | 单词列表容器（统一背景/边框/悬停，支持action插槽） | components/C-common.md | stable |
 | C-game-1 | ModeSelect | game | 主界面模式选择（normal/speed/spell/listen） | components/C-game.md | stable |
 | C-game-2 | GamePlay | game | 游戏主界面 orchestrator，组合子组件 | components/C-game.md | stable |
 | C-game-3 | StatsRow | game | 三格统计条（得分/连击/轮次） | components/C-game.md | stable |

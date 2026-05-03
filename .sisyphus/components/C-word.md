@@ -25,7 +25,7 @@
 ## WordListItem → C-word-2
 **文件**: components/word/WordListItem.vue (63行)
 **模块**: mod:ui-comps, mod:word-data
-**作用**: 紧凑单词列表行。布局：[🔊] 中文 音标 英文。
+**作用**: 紧凑单词列表行。布局：[🔊] 英文 音标 中文。
 **用法**:
 ```vue
 <WordListItem :word="entry" :speaking="false" @speak="onSpeak" />

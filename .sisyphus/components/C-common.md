@@ -112,3 +112,35 @@
 ```
 （无 props/events）
 **CSS 变量依赖**: `--cute-deco-display` (style.css 定义: cute=block, 其他=none)
+
+---
+
+## WordList → C-common-8
+**文件**: components/common/WordList.vue (~65行)
+**模块**: mod:ui-comps, mod:word-data
+**作用**: 通用单词列表容器。内嵌 WordListItem，统一管理列表样式（背景/边框/圆角/悬停）。支持 `#action` 插槽添加行内操作按钮。
+**用法**:
+```vue
+<WordList :words="entries" :speaking-word="activeWord" @word-click="onClick" @speak="onSpeak">
+  <template #action="{ word }">
+    <button @click="remove(word.english)">Remove</button>
+  </template>
+</WordList>
+```
+| Prop | 类型 | 默认 | 说明 |
+|------|------|------|------|
+| `words` | `WordEntry[]` | (必填) | 单词数据数组 |
+| `maxWidth` | `number` | `460` | 列表最大宽度 |
+| `speakingWord` | `string \| null` | — | 当前播放中的单词 english，传入后由内部传给 WordListItem |
+
+| Slot | 绑定 | 说明 |
+|------|------|------|
+| `#action` | `{ word: WordEntry }` | 每行右侧操作区 |
+
+| Event | 载荷 | 触发时机 |
+|-------|------|---------|
+| `word-click` | `word: WordEntry` | 点击某行时 |
+| `speak` | `text: string` | WordListItem emit 透传 |
+
+**关联**: 内部使用 `WordListItem`，自动覆写其 `max-width`/`margin-bottom`/`border-radius` 以适配容器。
+**CSS 变量依赖**: `--card-bg`, `--card-border`, `--card-radius`, `--card-shadow`, `--stat-bg`

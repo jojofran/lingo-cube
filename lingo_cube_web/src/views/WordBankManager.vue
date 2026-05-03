@@ -6,7 +6,7 @@ import { useSpeech } from '@/composables/useSpeech'
 import CuteDeco from '@/components/CuteDeco.vue'
 import ThemeToggle from '@/components/common/ThemeToggle.vue'
 import BackButton from '@/components/common/BackButton.vue'
-import WordListItem from '@/components/word/WordListItem.vue'
+import WordList from '@/components/common/WordList.vue'
 import Icon from '@/components/common/Icon.vue'
 
 const { theme } = useTheme()
@@ -119,20 +119,13 @@ function closeDetail() {
     </div>
 
     <!-- Word list -->
-    <div class="wbm-list">
-      <div
-        v-for="word in paginatedWords"
-        :key="word.english"
-        class="wbm-list-row"
-        @click="openDetail(word)"
-      >
-        <WordListItem
-          :word="word"
-          :speaking="activeSpeaking === word.english"
-          @speak="handleSpeak"
-        />
-      </div>
-    </div>
+    <WordList
+      :words="paginatedWords"
+      :max-width="460"
+      :speaking-word="activeSpeaking"
+      @word-click="openDetail"
+      @speak="handleSpeak"
+    />
 
     <!-- Pagination -->
     <div class="wbm-pagination" v-if="totalPages > 1">
@@ -290,28 +283,6 @@ function closeDetail() {
   color: var(--text-muted);
   margin-top: 24px;
   font-size: 0.95rem;
-}
-
-/* ===== Word list ===== */
-.wbm-list {
-  width: 100%;
-  max-width: 460px;
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: var(--card-radius, 16px);
-  box-shadow: var(--card-shadow);
-  overflow: hidden;
-  margin-bottom: 16px;
-  flex-shrink: 0;
-}
-
-.wbm-list-row {
-  cursor: pointer;
-  transition: background 0.15s;
-}
-
-.wbm-list-row:hover {
-  background: var(--stat-bg);
 }
 
 /* ===== Pagination ===== */

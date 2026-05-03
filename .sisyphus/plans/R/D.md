@@ -62,3 +62,15 @@
    - 等
 3. 运行 `npm run build`
 **验证**: `npm run build` 通过，全局 font-family 生效
+
+## D-6 → 提取 WordList 共享组件 + 修复 WordListItem 布局
+**模块**: mod:ui-comps, mod:word-data
+**需求**: —
+**原理**: VocabReviewPage 和 WordBankManager 各自维护重复的词列表结构（`.vocab-list`/`.wbm-list` + v-for + WordListItem），样式高度相似。提取为共享 WordList 组件消除重复。同时修复 WordListItem 中英文/中文位置顺序。
+**步骤**:
+1. 修复 WordListItem — 交换英文/中文 DOM 顺序，CSS 对齐调整（英文左对齐 primary，中文右对齐 secondary → `--text-dim`）
+2. 创建 `src/components/common/WordList.vue` — 接受 `words`, `maxWidth`, `speakingWord` props，`word-click`/`speak` events，`#action` slot
+3. 更新 `VocabReviewPage.vue` — 用 WordList 替换手动 v-for，删除 `.vocab-list`/`.vocab-row` CSS
+4. 更新 `WordBankManager.vue` — 用 WordList 替换手动 v-for，删除 `.wbm-list`/`.wbm-list-row` CSS
+5. 更新 COMPONENT_LIBRARY.md 及组件索引
+**验证**: `npx vue-tsc --noEmit` 通过

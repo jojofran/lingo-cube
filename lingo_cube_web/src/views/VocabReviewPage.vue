@@ -4,7 +4,7 @@ import { useTheme } from '@/composables/useTheme'
 import { useSpeech } from '@/composables/useSpeech'
 import { useVocabBook } from '@/composables/useVocabBook'
 import ReviewSessionCard from '@/components/review/ReviewSessionCard.vue'
-import WordListItem from '@/components/word/WordListItem.vue'
+import WordList from '@/components/common/WordList.vue'
 import CuteDeco from '@/components/CuteDeco.vue'
 import ThemeToggle from '@/components/common/ThemeToggle.vue'
 import BackButton from '@/components/common/BackButton.vue'
@@ -65,14 +65,13 @@ function onComplete() {
         </button>
       </div>
 
-      <div class="vocab-list">
-        <div v-for="w in words" :key="w.english" class="vocab-row">
-          <WordListItem :word="w" @speak="speak" />
-          <button class="remove-btn" @click="removeWord(w.english)" title="Remove from vocab">
+      <WordList :words="words" @speak="speak">
+        <template #action="{ word }">
+          <button class="remove-btn" @click="removeWord(word.english)" title="Remove from vocab">
             <Icon name="close" :size="16" />
           </button>
-        </div>
-      </div>
+        </template>
+      </WordList>
     </template>
 
     <!-- Review mode -->
@@ -136,32 +135,6 @@ function onComplete() {
 .start-review-btn:hover {
   filter: brightness(1.1);
   transform: translateY(-2px);
-}
-
-.vocab-list {
-  width: 100%;
-  max-width: 420px;
-  display: flex;
-  flex-direction: column;
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: var(--card-radius, 16px);
-  overflow: hidden;
-}
-
-.vocab-row {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  width: 100%;
-  max-width: 420px;
-}
-.vocab-row :deep(.list-item) {
-  flex: 1;
-  min-width: 0;
-}
-.vocab-row :deep(.list-item-english) {
-  flex: 0 1 auto;
 }
 
 .remove-btn {

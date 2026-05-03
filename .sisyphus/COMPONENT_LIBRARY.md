@@ -18,7 +18,7 @@
 
 | 分类 | 文件 | 组件数 |
 |------|------|--------|
-| 通用组件 (common/) | [C-common.md](components/C-common.md) | 7 |
+| 通用组件 (common/) | [C-common.md](components/C-common.md) | 8 |
 | 游戏组件 (game/) | [C-game.md](components/C-game.md) | 8 |
 | 单词组件 (word/) | [C-word.md](components/C-word.md) | 2 |
 | 复习组件 (review/) | [C-review.md](components/C-review.md) | 1 |
@@ -36,6 +36,7 @@
 | 自定义例句样式 | `WordCardEx` + `#example` slot | C-common-2 |
 | 纯展示无交互 | `WordCard :show-speak="false"` | C-common-1 |
 | 错词列表/生词本 | `WordListItem` | C-word-2 |
+| 单词列表（含行操作） | `WordList` + `#action` slot | C-common-8 |
 | 需要自定义底部内容 | 任意组件 + `default` slot | — |
 | 只需要一个 TTS 按钮 | `WordSpeaker` | C-word-1 |
 | 复习会话 | `ReviewSessionCard` | C-review-1 |
