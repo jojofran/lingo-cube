@@ -33,6 +33,12 @@ const emit = defineEmits<{
   max-width: 420px;
   box-sizing: border-box;
   border-bottom: 1px solid var(--card-border);
+  background: var(--card-bg);
+  border-radius: 12px;
+}
+
+.list-item:hover {
+  background: var(--stat-bg);
 }
 
 .list-item:last-child {

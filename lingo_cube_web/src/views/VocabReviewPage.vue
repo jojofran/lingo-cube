@@ -146,6 +146,10 @@ function onComplete() {
   max-width: 420px;
   display: flex;
   flex-direction: column;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--card-radius, 16px);
+  overflow: hidden;
 }
 
 .vocab-row {
