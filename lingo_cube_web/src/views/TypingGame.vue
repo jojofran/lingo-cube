@@ -46,6 +46,7 @@ const resultMsg = ref('')
 const failedAtBottom = ref(false)
 const shakeActive = ref(false)
 const burstActive = ref(false)
+const correctCount = ref(0)
 
 const praiseStrings = ['Great! 🎉', 'Nice! ✨', 'Perfect! 💯', 'Excellent! 🌟', 'Amazing! 🔥', 'Superb! 👏', 'Unbelievable! 💎'] as const
 const praise = (): string => praiseStrings[Math.floor(Math.random() * praiseStrings.length)]
@@ -94,6 +95,7 @@ async function selectMode(m: GameMode) {
   userInput.value = ''
   result.value = null
   resultMsg.value = ''
+  correctCount.value = 0
 
   await fetchWords(TOTAL_ROUNDS)
 
@@ -123,6 +125,7 @@ function submit() {
     const msg = praise()
     resultMsg.value = msg
     gameSession.onCorrect(isSpeed.value, isSpeed.value ? timeLeft.value : 0, gameSession.mode)
+    correctCount.value++
     burstActive.value = true
     launchConfetti()
     const soundName = praiseToSound[msg] || 'next'
@@ -149,7 +152,15 @@ function timeout() {
 
 function next() {
   if (gameSession.currentIndex >= TOTAL_ROUNDS - 1) {
-    gameSession.recordGame(gameSession.score, gameSession.combo)
+    gameSession.recordGame(gameSession.score, gameSession.maxCombo)
+    gameSession.recordSession({
+      score: gameSession.score,
+      maxCombo: gameSession.maxCombo,
+      mode: gameSession.mode,
+      totalRounds: TOTAL_ROUNDS,
+      correctCount: correctCount.value,
+      wrongCount: gameSession.failedWords.length,
+    })
     screen.value = 'finished'
     launchConfetti()
     playFinish()
@@ -187,6 +198,7 @@ function next() {
 function restart() {
   screen.value = 'select'
   failedAtBottom.value = false
+  correctCount.value = 0
 }
 
 function startReview() {
