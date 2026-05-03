@@ -26,3 +26,20 @@
 3. **WordBankManager.vue** — 已有容器样式，无需改动。
 
 **验证**: `npm run build` 通过。三套主题下列表项背景色正确，hover 效果正常。
+
+## B-B-2 → 修复滚动时背景色不匹配（height→min-height）
+**模块**: mod:ui-comps (ReviewPage, VocabReviewPage, TypingGame)
+**需求**: —
+
+**根因分析**:
+当 `.review-wrapper` / `.game-wrapper` 使用 `height: 100vh` 时，元素被固定为视口高度。内容溢出滚动时，`background: var(--bg-gradient)` 只覆盖初始视口区域，滚动区域无渐变背景。
+
+**修复方案**:
+将 `height: 100vh; height: 100dvh;` 改为 `min-height: 100vh; min-height: 100dvh;`，使容器高度随内容扩展，背景渐变覆盖整个滚动区域。
+
+涉及文件：
+1. **ReviewPage.vue** line 62: `height: 100vh; height: 100dvh;` → `min-height: 100vh; min-height: 100dvh;`
+2. **VocabReviewPage.vue** line 94: `min-height: 100vh; height: 100dvh;` → `min-height: 100vh; min-height: 100dvh;`
+3. **TypingGame.vue** line 299-300: `height: 100vh; height: 100dvh;` → `min-height: 100vh; min-height: 100dvh;`
+
+**验证**: `npx vue-tsc --noEmit` 通过，滚动时背景渐变完整覆盖。

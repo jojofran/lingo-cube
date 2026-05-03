@@ -2,8 +2,8 @@
 
 **⚠️ MANDATORY READ: 新会话开始必须读取此文件**
 
-**最后更新**: 2026-05-03 12:20  
-**最新提交**: 9db6121 feat: integrate session recording and stats display (F-E-2)
+**最后更新**: 2026-05-03 12:43  
+**最新提交**: 917c663 fix: change height:100vh to min-height:100vh for scroll bg coverage (B-B-2)
 
 ---
 
@@ -21,7 +21,8 @@
 
 ### Git 提交历史（最近 10 条）
 ```
-9db6121 feat: integrate session recording and stats display (F-E-2)
+917c663 fix: change height:100vh to min-height:100vh for scroll bg coverage (B-B-2)
+bfead07 feat: integrate session recording and stats display (F-E-2)
 cefaf70 feat: add sessionHistory state and recordSession to store (F-E-2)
 8742786 feat: add SessionRecord type for game history (F-E-2)
 65150d7 feat: persist theme selection to localStorage (F-E-1)
@@ -30,7 +31,6 @@ d5349f7 refactor: unify theme class patterns to array syntax (R-D-2)
 eb819d6 refactor: optimize backend word lookup to O(1) map (R-E-3)
 a54b45f refactor: tighten backend CORS with configurable origins (R-E-2)
 01de492 refactor: extract inline SVGs to Icon.vue (R-D-4)
-7d9ff7d refactor: remove backend genPhonetic dead code (R-E-1)
 ```
 
 ### Git 状态
@@ -46,7 +46,7 @@ a54b45f refactor: tighten backend CORS with configurable origins (R-E-2)
 |--------|------|
 | 前端构建 | ✅ 通过 |
 | Git 状态 | ✅ 干净 |
-| 最新提交 | 9db6121 feat: integrate session recording and stats display (F-E-2) |
+| 最新提交 | 917c663 fix: change height:100vh to min-height:100vh for scroll bg coverage (B-B-2) |
 
 ---
 
@@ -74,4 +74,4 @@ a54b45f refactor: tighten backend CORS with configurable origins (R-E-2)
 
 ---
 
-**项目状态**: 自动更新于 Sun May  3 12:20:30 CST 2026
+**项目状态**: 自动更新于 Sun May  3 12:43:23 CST 2026
