@@ -2,8 +2,8 @@
 
 **⚠️ MANDATORY READ: 新会话开始必须读取此文件**
 
-**最后更新**: 2026-05-03 12:43  
-**最新提交**: 917c663 fix: change height:100vh to min-height:100vh for scroll bg coverage (B-B-2)
+**最后更新**: 2026-05-03 13:00  
+**最新提交**: 6c97337 test: add backend unit tests for handlers, service, and CORS (R-E-4)
 
 ---
 
@@ -21,7 +21,8 @@
 
 ### Git 提交历史（最近 10 条）
 ```
-917c663 fix: change height:100vh to min-height:100vh for scroll bg coverage (B-B-2)
+6c97337 test: add backend unit tests for handlers, service, and CORS (R-E-4)
+fa3f3ea fix: change height:100vh to min-height:100vh for scroll bg coverage (B-B-2)
 bfead07 feat: integrate session recording and stats display (F-E-2)
 cefaf70 feat: add sessionHistory state and recordSession to store (F-E-2)
 8742786 feat: add SessionRecord type for game history (F-E-2)
@@ -30,12 +31,12 @@ cefaf70 feat: add sessionHistory state and recordSession to store (F-E-2)
 d5349f7 refactor: unify theme class patterns to array syntax (R-D-2)
 eb819d6 refactor: optimize backend word lookup to O(1) map (R-E-3)
 a54b45f refactor: tighten backend CORS with configurable origins (R-E-2)
-01de492 refactor: extract inline SVGs to Icon.vue (R-D-4)
 ```
 
 ### Git 状态
 ```
-
+ M .sisyphus/REFACTOR_PLAN.md
+ M .sisyphus/ralph-loop.local.md
 ```
 
 ---
@@ -45,8 +46,8 @@ a54b45f refactor: tighten backend CORS with configurable origins (R-E-2)
 | 检查项 | 状态 |
 |--------|------|
 | 前端构建 | ✅ 通过 |
-| Git 状态 | ✅ 干净 |
-| 最新提交 | 917c663 fix: change height:100vh to min-height:100vh for scroll bg coverage (B-B-2) |
+| Git 状态 | ⚠️ 有变更 |
+| 最新提交 | 6c97337 test: add backend unit tests for handlers, service, and CORS (R-E-4) |
 
 ---
 
@@ -74,4 +75,4 @@ a54b45f refactor: tighten backend CORS with configurable origins (R-E-2)
 
 ---
 
-**项目状态**: 自动更新于 Sun May  3 12:43:23 CST 2026
+**项目状态**: 自动更新于 Sun May  3 13:00:53 CST 2026
