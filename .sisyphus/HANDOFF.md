@@ -2,8 +2,8 @@
 
 **⚠️ MANDATORY READ: 新会话开始必须读取此文件**
 
-**最后更新**: 2026-05-03 12:06  
-**最新提交**: 9088172 feat: persist theme selection to localStorage (F-E-1)
+**最后更新**: 2026-05-03 12:11  
+**最新提交**: 102d2ae feat: add SessionRecord type for game history (F-E-2)
 
 ---
 
@@ -21,7 +21,8 @@
 
 ### Git 提交历史（最近 10 条）
 ```
-9088172 feat: persist theme selection to localStorage (F-E-1)
+102d2ae feat: add SessionRecord type for game history (F-E-2)
+65150d7 feat: persist theme selection to localStorage (F-E-1)
 8ca4f95 feat: add WordCardDemo nav link to Home page (F-E-4)
 d5349f7 refactor: unify theme class patterns to array syntax (R-D-2)
 eb819d6 refactor: optimize backend word lookup to O(1) map (R-E-3)
@@ -30,14 +31,13 @@ a54b45f refactor: tighten backend CORS with configurable origins (R-E-2)
 7d9ff7d refactor: remove backend genPhonetic dead code (R-E-1)
 2f47d63 refactor: remove ReviewPage localStorage fallback (R-D-3)
 df47aea fix: WordListItem add background + VocabReviewPage container (B-B-1)
-64e5617 refactor: remove useScoring dead code (R-D-1)
 ```
 
 ### Git 状态
 ```
  M lingo_cube_web/src/stores/gameSession.ts
- M lingo_cube_web/src/types/game.ts
- M lingo_cube_web/src/types/index.ts
+ M lingo_cube_web/src/views/AchievementsPage.vue
+ M lingo_cube_web/src/views/TypingGame.vue
 ```
 
 ---
@@ -48,7 +48,7 @@ df47aea fix: WordListItem add background + VocabReviewPage container (B-B-1)
 |--------|------|
 | 前端构建 | ✅ 通过 |
 | Git 状态 | ⚠️ 有变更 |
-| 最新提交 | 9088172 feat: persist theme selection to localStorage (F-E-1) |
+| 最新提交 | 102d2ae feat: add SessionRecord type for game history (F-E-2) |
 
 ---
 
@@ -76,4 +76,4 @@ df47aea fix: WordListItem add background + VocabReviewPage container (B-B-1)
 
 ---
 
-**项目状态**: 自动更新于 Sun May  3 12:06:27 CST 2026
+**项目状态**: 自动更新于 Sun May  3 12:11:48 CST 2026
