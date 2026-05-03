@@ -21,23 +21,27 @@ export function useSpeech() {
     if (!synth) return
 
     synth.cancel()
+    speaking.value = false
 
-    const utterance = new SpeechSynthesisUtterance(word)
-    utterance.lang = 'en-US'
-    utterance.rate = 0.85
-    utterance.pitch = 1
+    // Chrome SpeechSynthesis bug: speak() after cancel() needs a tick to re-arm
+    setTimeout(() => {
+      const utterance = new SpeechSynthesisUtterance(word)
+      utterance.lang = 'en-US'
+      utterance.rate = 0.85
+      utterance.pitch = 1
 
-    speaking.value = true
+      speaking.value = true
 
-    utterance.onend = () => {
-      speaking.value = false
-    }
+      utterance.onend = () => {
+        speaking.value = false
+      }
 
-    utterance.onerror = () => {
-      speaking.value = false
-    }
+      utterance.onerror = () => {
+        speaking.value = false
+      }
 
-    synth.speak(utterance)
+      synth.speak(utterance)
+    }, 0)
   }
 
   onUnmounted(() => {

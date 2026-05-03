@@ -2,8 +2,8 @@
 
 **⚠️ MANDATORY READ: 新会话开始必须读取此文件**
 
-**最后更新**: 2026-05-03 00:21  
-**最新提交**: df2f8c0 test: add GamePlay component test (T-A-4) and E2E game flow test (T-B-1)
+**最后更新**: 2026-05-03 11:37  
+**最新提交**: 671624c refactor: remove useScoring dead code (R-D-1)
 
 ---
 
@@ -21,7 +21,8 @@
 
 ### Git 提交历史（最近 10 条）
 ```
-df2f8c0 test: add GamePlay component test (T-A-4) and E2E game flow test (T-B-1)
+671624c refactor: remove useScoring dead code (R-D-1)
+08ea14c test: add GamePlay component test (T-A-4) and E2E game flow test (T-B-1)
 65fa2df test: create unit test for useScoring (T-A-1)
 3d3b274 test: add useWordProvider unit test (T-A-3)
 64697b9 test: add useTimer unit test (T-A-2)
@@ -30,7 +31,6 @@ df2f8c0 test: add GamePlay component test (T-A-4) and E2E game flow test (T-B-1)
 13a0e65 feat: ReviewSessionCard component + useVocabBook + REQ-011
 6dbdedd fix: review page example dedup and WordCard padding standardization
 8428d65 fix: ReviewCard slot passthrough and WordCardEx slot coexistence
-efb2b60 refactor: complete R-A-2/3, R-B-1/2/3 remaining refactoring tasks
 ```
 
 ### Git 状态
@@ -46,7 +46,7 @@ efb2b60 refactor: complete R-A-2/3, R-B-1/2/3 remaining refactoring tasks
 |--------|------|
 | 前端构建 | ✅ 通过 |
 | Git 状态 | ✅ 干净 |
-| 最新提交 | df2f8c0 test: add GamePlay component test (T-A-4) and E2E game flow test (T-B-1) |
+| 最新提交 | 671624c refactor: remove useScoring dead code (R-D-1) |
 
 ---
 
@@ -74,4 +74,4 @@ efb2b60 refactor: complete R-A-2/3, R-B-1/2/3 remaining refactoring tasks
 
 ---
 
-**项目状态**: 自动更新于 Sun May  3 00:21:08 CST 2026
+**项目状态**: 自动更新于 Sun May  3 11:37:16 CST 2026

@@ -62,6 +62,7 @@ const emit = defineEmits<{
       <div class="listening-card">
         <div class="listening-icon">🎧</div>
         <div class="listening-text">Listen & Type</div>
+        <div v-if="currentWord" class="listening-phonetic">{{ currentWord.phonetic }}</div>
       </div>
     </template>
     <WordCard
@@ -165,6 +166,12 @@ const emit = defineEmits<{
 @keyframes listen-pulse {
   0%, 100% { transform: scale(1); opacity: 0.7; }
   50% { transform: scale(1.08); opacity: 1; }
+}
+.listening-phonetic {
+  margin-top: 12px;
+  font-size: 1.3rem;
+  color: var(--phonetic-color, rgba(255,255,255,0.55));
+  font-family: 'Times New Roman', serif;
 }
 .listening-text {
   font-size: 1.1rem;

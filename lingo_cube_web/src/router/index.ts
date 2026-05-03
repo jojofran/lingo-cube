@@ -33,6 +33,11 @@ const router = createRouter({
       name: 'wordBank',
       component: () => import('@/views/WordBankManager.vue'),
     },
+    {
+      path: '/vocab-review',
+      name: 'vocabReview',
+      component: () => import('@/views/VocabReviewPage.vue'),
+    },
   ],
 })
 

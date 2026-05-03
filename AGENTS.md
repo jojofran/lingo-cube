@@ -234,6 +234,8 @@ cd lingo_cube_server && go build -o server .
 
 ## 前端架构要点
 
+> **⚠️ 组件使用规则**：所有组件 API、设计原则、选择指南在 `.sisyphus/COMPONENT_LIBRARY.md` 中定义。新增或使用组件前**必须**先查阅该文档，避免重复造轮子。分类详情在 `.sisyphus/components/` 目录下。
+
 - **主页面**: `src/views/TypingGame.vue` — 打字练习游戏核心组件（~1200 行），含 3 个主题、2 种模式。
 - **词库**: `src/views/wordBank.ts` — 220+ IELTS 词条，含 english/chinese/phonetic 字段，`genPhonetic()` 自动生成音标。
 - **API 客户端**: `src/api/word.ts` — 优先从 API 获取词库，网络失败时 fallback 到本地词库。
@@ -365,16 +367,116 @@ cd lingo_cube_server && go build -o server .
 5. 🎯 新任务加入 ⏳ 待执行
 ```
 
-### 设计文档格式建议
-设计文档放 `.sisyphus/designs/{REQ-ID}-{简短标题}.md`，建议包含：
-- **目标**: 这个需求要解决什么问题
-- **使用场景**: 谁在什么情况下使用
-- **API/UI 设计**: 接口签名 / 组件 props / 页面布局
-- **迁移策略**: 如果涉及重构，分几步走
-- **不做范围**: 明确不做什么（防 scope creep）
-- **验证**: 怎么才算做完了
+### 设计文档存放规则
 
-**索引查询**:
+设计文档统一放在 `.sisyphus/designs/` 目录，命名规则如下：
+
+```
+.sisyphus/designs/{REQ-ID}-{简短标题}.md
+                REQ-010-word-card.md      ← ✅ 正确
+                REQ-013-game-history.md   ← ✅ 正确
+```
+
+**字段要求**（每篇设计文档必须包含以下内容）：
+
+| 字段 | 说明 | 示例 |
+|------|------|------|
+| `## 1. 目标` | 这个需求要解决什么问题 | "当前仅追踪当次游戏..." |
+| `## 2. 使用场景` | 谁在什么情况下使用 | 表格列出 场景/触发时机/位置/数据 |
+| `## 3. 数据/API 设计` | 接口签名、数据结构、store 变更 | `interface SessionRecord` |
+| `## N. 迁移策略` | 如果是增量改动，分几步走 | Phase 1→2→3 |
+| `## N. 不做的范围` | 明确不做什么（防 scope creep） | ❌ 不做 Chart.js |
+| `## N. 验证` | 怎么才算做完了 | `npm run build` + 人工确认项 |
+
+**元信息头**（文件顶部）：
+```markdown
+# REQ-013: 游戏历史统计 — 设计文档
+
+> **状态**: 📋 proposed | **优先级**: P1 | **关联任务**: F-E-2
+> **模块**: mod:game-engine (gameSession store)
+```
+
+---
+
+### 索引链双向维护（关键规则）
+
+**需求 ↔ 模块 ↔ 计划**三者必须始终同步，缺一不可：
+
+```
+REQUIREMENTS.md ←──→ MODULES.md ←──→ plans/{prefix}/{section}.md
+```
+
+**新建需求的完整操作序列**（按顺序执行，不可跳过）：
+
+```
+用户提出需求
+  ↓
+1. 分配 REQ-ID (检查 REQUIREMENTS.md 避免重复)
+2. 编写设计文档 .sisyphus/designs/REQ-{ID}-{title}.md
+3. 在 REQUIREMENTS.md 登记新需求（含 **模块**、**任务** 字段）
+4. 【新增】更新 MODULES.md 中对应模块的 **关联需求** 字段
+5. 【新增】如模块已有 **演进** 字段，追加新任务 ID
+6. 按"创建新任务流程"创建 plans/{prefix}/{section}.md
+7. 在任务文件的元信息中添加 **设计**: designs/REQ-{ID}-{title}.md
+8. 更新 plans/{prefix}/index.md 表格
+9. 更新 REFACTOR_PLAN.md
+```
+
+**删除/废弃需求的完整操作序列**：
+
+```
+1. REQUIREMENTS.md 中标记状态为 deprecated/removed
+2. MODULES.md 中移除对应 **关联需求** 引用
+3. 如任务已完成，保留 plans 文件但标记 ✅
+4. 如任务未完成，移除 plans 文件 + 更新 index.md + REFACTOR_PLAN.md
+```
+
+**索引完整性自检命令**：
+```bash
+# 检查：REQ-XXX 引用的模块，MODULES.md 是否有对应关联需求
+grep 'REQ-013' .sisyphus/REQUIREMENTS.md | grep '模块'
+grep 'REQ-013' .sisyphus/MODULES.md
+
+# 检查：模块演进中的任务，plans 目录是否有对应文件
+grep 'F-E-2' .sisyphus/MODULES.md
+grep '## E-2' .sisyphus/plans/F/E.md
+
+# 检查：任务文件的需求字段，REQUIREMENTS.md 是否有对应条目
+grep 'REQ-013' .sisyphus/plans/F/E.md
+grep '^## REQ-013' .sisyphus/REQUIREMENTS.md
+```
+
+---
+
+### 任务文件必填字段规范
+
+每个任务在 `plans/{prefix}/{section}.md` 中必须以 `## {section}-{step} → {描述}` 开头，并包含以下字段：
+
+```
+## E-2 → 游戏历史统计
+**模块**: mod:game-engine                    ← 必填: MODULES.md 中定义的模块 ID
+**需求**: REQ-013                           ← 必填: REQUIREMENTS.md 中的需求 ID
+**设计**: designs/REQ-013-game-history.md   ← 有设计文档时必须填写
+**原理**: 当前仅追踪...                      ← 推荐: 说明为什么要做
+**步骤**:                                    ← 必填: 可执行的操作列表
+1. ...
+2. ...
+**验证**: npm run build                      ← 必填: 如何确认完成
+```
+
+| 字段 | 必填 | 说明 |
+|------|------|------|
+| `**模块**` | ✅ | 对应 MODULES.md 中的 `mod:xxx` |
+| `**需求**` | ✅ | 对应 REQUIREMENTS.md 中的 `REQ-XXX` |
+| `**设计**` | 有则填 | 对应 `.sisyphus/designs/REQ-XXX-title.md` |
+| `**原理**` | 推荐 | 解释动机，避免未来"为什么这么做"的困惑 |
+| `**步骤**` | ✅ | 编号列表，每步干净可执行 |
+| `**验证**` | ✅ | 验证命令或检查项 |
+
+---
+
+### 索引查询
+
 ```bash
 # 模块 → 所有关联任务
 grep -rn 'mod:user-system' .sisyphus/plans/ | grep '##.*→'

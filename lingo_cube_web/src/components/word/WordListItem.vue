@@ -18,6 +18,7 @@ const emit = defineEmits<{
       @speak="emit('speak', word.english)"
     />
     <span class="list-item-chinese">{{ word.chinese }}</span>
+    <span class="list-item-phonetic">{{ word.phonetic }}</span>
     <span class="list-item-english">{{ word.english }}</span>
   </div>
 </template>
@@ -42,6 +43,13 @@ const emit = defineEmits<{
   flex: 0 1 auto;
   color: var(--text-muted);
   font-size: 0.85rem;
+}
+
+.list-item-phonetic {
+  flex: 0 1 auto;
+  font-size: 0.8rem;
+  color: var(--phonetic-color, rgba(255,255,255,0.55));
+  font-family: 'Times New Roman', serif;
 }
 
 .list-item-english {

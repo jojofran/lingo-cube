@@ -128,6 +128,29 @@
 | **任务** | R-C-1, F-D-1 |
 | **废弃条件** | 被更成熟的组件库替代 |
 
+## REQ-013: 游戏历史统计
+| 字段 | 值 |
+|------|-----|
+| **状态** | 📋 proposed |
+| **优先级** | P1 |
+| **起源** | 当前仅追踪当次游戏得分/combo/错词，缺乏历史记录（总场次、得分趋势、最佳成绩） |
+| **决策** | gameSession store 新增 sessionHistory 数组，localStorage 持久化，纯 CSS 条形图展示趋势 |
+| **设计** | `designs/REQ-013-game-history.md` |
+| **模块** | `mod:game-engine` (gameSession store) |
+| **任务** | F-E-2 |
+| **废弃条件** | 引入后端持久化替代 localStorage |
+
+## REQ-012: 生词本复习
+| 字段 | 值 |
+|------|-----|
+| **状态** | 📋 proposed |
+| **优先级** | P2 |
+| **起源** | 用户收藏到生词本的词没有专门的复习入口，目前只能通过 ReviewPage 回顾错词 |
+| **决策** | 新建 `VocabReviewPage.vue`，从 `useVocabBook` 读取生词，用 `ReviewSessionCard` 进行复习 |
+| **模块** | `mod:review` (VocabReviewPage) |
+| **任务** | F-D-2 |
+| **废弃条件** | — |
+
 ## REQ-011: 复习会话卡片 + 生词本
 | 字段 | 值 |
 |------|-----|

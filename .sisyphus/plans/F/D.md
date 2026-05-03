@@ -9,12 +9,13 @@
 3. 简化 `ReviewPage.vue` — 使用 ReviewSessionCard 替代内联逻辑
 **验证**: `npm run build`
 
-## D-2 → 生词本管理页
+## D-2 → 生词本复习页
 **模块**: mod:review
-**需求**: REQ-011
+**需求**: REQ-012
 **步骤**:
-1. 新建 `VocabBookPage.vue`
-2. 展示已收藏的生词列表（WordListItem）
-3. 支持从生词本删除
-4. 支持点击跳转到复习
+1. 新建 `VocabReviewPage.vue`
+2. 从 `useVocabBook` 读取生词列表
+3. 使用 `ReviewSessionCard` 进行复习
+4. 路由 `/vocab-review`
+5. 在 Home 和 ReviewPage 添加入口
 **验证**: `npm run build`

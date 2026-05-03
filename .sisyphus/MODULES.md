@@ -16,8 +16,8 @@
 | **依赖** | `mod:audio`, `mod:speech`, `mod:word-data`, `mod:confetti`, `mod:theme` |
 | **被依赖** | `mod:review` (读取 gameSession) |
 | **状态** | active |
-| **演进** | R-A-1 (Pinia store 集成), R-A-2 (状态收拢), R-A-3 (跨组件共享) |
-| **关联需求** | REQ-001, REQ-002, REQ-004, REQ-007, REQ-008 |
+| **演进** | R-A-1 (Pinia store 集成), R-A-2 (状态收拢), R-A-3 (跨组件共享), F-E-2 (游戏历史统计) |
+| **关联需求** | REQ-001, REQ-002, REQ-004, REQ-007, REQ-008, REQ-013 |
 
 ### mod:word-data
 | 字段 | 值 |

@@ -52,6 +52,12 @@ const themeClass = computed(() => {
       <span class="game-label">Achievements</span>
       <span class="game-desc text-dim">Track Your Progress</span>
     </router-link>
+
+    <router-link to="/vocab-review" class="game-link">
+      <span class="game-icon">📂</span>
+      <span class="game-label">Vocab Review</span>
+      <span class="game-desc text-dim">Review Saved Words</span>
+    </router-link>
   </div>
 </template>
 
@@ -62,6 +68,7 @@ const themeClass = computed(() => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 12px;
   background: var(--bg-gradient);
   color: var(--text-primary);
   transition: background 0.3s, color 0.3s;
@@ -75,11 +82,12 @@ const themeClass = computed(() => {
 }
 
 .theme-title {
-  font-size: 3rem;
+  font-size: 2.6rem;
+  margin-bottom: 4px;
 }
 
 .subtitle {
-  margin: 0 0 40px;
+  margin: 0 0 32px;
 }
 
 .cute-hand-drawn {
@@ -131,7 +139,9 @@ const themeClass = computed(() => {
   flex-direction: column;
   align-items: center;
   gap: 4px;
-  padding: 24px 36px;
+  padding: 20px 32px;
+  width: 100%;
+  max-width: 300px;
   border-radius: var(--card-radius, 16px);
   border: 1px solid var(--card-border);
   text-decoration: none;
@@ -144,10 +154,6 @@ const themeClass = computed(() => {
 .game-link:hover {
   border-color: var(--accent);
   transform: translateY(-2px);
-}
-
-.game-link + .game-link {
-  margin-top: 12px;
 }
 
 .game-icon {

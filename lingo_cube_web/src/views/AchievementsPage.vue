@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import { useAchievements } from '@/composables/useAchievements'
 import { useTheme } from '@/composables/useTheme'
+import CuteDeco from '@/components/CuteDeco.vue'
 import BackButton from '@/components/common/BackButton.vue'
 import ThemeToggle from '@/components/common/ThemeToggle.vue'
 
@@ -22,6 +23,7 @@ const progressPct = computed(() =>
 
 <template>
   <div :class="['achievements-page', themeClass]">
+    <CuteDeco />
     <ThemeToggle />
     <BackButton to="/" />
 
