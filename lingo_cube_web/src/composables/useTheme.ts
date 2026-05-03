@@ -2,7 +2,15 @@ import { ref, computed } from 'vue'
 
 export type Theme = 'dark' | 'ins' | 'cute'
 
-const theme = ref<Theme>('dark')
+const STORAGE_KEY = 'lingo-theme'
+
+function loadTheme(): Theme {
+  const stored = localStorage.getItem(STORAGE_KEY)
+  if (stored === 'dark' || stored === 'ins' || stored === 'cute') return stored
+  return 'dark'
+}
+
+const theme = ref<Theme>(loadTheme())
 
 const themeLabel = computed(() => {
   const m: Record<string, string> = { dark: '🌙 Dark', ins: '🌸 INS', cute: '🍬 Cute' }
@@ -18,6 +26,7 @@ function cycleTheme() {
   const order: Theme[] = ['dark', 'ins', 'cute']
   const i = order.indexOf(theme.value)
   theme.value = order[(i + 1) % order.length]
+  localStorage.setItem(STORAGE_KEY, theme.value)
 }
 
 export function useTheme() {
