@@ -2,8 +2,8 @@
 
 **⚠️ MANDATORY READ: 新会话开始必须读取此文件**
 
-**最后更新**: 2026-05-03 11:46  
-**最新提交**: daca66d refactor: extract inline SVGs to Icon.vue (R-D-4)
+**最后更新**: 2026-05-03 11:56  
+**最新提交**: 95a37c4 refactor: tighten backend CORS with configurable origins (R-E-2)
 
 ---
 
@@ -21,7 +21,8 @@
 
 ### Git 提交历史（最近 10 条）
 ```
-daca66d refactor: extract inline SVGs to Icon.vue (R-D-4)
+95a37c4 refactor: tighten backend CORS with configurable origins (R-E-2)
+01de492 refactor: extract inline SVGs to Icon.vue (R-D-4)
 7d9ff7d refactor: remove backend genPhonetic dead code (R-E-1)
 2f47d63 refactor: remove ReviewPage localStorage fallback (R-D-3)
 df47aea fix: WordListItem add background + VocabReviewPage container (B-B-1)
@@ -30,12 +31,14 @@ df47aea fix: WordListItem add background + VocabReviewPage container (B-B-1)
 65fa2df test: create unit test for useScoring (T-A-1)
 3d3b274 test: add useWordProvider unit test (T-A-3)
 64697b9 test: add useTimer unit test (T-A-2)
-154d623 feat: F-B-1 achievements and F-C-1 word bank manager
 ```
 
 ### Git 状态
 ```
-
+ M lingo_cube_server/data/words.go
+ M lingo_cube_server/service/wordbank.go
+ M lingo_cube_web/src/views/ReviewPage.vue
+ M lingo_cube_web/src/views/TypingGame.vue
 ```
 
 ---
@@ -45,8 +48,8 @@ df47aea fix: WordListItem add background + VocabReviewPage container (B-B-1)
 | 检查项 | 状态 |
 |--------|------|
 | 前端构建 | ✅ 通过 |
-| Git 状态 | ✅ 干净 |
-| 最新提交 | daca66d refactor: extract inline SVGs to Icon.vue (R-D-4) |
+| Git 状态 | ⚠️ 有变更 |
+| 最新提交 | 95a37c4 refactor: tighten backend CORS with configurable origins (R-E-2) |
 
 ---
 
@@ -74,4 +77,4 @@ df47aea fix: WordListItem add background + VocabReviewPage container (B-B-1)
 
 ---
 
-**项目状态**: 自动更新于 Sun May  3 11:46:04 CST 2026
+**项目状态**: 自动更新于 Sun May  3 11:56:20 CST 2026
