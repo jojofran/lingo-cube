@@ -2,8 +2,8 @@
 
 **⚠️ MANDATORY READ: 新会话开始必须读取此文件**
 
-**最后更新**: 2026-05-03 11:40  
-**最新提交**: de1f198 fix: WordListItem add background + VocabReviewPage container (B-B-1)
+**最后更新**: 2026-05-03 11:42  
+**最新提交**: 059ee63 refactor: remove backend genPhonetic dead code (R-E-1)
 
 ---
 
@@ -21,7 +21,9 @@
 
 ### Git 提交历史（最近 10 条）
 ```
-de1f198 fix: WordListItem add background + VocabReviewPage container (B-B-1)
+059ee63 refactor: remove backend genPhonetic dead code (R-E-1)
+2f47d63 refactor: remove ReviewPage localStorage fallback (R-D-3)
+df47aea fix: WordListItem add background + VocabReviewPage container (B-B-1)
 64e5617 refactor: remove useScoring dead code (R-D-1)
 08ea14c test: add GamePlay component test (T-A-4) and E2E game flow test (T-B-1)
 65fa2df test: create unit test for useScoring (T-A-1)
@@ -29,19 +31,11 @@ de1f198 fix: WordListItem add background + VocabReviewPage container (B-B-1)
 64697b9 test: add useTimer unit test (T-A-2)
 154d623 feat: F-B-1 achievements and F-C-1 word bank manager
 68d9632 feat: F-A-1 spelling mode and F-A-2 listening mode
-13a0e65 feat: ReviewSessionCard component + useVocabBook + REQ-011
-6dbdedd fix: review page example dedup and WordCard padding standardization
 ```
 
 ### Git 状态
 ```
  M .sisyphus/REFACTOR_PLAN.md
- M lingo_cube_server/service/wordbank.go
- M lingo_cube_web/src/views/ReviewPage.vue
- M lingo_cube_web/src/views/TypingGame.vue
- M lingo_cube_web/src/views/VocabReviewPage.vue
- M lingo_cube_web/src/views/WordBankManager.vue
- M lingo_cube_web/src/views/WordCardDemo.vue
 ?? lingo_cube_web/src/components/common/Icon.vue
 ```
 
@@ -53,7 +47,7 @@ de1f198 fix: WordListItem add background + VocabReviewPage container (B-B-1)
 |--------|------|
 | 前端构建 | ✅ 通过 |
 | Git 状态 | ⚠️ 有变更 |
-| 最新提交 | de1f198 fix: WordListItem add background + VocabReviewPage container (B-B-1) |
+| 最新提交 | 059ee63 refactor: remove backend genPhonetic dead code (R-E-1) |
 
 ---
 
@@ -81,4 +75,4 @@ de1f198 fix: WordListItem add background + VocabReviewPage container (B-B-1)
 
 ---
 
-**项目状态**: 自动更新于 Sun May  3 11:40:46 CST 2026
+**项目状态**: 自动更新于 Sun May  3 11:42:49 CST 2026

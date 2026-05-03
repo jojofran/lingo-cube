@@ -286,10 +286,9 @@ onMounted(() => {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  background: var(--bg-gradient, linear-gradient(135deg, #0f0c29, #302b63, #24243e));
-  color: var(--text-primary, #fff);
-  font-family: 'PingFang SC', 'Microsoft YaHei', 'Hiragino Sans GB', 'Noto Sans SC', system-ui, -apple-system, sans-serif;
-  position: relative;
+   background: var(--bg-gradient, linear-gradient(135deg, #0f0c29, #302b63, #24243e));
+   color: var(--text-primary, #fff);
+   position: relative;
   /* overflow: hidden; -- removed to allow theme toggle button to show */
   padding: 0 16px;
 }

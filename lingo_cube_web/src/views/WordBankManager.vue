@@ -7,6 +7,7 @@ import CuteDeco from '@/components/CuteDeco.vue'
 import ThemeToggle from '@/components/common/ThemeToggle.vue'
 import BackButton from '@/components/common/BackButton.vue'
 import WordListItem from '@/components/word/WordListItem.vue'
+import Icon from '@/components/common/Icon.vue'
 
 const { theme } = useTheme()
 const { speak } = useSpeech()
@@ -100,10 +101,7 @@ function closeDetail() {
 
     <!-- Search -->
     <div class="wbm-search">
-      <svg class="wbm-search-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-        <circle cx="11" cy="11" r="8" />
-        <line x1="21" y1="21" x2="16.65" y2="16.65" />
-      </svg>
+      <Icon class="wbm-search-icon" name="search" :size="18" />
       <input
         v-model="searchQuery"
         type="text"
@@ -163,10 +161,7 @@ function closeDetail() {
         <div v-if="selectedWord" class="wbm-modal-mask" @click.self="closeDetail">
           <div class="wbm-modal" :class="themeClass">
             <button class="wbm-modal-close" @click="closeDetail" title="Close">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                <line x1="18" y1="6" x2="6" y2="18" />
-                <line x1="6" y1="6" x2="18" y2="18" />
-              </svg>
+              <Icon name="close" :size="20" />
             </button>
 
             <div class="wbm-modal-word">
@@ -177,11 +172,7 @@ function closeDetail() {
                 @click.stop="handleSpeak(selectedWord.english)"
                 title="Listen"
               >
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
-                  <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
-                  <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
-                </svg>
+                <Icon name="speaker" :size="20" />
               </button>
             </div>
 
@@ -217,9 +208,8 @@ function closeDetail() {
   flex-direction: column;
   align-items: center;
   background: var(--bg-gradient);
-  color: var(--text-primary);
-  font-family: 'PingFang SC', 'Microsoft YaHei', 'Hiragino Sans GB', 'Noto Sans SC', system-ui, -apple-system, sans-serif;
-  position: relative;
+   color: var(--text-primary);
+   position: relative;
   padding: 0 16px;
   overflow-y: auto;
 }

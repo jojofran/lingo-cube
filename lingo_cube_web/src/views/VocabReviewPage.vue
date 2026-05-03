@@ -8,6 +8,7 @@ import WordListItem from '@/components/word/WordListItem.vue'
 import CuteDeco from '@/components/CuteDeco.vue'
 import ThemeToggle from '@/components/common/ThemeToggle.vue'
 import BackButton from '@/components/common/BackButton.vue'
+import Icon from '@/components/common/Icon.vue'
 
 const { theme } = useTheme()
 const { speak } = useSpeech()
@@ -68,10 +69,7 @@ function onComplete() {
         <div v-for="w in words" :key="w.english" class="vocab-row">
           <WordListItem :word="w" @speak="speak" />
           <button class="remove-btn" @click="removeWord(w.english)" title="Remove from vocab">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="18" y1="6" x2="6" y2="18" />
-              <line x1="6" y1="6" x2="18" y2="18" />
-            </svg>
+            <Icon name="close" :size="16" />
           </button>
         </div>
       </div>
@@ -98,9 +96,8 @@ function onComplete() {
   flex-direction: column;
   align-items: center;
   background: var(--bg-gradient);
-  color: var(--text-primary, #fff);
-  font-family: 'PingFang SC', 'Microsoft YaHei', 'Hiragino Sans GB', 'Noto Sans SC', system-ui, -apple-system, sans-serif;
-  position: relative;
+   color: var(--text-primary, #fff);
+   position: relative;
   padding: 0 16px;
 }
 

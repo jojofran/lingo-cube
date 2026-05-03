@@ -164,9 +164,8 @@ function onSpeak(text: string) {
   padding: 32px 16px 64px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  font-family: 'PingFang SC', 'Microsoft YaHei', 'Hiragino Sans GB', 'Noto Sans SC', system-ui, -apple-system, sans-serif;
-  transition: background 0.4s;
+   align-items: center;
+   transition: background 0.4s;
 }
 
 .demo-title {
