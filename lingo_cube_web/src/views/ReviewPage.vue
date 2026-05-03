@@ -20,11 +20,6 @@ const words = ref<WordEntry[]>([])
 onMounted(() => {
   if (gameSession.failedWords.length > 0) {
     words.value = [...gameSession.failedWords]
-  } else {
-    try {
-      const stored = localStorage.getItem('failedWords')
-      if (stored) words.value = JSON.parse(stored)
-    } catch { /* ignore */ }
   }
   if (words.value.length === 0) {
     words.value = wordBank.slice(0, 5)
@@ -65,9 +60,8 @@ function onComplete() {
   flex-direction: column;
   align-items: center;
   background: var(--bg-gradient);
-  color: var(--text-primary, #fff);
-  font-family: 'PingFang SC', 'Microsoft YaHei', 'Hiragino Sans GB', 'Noto Sans SC', system-ui, -apple-system, sans-serif;
-  position: relative;
+   color: var(--text-primary, #fff);
+   position: relative;
   padding: 0 16px;
 }
 
