@@ -58,6 +58,12 @@ const themeClass = computed(() => {
       <span class="game-label">Vocab Review</span>
       <span class="game-desc text-dim">Review Saved Words</span>
     </router-link>
+
+    <router-link to="/word-demo" class="game-link">
+      <span class="game-icon">🎨</span>
+      <span class="game-label">Word Card Demo</span>
+      <span class="game-desc text-dim">Browse Component Library</span>
+    </router-link>
   </div>
 </template>
 
