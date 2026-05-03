@@ -9,6 +9,7 @@ import { useConfetti } from '@/composables/useConfetti'
 import { useAchievements } from '@/composables/useAchievements'
 import { useGameSessionStore } from '@/stores/gameSession'
 import { useWordProvider } from '@/composables/useWordProvider'
+import { useVocabBook } from '@/composables/useVocabBook'
 import CuteDeco from '@/components/CuteDeco.vue'
 import ThemeToggle from '@/components/common/ThemeToggle.vue'
 import BackButton from '@/components/common/BackButton.vue'
@@ -47,6 +48,29 @@ const failedAtBottom = ref(false)
 const shakeActive = ref(false)
 const burstActive = ref(false)
 const correctCount = ref(0)
+
+const { addToVocab, removeFromVocab, getVocab } = useVocabBook()
+const favoritedWords = ref<string[]>(getVocab().map(w => w.english))
+
+function favorite(word: string) {
+  if (favoritedWords.value.includes(word)) {
+    removeFromVocab(word)
+    favoritedWords.value = favoritedWords.value.filter(w => w !== word)
+  } else {
+    const entry =
+      currentWord.value?.english === word
+        ? currentWord.value
+        : gameSession.failedWords.find(w => w.english === word)
+    if (entry) {
+      addToVocab(entry)
+      favoritedWords.value = [...favoritedWords.value, word]
+    }
+  }
+}
+
+const isCurrentFavorited = computed(() =>
+  currentWord.value ? favoritedWords.value.includes(currentWord.value.english) : false
+)
 
 const praiseStrings = ['Great! 🎉', 'Nice! ✨', 'Perfect! 💯', 'Excellent! 🌟', 'Amazing! 🔥', 'Superb! 👏', 'Unbelievable! 💎'] as const
 const praise = (): string => praiseStrings[Math.floor(Math.random() * praiseStrings.length)]
@@ -268,10 +292,12 @@ onMounted(() => {
       :timer-color="timerColor"
       :input-class="inputClass"
       :is-disabled="!!result"
+      :is-favorited="isCurrentFavorited"
       @submit="submit"
       @speak="speak"
       @update:user-input="userInput = $event"
       @keydown="onKeydown"
+      @favorite="favorite"
     />
 
     <!-- ============ FINISHED ============ -->
@@ -283,9 +309,11 @@ onMounted(() => {
       :total-rounds="TOTAL_ROUNDS"
       :grade="gameSession.grade"
       :failed-at-bottom="failedAtBottom"
+      :favorited-words="favoritedWords"
       @restart="restart"
       @review="startReview"
       @speak="speak"
+      @favorite="favorite"
     />
 
     <!-- Back to home -->

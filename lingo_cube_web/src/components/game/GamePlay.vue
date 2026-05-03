@@ -26,6 +26,7 @@ defineProps<{
   timerColor: string
   inputClass: string
   isDisabled: boolean
+  isFavorited?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -33,6 +34,7 @@ const emit = defineEmits<{
   speak: [word: string]
   'update:userInput': [value: string]
   keydown: [e: KeyboardEvent]
+  favorite: [word: string]
 }>()
 </script>
 
@@ -74,6 +76,18 @@ const emit = defineEmits<{
       :speaking="speaking"
       @speak="emit('speak', $event)"
     />
+
+    <!-- Favorite button -->
+    <div v-if="currentWord" class="favorite-btn-wrap">
+      <button
+        class="favorite-btn"
+        :class="{ favorited: isFavorited }"
+        @click.stop="emit('favorite', currentWord.english)"
+        :title="isFavorited ? 'Remove from vocab' : 'Add to vocab'"
+      >
+        ❤️
+      </button>
+    </div>
 
     <ResultBar
       :result="result"
@@ -178,6 +192,43 @@ const emit = defineEmits<{
   font-weight: 700;
   color: var(--text-dim);
   letter-spacing: 2px;
+}
+
+/* ===== Favorite Button ===== */
+.favorite-btn-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+.favorite-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--btn-border);
+  background: var(--btn-bg);
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: all 0.25s;
+  opacity: 0.55;
+  filter: grayscale(0.6);
+}
+.favorite-btn:hover {
+  border-color: var(--accent);
+  opacity: 1;
+  filter: grayscale(0);
+  transform: scale(1.12);
+}
+.favorite-btn.favorited {
+  opacity: 1;
+  filter: grayscale(0);
+  color: #ff6b6b;
+  border-color: var(--accent-secondary, #ff6b6b);
+  box-shadow: 0 0 10px rgba(255, 107, 107, 0.3);
 }
 
 @media (max-width: 768px) {

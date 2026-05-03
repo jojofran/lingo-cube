@@ -10,12 +10,14 @@ const props = defineProps<{
   totalRounds: number
   grade: { label: string; emoji: string }
   failedAtBottom: boolean
+  favoritedWords?: string[]
 }>()
 
 defineEmits<{
   restart: []
   review: []
   speak: [word: string]
+  favorite: [word: string]
 }>()
 
 const localFailedAtBottom = ref(props.failedAtBottom)
@@ -55,7 +57,17 @@ function onFailedScroll(e: Event) {
       <div v-if="failedWords.length" class="failed-list">
         <h3 class="failed-title">Review Needed</h3>
         <div class="failed-scroll" @scroll="onFailedScroll">
-          <WordListItem v-for="w in failedWords" :key="w.english" :word="w" @speak="$emit('speak', w.english)" />
+          <div v-for="w in failedWords" :key="w.english" class="failed-item-row">
+            <WordListItem :word="w" @speak="$emit('speak', w.english)" />
+            <button
+              class="favorite-mini-btn"
+              :class="{ favorited: (favoritedWords ?? []).includes(w.english) }"
+              @click.stop="$emit('favorite', w.english)"
+              :title="(favoritedWords ?? []).includes(w.english) ? 'Remove from vocab' : 'Add to vocab'"
+            >
+              ❤️
+            </button>
+          </div>
         </div>
         <div v-if="failedWords.length > 3 && !localFailedAtBottom" class="外-scroll-hint">
           <div class="scroll-hint-circle">
@@ -175,11 +187,50 @@ function onFailedScroll(e: Event) {
   font-weight: 600;
   letter-spacing: 1px;
 }
-.failed-scroll :deep(.list-item) {
+.failed-item-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+.failed-item-row :deep(.list-item) {
+  flex: 1;
+  margin-bottom: 0;
   border-radius: 12px;
   background: var(--stat-bg);
-  margin-bottom: 6px;
   font-size: 0.85rem;
+}
+
+.favorite-mini-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--btn-border);
+  background: var(--btn-bg);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  flex-shrink: 0;
+  transition: all 0.25s;
+  opacity: 0.5;
+  filter: grayscale(0.6);
+}
+.favorite-mini-btn:hover {
+  border-color: var(--accent);
+  opacity: 1;
+  filter: grayscale(0);
+  transform: scale(1.15);
+}
+.favorite-mini-btn.favorited {
+  opacity: 1;
+  filter: grayscale(0);
+  color: #ff6b6b;
+  border-color: var(--accent-secondary, #ff6b6b);
+  box-shadow: 0 0 8px rgba(255, 107, 107, 0.25);
 }
 
 .finish-buttons {

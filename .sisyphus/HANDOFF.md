@@ -2,8 +2,8 @@
 
 **⚠️ MANDATORY READ: 新会话开始必须读取此文件**
 
-**最后更新**: 2026-05-03 13:11  
-**最新提交**: 1939fac docs: update HANDOFF.md after R-E-4 completion
+**最后更新**: 2026-05-03 13:24  
+**最新提交**: 772ab64 feat: add word favoriting button during gameplay (F-E-3)
 
 ---
 
@@ -21,7 +21,8 @@
 
 ### Git 提交历史（最近 10 条）
 ```
-1939fac docs: update HANDOFF.md after R-E-4 completion
+772ab64 feat: add word favoriting button during gameplay (F-E-3)
+f431624 docs: update HANDOFF.md after R-E-4 completion
 24892ee docs: update refactor plan - mark R-E-4 complete (R-E-4)
 682c79b test: add backend unit tests for handlers, service, and CORS (R-E-4)
 fa3f3ea fix: change height:100vh to min-height:100vh for scroll bg coverage (B-B-2)
@@ -30,7 +31,6 @@ cefaf70 feat: add sessionHistory state and recordSession to store (F-E-2)
 8742786 feat: add SessionRecord type for game history (F-E-2)
 65150d7 feat: persist theme selection to localStorage (F-E-1)
 8ca4f95 feat: add WordCardDemo nav link to Home page (F-E-4)
-d5349f7 refactor: unify theme class patterns to array syntax (R-D-2)
 ```
 
 ### Git 状态
@@ -46,7 +46,7 @@ d5349f7 refactor: unify theme class patterns to array syntax (R-D-2)
 |--------|------|
 | 前端构建 | ✅ 通过 |
 | Git 状态 | ⚠️ 有变更 |
-| 最新提交 | 1939fac docs: update HANDOFF.md after R-E-4 completion |
+| 最新提交 | 772ab64 feat: add word favoriting button during gameplay (F-E-3) |
 
 ---
 
@@ -74,4 +74,4 @@ d5349f7 refactor: unify theme class patterns to array syntax (R-D-2)
 
 ---
 
-**项目状态**: 自动更新于 Sun May  3 13:11:53 CST 2026
+**项目状态**: 自动更新于 Sun May  3 13:24:21 CST 2026
