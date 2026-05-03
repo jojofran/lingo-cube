@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { wordBank, type WordEntry } from './wordBank'
 import { useTheme } from '@/composables/useTheme'
@@ -11,6 +11,10 @@ import ThemeToggle from '@/components/common/ThemeToggle.vue'
 import BackButton from '@/components/common/BackButton.vue'
 
 const { theme } = useTheme()
+const themeClass = computed(() =>
+  theme.value === 'ins' ? 'theme-ins' :
+  theme.value === 'cute' ? 'theme-cute' : ''
+)
 const { speak } = useSpeech()
 const gameSession = useGameSessionStore()
 const router = useRouter()
@@ -34,7 +38,7 @@ function onComplete() {
 </script>
 
 <template>
-  <div :class="['review-wrapper', theme === 'ins' ? 'theme-ins' : theme === 'cute' ? 'theme-cute' : '']">
+  <div :class="['review-wrapper', themeClass]">
     <ThemeToggle />
     <CuteDeco />
 

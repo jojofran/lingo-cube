@@ -76,6 +76,10 @@ const inputClass = computed(() => {
   if (result.value === 'wrong') return 'input-wrong'
   return ''
 })
+const themeClass = computed(() =>
+  theme.value === 'ins' ? 'theme-ins' :
+  theme.value === 'cute' ? 'theme-cute' : ''
+)
 
 function autoSpeak() {
   if (currentWord.value) {
@@ -206,7 +210,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="game-wrapper" :class="{ 'theme-ins': theme === 'ins', 'theme-cute': theme === 'cute' }">
+  <div :class="['game-wrapper', themeClass]">
     <canvas ref="canvasRef" class="confetti-layer" />
 
     <ThemeToggle />

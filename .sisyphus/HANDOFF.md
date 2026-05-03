@@ -2,8 +2,8 @@
 
 **⚠️ MANDATORY READ: 新会话开始必须读取此文件**
 
-**最后更新**: 2026-05-03 11:56  
-**最新提交**: a21c1d1 refactor: optimize backend word lookup to O(1) map (R-E-3)
+**最后更新**: 2026-05-03 11:58  
+**最新提交**: b3b5f32 refactor: unify theme class patterns to array syntax (R-D-2)
 
 ---
 
@@ -21,7 +21,8 @@
 
 ### Git 提交历史（最近 10 条）
 ```
-a21c1d1 refactor: optimize backend word lookup to O(1) map (R-E-3)
+b3b5f32 refactor: unify theme class patterns to array syntax (R-D-2)
+eb819d6 refactor: optimize backend word lookup to O(1) map (R-E-3)
 a54b45f refactor: tighten backend CORS with configurable origins (R-E-2)
 01de492 refactor: extract inline SVGs to Icon.vue (R-D-4)
 7d9ff7d refactor: remove backend genPhonetic dead code (R-E-1)
@@ -30,13 +31,11 @@ df47aea fix: WordListItem add background + VocabReviewPage container (B-B-1)
 64e5617 refactor: remove useScoring dead code (R-D-1)
 08ea14c test: add GamePlay component test (T-A-4) and E2E game flow test (T-B-1)
 65fa2df test: create unit test for useScoring (T-A-1)
-3d3b274 test: add useWordProvider unit test (T-A-3)
 ```
 
 ### Git 状态
 ```
- M lingo_cube_web/src/views/ReviewPage.vue
- M lingo_cube_web/src/views/TypingGame.vue
+
 ```
 
 ---
@@ -46,8 +45,8 @@ df47aea fix: WordListItem add background + VocabReviewPage container (B-B-1)
 | 检查项 | 状态 |
 |--------|------|
 | 前端构建 | ✅ 通过 |
-| Git 状态 | ⚠️ 有变更 |
-| 最新提交 | a21c1d1 refactor: optimize backend word lookup to O(1) map (R-E-3) |
+| Git 状态 | ✅ 干净 |
+| 最新提交 | b3b5f32 refactor: unify theme class patterns to array syntax (R-D-2) |
 
 ---
 
@@ -75,4 +74,4 @@ df47aea fix: WordListItem add background + VocabReviewPage container (B-B-1)
 
 ---
 
-**项目状态**: 自动更新于 Sun May  3 11:56:41 CST 2026
+**项目状态**: 自动更新于 Sun May  3 11:58:34 CST 2026
