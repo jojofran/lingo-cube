@@ -35,7 +35,8 @@
 | 单词+例句展示 | `WordCardEx` | C-common-2 |
 | 自定义例句样式 | `WordCardEx` + `#example` slot | C-common-2 |
 | 纯展示无交互 | `WordCard :show-speak="false"` | C-common-1 |
-| 错词列表/生词本 | `WordListItem` | C-word-2 |
+| 错词列表/生词本 | `WordListItem`（单行）或 `WordList`（容器） | C-word-2 / C-common-8 |
+| 列表中点击弹出单词卡片 | `WordList :show-card-on-click="true"` | C-common-8 |
 | 单词列表（含行操作） | `WordList` + `#action` slot | C-common-8 |
 | 需要自定义底部内容 | 任意组件 + `default` slot | — |
 | 只需要一个 TTS 按钮 | `WordSpeaker` | C-word-1 |
@@ -110,11 +111,28 @@ const themeClass = computed(() =>
 
 ---
 
-## 组件新增规范
+## 组件新增 & 修改规范
 
-详见 [组件新增规范](components/C-common.md) 顶部。要点：
-1. 🔍 查 `components/index.md` 是否有相似组件
+### 新增组件
+1. 🔍 查 `components/index.md` 是否有相似组件，能通过 props/slots 扩展就不要新建
 2. 🔍 查 `style.css` 所需 CSS 变量是否已存在
 3. 🔍 查 `types/` 所需类型是否已定义
 4. 按分类目录存放，遵循 props/events/slots 模式
 5. 注册到 `components/index.md` + 对应分类文件 + 选择指南
+
+### 修改组件（关键规则）
+> **修改已有组件时，必须同步更新对应文档，否则视为不完整。**
+
+| 修改类型 | 必须更新的文档 |
+|---------|---------------|
+| 新增 prop | 对应分类文件（C-xxx.md）的 props 表 |
+| 新增 event / slot | 对应分类文件（C-xxx.md）的 events/slots 表 |
+| 修改交互行为 | 对应分类文件的**交互规则**段落 |
+| 修改视觉样式 | 对应分类文件的**视觉样式**表 + CSS 变量依赖 |
+| 修改组件行数 | 分类文件顶部的行数标注 |
+
+**检查清单**（修改后逐项确认）：
+- [ ] `components/index.md` 中组件作用描述是否准确
+- [ ] `components/C-xxx.md` 中 props/events/slots 表是否与实际代码一致
+- [ ] `COMPONENT_LIBRARY.md` 的「选择指南」是否需要更新
+- [ ] **如果有新样式变量** → `style.css` 中是否为三个主题都定义了值

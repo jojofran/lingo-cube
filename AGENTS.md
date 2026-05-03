@@ -234,7 +234,7 @@ cd lingo_cube_server && go build -o server .
 
 ## 前端架构要点
 
-> **⚠️ 组件使用规则**：所有组件 API、设计原则、选择指南在 `.sisyphus/COMPONENT_LIBRARY.md` 中定义。新增或使用组件前**必须**先查阅该文档，避免重复造轮子。分类详情在 `.sisyphus/components/` 目录下。
+> **⚠️ 组件使用规则**：所有组件 API、设计原则、选择指南在 `.sisyphus/COMPONENT_LIBRARY.md` 中定义。新增或使用组件前**必须**先查阅该文档，避免重复造轮子。**修改组件后必须同步更新对应文档**（检查清单见 COMPONENT_LIBRARY.md「修改组件」节）。分类详情在 `.sisyphus/components/` 目录下。
 
 - **主页面**: `src/views/TypingGame.vue` — 打字练习游戏核心组件（~1200 行），含 3 个主题、2 种模式。
 - **词库**: `src/views/wordBank.ts` — 220+ IELTS 词条，含 english/chinese/phonetic 字段，`genPhonetic()` 自动生成音标。

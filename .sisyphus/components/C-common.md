@@ -116,31 +116,42 @@
 ---
 
 ## WordList → C-common-8
-**文件**: components/common/WordList.vue (~65行)
+**文件**: components/common/WordList.vue (~200行)
 **模块**: mod:ui-comps, mod:word-data
-**作用**: 通用单词列表容器。内嵌 WordListItem，统一管理列表样式（背景/边框/圆角/悬停）。支持 `#action` 插槽添加行内操作按钮。
+**作用**: 通用单词列表容器。内嵌 WordListItem，统一管理列表样式（背景/边框/圆角/悬停）。支持 `#action` 插槽添加行内操作按钮，支持可选的内置单词卡片弹出。
 **用法**:
 ```vue
+<!-- 基础：带自定义操作按钮 -->
 <WordList :words="entries" :speaking-word="activeWord" @word-click="onClick" @speak="onSpeak">
   <template #action="{ word }">
     <button @click="remove(word.english)">Remove</button>
   </template>
 </WordList>
+
+<!-- 内置弹卡模式：点击行弹出单词卡片（有例句自动用 WordCardEx） -->
+<WordList :words="entries" :show-card-on-click="true" @speak="onSpeak" />
 ```
 | Prop | 类型 | 默认 | 说明 |
 |------|------|------|------|
 | `words` | `WordEntry[]` | (必填) | 单词数据数组 |
 | `maxWidth` | `number` | `460` | 列表最大宽度 |
 | `speakingWord` | `string \| null` | — | 当前播放中的单词 english，传入后由内部传给 WordListItem |
+| `showCardOnClick` | `boolean` | `false` | 设为 true 后，点击行弹出单词卡片浮层（有例句→WordCardEx，无例句→WordCard） |
 
 | Slot | 绑定 | 说明 |
 |------|------|------|
-| `#action` | `{ word: WordEntry }` | 每行右侧操作区 |
+| `#action` | `{ word: WordEntry }` | 每行右侧操作区。`showCardOnClick=true` 时仍保留 |
 
 | Event | 载荷 | 触发时机 |
 |-------|------|---------|
-| `word-click` | `word: WordEntry` | 点击某行时 |
+| `word-click` | `word: WordEntry` | 点击某行时（`showCardOnClick=true` 时不触发，由内部接管） |
 | `speak` | `text: string` | WordListItem emit 透传 |
 
+**交互规则**:
+- `showCardOnClick=false`（默认）→ 点击行 emit `word-click`，父组件自行处理
+- `showCardOnClick=true` → 点击行弹出内置浮层（Teleport 到 body），点击遮罩或 ✕ 关闭
+- 浮层内单词有例句 → WordCardEx；无例句 → WordCard
+- 浮层带 fade + scale 过渡动画
+
 **关联**: 内部使用 `WordListItem`，自动覆写其 `max-width`/`margin-bottom`/`border-radius` 以适配容器。
-**CSS 变量依赖**: `--card-bg`, `--card-border`, `--card-radius`, `--card-shadow`, `--stat-bg`
+**CSS 变量依赖**: `--card-bg`, `--card-border`, `--card-radius`, `--card-shadow`, `--stat-bg`, `--btn-bg`, `--text-dim`, `--text-muted`, `--text-primary`

@@ -40,8 +40,11 @@
 | `speak` | `text: string` | 点击喇叭时 |
 
 **视觉样式**:
-- 背景: `transparent`（由父容器提供）
+- 背景: `var(--card-bg)` + `border-radius: 12px`（B-B-1 后自带背景）
 - 分隔: `border-bottom: 1px solid var(--card-border)`
-- 悬停: 无（由父容器提供 `.list-row:hover`）
+- 悬停: `background: var(--stat-bg)`
+- 英文: `flex: 0 1 auto`，左对齐，`--word-color`，加粗
+- 音标: `flex: 0 1 auto`，`--phonetic-color`，衬线字体
+- 中文: `flex: 1 1 auto`，右对齐，`--text-dim`
 
-**关联容器规则**：WordListItem 本身透明，父容器应提供 `background: var(--card-bg) + border-radius + overflow: hidden`。
+**关联容器规则**：当 WordListItem 不在 WordList 容器中使用时，父容器应提供 `background: var(--card-bg) + border-radius + overflow: hidden`。
