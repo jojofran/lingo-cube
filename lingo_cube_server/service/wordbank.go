@@ -36,10 +36,5 @@ func GetRandomWords(count int) []model.Word {
 }
 
 func FindWord(english string) *model.Word {
-	for _, w := range data.Words {
-		if w.English == english {
-			return &w
-		}
-	}
-	return nil
+	return data.WordsMap[english]
 }

@@ -3,7 +3,7 @@
 **⚠️ MANDATORY READ: 新会话开始必须读取此文件**
 
 **最后更新**: 2026-05-03 11:56  
-**最新提交**: 95a37c4 refactor: tighten backend CORS with configurable origins (R-E-2)
+**最新提交**: a21c1d1 refactor: optimize backend word lookup to O(1) map (R-E-3)
 
 ---
 
@@ -21,7 +21,8 @@
 
 ### Git 提交历史（最近 10 条）
 ```
-95a37c4 refactor: tighten backend CORS with configurable origins (R-E-2)
+a21c1d1 refactor: optimize backend word lookup to O(1) map (R-E-3)
+a54b45f refactor: tighten backend CORS with configurable origins (R-E-2)
 01de492 refactor: extract inline SVGs to Icon.vue (R-D-4)
 7d9ff7d refactor: remove backend genPhonetic dead code (R-E-1)
 2f47d63 refactor: remove ReviewPage localStorage fallback (R-D-3)
@@ -30,13 +31,10 @@ df47aea fix: WordListItem add background + VocabReviewPage container (B-B-1)
 08ea14c test: add GamePlay component test (T-A-4) and E2E game flow test (T-B-1)
 65fa2df test: create unit test for useScoring (T-A-1)
 3d3b274 test: add useWordProvider unit test (T-A-3)
-64697b9 test: add useTimer unit test (T-A-2)
 ```
 
 ### Git 状态
 ```
- M lingo_cube_server/data/words.go
- M lingo_cube_server/service/wordbank.go
  M lingo_cube_web/src/views/ReviewPage.vue
  M lingo_cube_web/src/views/TypingGame.vue
 ```
@@ -49,7 +47,7 @@ df47aea fix: WordListItem add background + VocabReviewPage container (B-B-1)
 |--------|------|
 | 前端构建 | ✅ 通过 |
 | Git 状态 | ⚠️ 有变更 |
-| 最新提交 | 95a37c4 refactor: tighten backend CORS with configurable origins (R-E-2) |
+| 最新提交 | a21c1d1 refactor: optimize backend word lookup to O(1) map (R-E-3) |
 
 ---
 
@@ -77,4 +75,4 @@ df47aea fix: WordListItem add background + VocabReviewPage container (B-B-1)
 
 ---
 
-**项目状态**: 自动更新于 Sun May  3 11:56:20 CST 2026
+**项目状态**: 自动更新于 Sun May  3 11:56:41 CST 2026

@@ -301,3 +301,12 @@ var Words = []model.Word{
 	{"withdraw", "撤回，提取，退出", "/wɪθdrəw/", nil},
 	{"yield", "产出，屈服", "/jaɪld/", nil},
 }
+
+var WordsMap map[string]*model.Word
+
+func init() {
+	WordsMap = make(map[string]*model.Word, len(Words))
+	for i := range Words {
+		WordsMap[Words[i].English] = &Words[i]
+	}
+}
